@@ -35,3 +35,7 @@ python scripts/import_public_pages.py
 - Standortseiten verwenden `AID=location`.
 - Andere redaktionelle Oberflächen verwenden `AID=magazin`.
 - Das WordPress-Magazin bleibt zunächst auf `/magazin/` als bestehendes Quellsystem erreichbar.
+
+### Pflicht vor dem Domain-Cutover
+
+Solange `www.sie-sucht-sie.de` noch auf ICONY zeigt, funktionieren die absoluten Plattform- und Magazinlinks. **Vor einem DNS-Cutover auf Vercel muss jedoch ein separater, von Vercel erreichbarer Legacy-Origin festgelegt und für Registrierung, Login, Suche, Hilfe, Kontakt, Legal und Magazin per Proxy/Rewrites angebunden werden.** Ohne diesen Origin darf die Hauptdomain nicht auf Vercel umgestellt werden, weil diese Pfade sonst 404 liefern oder in eine Schleife geraten.

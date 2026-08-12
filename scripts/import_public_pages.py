@@ -6,7 +6,7 @@ import json
 import re
 import time
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import urljoin, urlparse
 
 import requests
 from bs4 import BeautifulSoup, Comment
@@ -14,7 +14,16 @@ from bs4 import BeautifulSoup, Comment
 SITE = "https://www.sie-sucht-sie.de"
 SITEMAP = f"{SITE}/sitemap.php"
 OUT = Path(__file__).resolve().parents[1] / "data" / "pages.json"
-PLATFORM_ROOTS = {"registration", "login", "suche", "hilfe", "kontakt", "gutschein", "datenschutz.html", "impressum.html", "agb.html"}
+PLATFORM_ROOTS = {"registration", "login", "suche", "hilfe", "kontakt", "gutschein", "datenschutz.html", "impressum.html", "agb.html", "magazin"}
+ALLOWED_TAGS = {
+    "a", "b", "blockquote", "br", "div", "em", "figcaption", "figure", "h1", "h2", "h3", "h4",
+    "hr", "img", "li", "main", "ol", "p", "picture", "section", "small", "span", "strong", "ul",
+}
+ALLOWED_IMAGE_HOSTS = {"static-cms.icony-hosting.de", "static2.icony-hosting.de", "www.sie-sucht-sie.de"}
+EXCLUDED_RESOURCE_HOSTS = {"singleboersen-ueberblick.de", "www.singleboersen-ueberblick.de"}
+KNOWN_PATH_FIXES = {
+    "/schweiz/winterhur": "/schweiz/winterthur",
+}
 DYNAMIC_SELECTORS = [
     "form", "script", "style", "noscript", "iframe", ".grid-view", ".result-item",
     ".user-box", ".register-box-module", ".cookie-consent", "aside", "nav",
@@ -57,7 +66,30 @@ def text_or(node, fallback=""):
     return node.get_text(" ", strip=True) if node else fallback
 
 
-def clean_content(soup: BeautifulSoup, kind: str) -> str:
+def safe_href(raw_href: str, source_url: str) -> str | None:
+    raw = raw_href.strip()
+    if not raw:
+        return None
+    if raw.startswith("#"):
+        return raw
+    if raw.lower().startswith("hhttp"):
+        raw = raw[1:]
+    absolute = urljoin(source_url, raw)
+    parsed = urlparse(absolute)
+    if parsed.scheme not in {"http", "https"} or parsed.hostname in EXCLUDED_RESOURCE_HOSTS:
+        return None
+    if parsed.hostname in {"sie-sucht-sie.de", "www.sie-sucht-sie.de"}:
+        path = normalize_path(absolute)
+        path = KNOWN_PATH_FIXES.get(path, path)
+        root = path.lstrip("/").split("/", 1)[0]
+        if root in PLATFORM_ROOTS:
+            suffix = parsed.query and f"?{parsed.query}" or ""
+            return f"{SITE}{path}{suffix}"
+        return path
+    return absolute
+
+
+def clean_content(soup: BeautifulSoup, kind: str, source_url: str) -> str:
     if kind == "platform":
         return ""
     main = soup.select_one("main#static") or soup.select_one("main.city-container") or soup.select_one("main")
@@ -69,21 +101,28 @@ def clean_content(soup: BeautifulSoup, kind: str) -> str:
             node.decompose()
     for node in fragment.find_all(string=lambda value: isinstance(value, Comment)):
         node.extract()
-    for node in fragment.find_all(True):
-        for attribute in list(node.attrs):
-            if attribute not in {"href", "src", "alt", "width", "height"}:
-                del node.attrs[attribute]
+    for node in list(fragment.find_all(True)):
+        if node.name not in ALLOWED_TAGS:
+            node.unwrap()
+            continue
         if node.name == "a":
-            href = node.get("href", "")
-            if "registration/?user=" in href:
+            safe = safe_href(node.get("href", ""), source_url)
+            if not safe or "registration/?user=" in safe:
                 node.unwrap()
                 continue
-            if href.startswith(SITE):
-                node["href"] = normalize_path(href)
-            elif href.lower().startswith("http://sie-sucht-sie.de"):
-                node["href"] = "/"
-        if node.name == "img" and "cdn3.icony-hosting.de/user-media" in node.get("src", ""):
-            node.decompose()
+            node.attrs = {"href": safe}
+            if safe.startswith("http") and not safe.startswith(SITE):
+                node.attrs.update({"rel": "nofollow noopener noreferrer", "target": "_blank"})
+        elif node.name == "img":
+            source = urljoin(source_url, node.get("src", ""))
+            parsed = urlparse(source)
+            if parsed.scheme != "https" or parsed.hostname not in ALLOWED_IMAGE_HOSTS or parsed.hostname in EXCLUDED_RESOURCE_HOSTS:
+                node.decompose()
+                continue
+            node.attrs = {key: node.attrs[key] for key in ("src", "alt", "width", "height") if key in node.attrs}
+            node["src"] = source
+        else:
+            node.attrs = {}
     html = str(fragment)
     html = re.sub(r"\s+", " ", html).strip()
     return html
@@ -114,12 +153,11 @@ def main():
         description = (description_node.get("content", "").strip() if description_node else "") or f"Informationen und hilfreiche Einstiege zu {fallback_title(path)} auf Sie-sucht-Sie.de."
         h1 = text_or(soup.find("h1"), fallback_title(path))
         canonical = f"{SITE}{'/' if path == '/' else path}"
-        content = clean_content(soup, kind)
+        content = clean_content(soup, kind, source_url)
         images = []
         for image in BeautifulSoup(content, "html.parser").find_all("img", src=True):
             if image["src"] not in [item["src"] for item in images]:
                 images.append({"src": image["src"], "alt": image.get("alt", "")})
-        iframe = soup.find("iframe", src=re.compile(r"js\.icony\.com/frame/"))
         pages.append({
             "path": path,
             "sourceUrl": source_url,
@@ -130,7 +168,7 @@ def main():
             "h1": h1,
             "contentHtml": content,
             "images": images,
-            "widgetUrl": iframe.get("src") if iframe else None,
+            "widgetUrl": None,
             "sourceStatus": response.status_code,
         })
         print(f"[{index}/{len(urls)}] {response.status_code} {path}")

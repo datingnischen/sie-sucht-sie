@@ -5,7 +5,7 @@ import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: "Sie sucht Sie – Frauen kennenlernen", template: "%s | Sie-sucht-Sie.de" },
+  title: "Sie sucht Sie – Frauen kennenlernen",
   description: "Lerne lesbische und bisexuelle Single-Frauen kennen – sicher, persönlich und kostenlos.",
   openGraph: { type: "website", locale: "de_DE", siteName: "Sie-sucht-Sie.de" },
 };
