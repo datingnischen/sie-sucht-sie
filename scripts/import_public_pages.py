@@ -23,6 +23,8 @@ ALLOWED_IMAGE_HOSTS = {"static-cms.icony-hosting.de", "static2.icony-hosting.de"
 EXCLUDED_RESOURCE_HOSTS = {"singleboersen-ueberblick.de", "www.singleboersen-ueberblick.de"}
 KNOWN_PATH_FIXES = {
     "/schweiz/winterhur": "/schweiz/winterthur",
+    "/videodate.html": "/videodating.html",
+    "/startseite": "/",
 }
 DYNAMIC_SELECTORS = [
     "form", "script", "style", "noscript", "iframe", ".grid-view", ".result-item",

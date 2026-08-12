@@ -37,6 +37,7 @@ test("imported HTML allows no active or privacy-leaking URLs", () => {
   assert.doesNotMatch(html, /singleboersen-ueberblick\.de/i);
   assert.doesNotMatch(html, /hhttps?:/i);
   assert.doesNotMatch(html, /(?:href|src)=["']\.\.\//i);
+  assert.doesNotMatch(html, /href=["']\/(?:videodate\.html|startseite)["']/i);
 });
 
 test("excluded platform and magazine links stay absolute for upstream ownership", () => {

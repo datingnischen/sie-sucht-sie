@@ -14,6 +14,8 @@ class ImportSecurityTests(unittest.TestCase):
         source = "https://www.sie-sucht-sie.de/lexikon/"
         self.assertEqual(safe_href("../../lexikon/lesbenseiten", source), "/lexikon/lesbenseiten")
         self.assertEqual(safe_href("/schweiz/winterhur", source), "/schweiz/winterthur")
+        self.assertEqual(safe_href("/videodate.html", source), "/videodating.html")
+        self.assertEqual(safe_href("/startseite", source), "/")
         self.assertEqual(
             safe_href("hhttps://www.sie-sucht-sie.de/partnersuche/hamburg/", source),
             "/partnersuche/hamburg",
