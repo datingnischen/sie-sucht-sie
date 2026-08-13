@@ -1,6 +1,6 @@
 import type { ImportedPage } from "@/lib/content";
 import Link from "next/link";
-import { buildCityCards } from "@/lib/location-hub.mjs";
+import { buildCityCards, getHubPresentation } from "@/lib/location-hub.mjs";
 
 type CityCard = {
   path: string;
@@ -10,17 +10,19 @@ type CityCard = {
   registrationUrl: string;
 };
 
-export function CityCardSection({ pages }: { pages: ImportedPage[] }) {
-  const cities = buildCityCards(pages, "partnersuche") as CityCard[];
+export function CityCardSection({ pages, root }: { pages: ImportedPage[]; root: "partnersuche" | "schweiz" | "oesterreich" }) {
+  const cities = buildCityCards(pages, root) as CityCard[];
+  const presentation = getHubPresentation(root);
+  const headingId = `${root}-city-explorer-title`;
 
   return (
-    <section className="city-explorer" aria-labelledby="city-explorer-title">
+    <section className={`city-explorer city-explorer-${root}`} aria-labelledby={headingId}>
       <div className="city-explorer-heading">
         <div>
-          <p className="kicker">Deutschland entdecken</p>
-          <h2 id="city-explorer-title">Wähle Deine Stadt</h2>
+          <p className="kicker">{presentation.kicker}</p>
+          <h2 id={headingId}>{presentation.heading}</h2>
         </div>
-        <p>Von Berlin bis Freiburg: Entdecke Datingtipps, Treffpunkte und Frauen aus Deiner Region.</p>
+        <p>{presentation.intro}</p>
       </div>
       <div className="city-card-grid">
         {cities.map((city, index) => (
@@ -39,8 +41,8 @@ export function CityCardSection({ pages }: { pages: ImportedPage[] }) {
         ))}
       </div>
       <div className="city-explorer-cta">
-        <div><strong>Deine Stadt ist schon dabei.</strong><span>Starte kostenlos und finde Frauen aus Deiner Nähe.</span></div>
-        <a className="button button-green" href={cities[0]?.registrationUrl}>Frauen in meiner Region finden</a>
+        <div><strong>{presentation.ctaTitle}</strong><span>Starte kostenlos und finde Frauen aus Deiner Nähe.</span></div>
+        <a className="button button-green" href={cities[0]?.registrationUrl}>{presentation.ctaLabel}</a>
       </div>
     </section>
   );
