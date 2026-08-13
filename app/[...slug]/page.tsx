@@ -6,6 +6,7 @@ import { selectHeroImage } from "@/lib/hero-image.mjs";
 import { registrationUrl } from "@/lib/site";
 import { CityCardSection } from "@/components/city-card-section";
 import { removeLegacyCityLists } from "@/lib/location-hub.mjs";
+import { buildBreadcrumbs, buildBreadcrumbSchema } from "@/lib/breadcrumbs.mjs";
 
 type Props = { params: Promise<{ slug: string[] }> };
 
@@ -30,9 +31,12 @@ export default async function ImportedPageView({ params }: Props) {
   const locationHubRoot = ["partnersuche", "oesterreich", "schweiz"].includes(root) && path === `/${root}` ? root as "partnersuche" | "oesterreich" | "schweiz" : null;
   const related = !locationHubRoot && ["partnersuche", "oesterreich", "schweiz", "lexikon"].includes(root) ? getFamilyPages(root).filter((item) => item.path !== path).slice(0, 6) : [];
   const contentHtml = locationHubRoot ? removeLegacyCityLists(page.contentHtml, locationHubRoot, page.h1) : page.contentHtml;
+  const breadcrumbs = buildBreadcrumbs(path);
+  const breadcrumbSchema = buildBreadcrumbSchema(path);
   return <main className="wrap page-shell">
     <article className="article-card">
-      <p className="breadcrumbs"><Link href="/">Start</Link> <span>/</span> {path.split("/").filter(Boolean).map((part) => part.replaceAll("-", " ")).join(" / ")}</p>
+      <nav className="breadcrumbs" aria-label="Breadcrumb"><ol>{breadcrumbs.map((item, index) => <li key={item.path}>{index < breadcrumbs.length - 1 ? <Link href={item.path}>{item.name}</Link> : <span aria-current="page">{item.name}</span>}</li>)}</ol></nav>
+      <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       <div className="article-hero"><div><p className="kicker">{page.type === "location" ? "Regional kennenlernen" : page.type === "lexicon" ? "Kurz erklärt" : "Gut informiert"}</p><h1>{page.h1}</h1><p className="lead">{page.description}</p><a className="button button-green" href={registrationUrl(path)}>Jetzt kostenlos starten</a></div>{image ? <img src={image.src} alt={image.alt || page.h1} /> : null}</div>
       {locationHubRoot ? <CityCardSection pages={publicPages} root={locationHubRoot} /> : null}
       <div className="rich-content" dangerouslySetInnerHTML={{ __html: contentHtml }} />
