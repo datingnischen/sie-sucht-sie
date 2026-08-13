@@ -31,8 +31,9 @@ export default async function ImportedPageView({ params }: Props) {
   const locationHubRoot = ["partnersuche", "oesterreich", "schweiz"].includes(root) && path === `/${root}` ? root as "partnersuche" | "oesterreich" | "schweiz" : null;
   const related = !locationHubRoot && ["partnersuche", "oesterreich", "schweiz", "lexikon"].includes(root) ? getFamilyPages(root).filter((item) => item.path !== path).slice(0, 6) : [];
   const contentHtml = locationHubRoot ? removeLegacyCityLists(page.contentHtml, locationHubRoot, page.h1) : page.contentHtml;
-  const breadcrumbs = buildBreadcrumbs(path);
-  const breadcrumbSchema = buildBreadcrumbSchema(path);
+  const breadcrumbName = page.type === "location" ? undefined : page.h1;
+  const breadcrumbs = buildBreadcrumbs(path, breadcrumbName);
+  const breadcrumbSchema = buildBreadcrumbSchema(path, breadcrumbName);
   return <main className="wrap page-shell">
     <article className="article-card">
       <nav className="breadcrumbs" aria-label="Breadcrumb"><ol>{breadcrumbs.map((item, index) => <li key={item.path}>{index < breadcrumbs.length - 1 ? <Link href={item.path}>{item.name}</Link> : <span aria-current="page">{item.name}</span>}</li>)}</ol></nav>

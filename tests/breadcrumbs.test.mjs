@@ -24,6 +24,12 @@ test("breadcrumb presentation is semantic, keyboard visible and mobile safe", as
   assert.match(css, /\.breadcrumbs a:focus-visible\s*\{[^}]*outline:/i);
 });
 
+test("top-level editorial breadcrumbs use catalog labels instead of implementation slugs", () => {
+  assert.deepEqual(buildBreadcrumbs("/faq", "Häufige Fragen").map((item) => item.name), ["Start", "Häufige Fragen"]);
+  assert.deepEqual(buildBreadcrumbs("/fragenflirt.html", "Fragenflirt").map((item) => item.name), ["Start", "Fragenflirt"]);
+  assert.equal(buildBreadcrumbSchema("/sicherheit-und-datenschutz.html", "Sicherheit und Datenschutz").itemListElement.at(-1).name, "Sicherheit und Datenschutz");
+});
+
 test("breadcrumb structured data uses canonical absolute item URLs", () => {
   assert.deepEqual(buildBreadcrumbSchema("/oesterreich/wien"), {
     "@context": "https://schema.org",
