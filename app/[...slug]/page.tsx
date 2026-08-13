@@ -7,6 +7,9 @@ import { registrationUrl } from "@/lib/site";
 import { CityCardSection } from "@/components/city-card-section";
 import { removeLegacyCityLists } from "@/lib/location-hub.mjs";
 import { buildBreadcrumbs, buildBreadcrumbSchema } from "@/lib/breadcrumbs.mjs";
+import { buildRelatedCards } from "@/lib/related-cards.mjs";
+import { RelatedCardSection } from "@/components/related-card-section";
+import { decorateInlineRegistrationCtas } from "@/lib/inline-content-cta.mjs";
 
 type Props = { params: Promise<{ slug: string[] }> };
 
@@ -30,7 +33,9 @@ export default async function ImportedPageView({ params }: Props) {
   const image = selectHeroImage(page.images);
   const locationHubRoot = ["partnersuche", "oesterreich", "schweiz"].includes(root) && path === `/${root}` ? root as "partnersuche" | "oesterreich" | "schweiz" : null;
   const related = !locationHubRoot && ["partnersuche", "oesterreich", "schweiz", "lexikon"].includes(root) ? getFamilyPages(root).filter((item) => item.path !== path).slice(0, 6) : [];
-  const contentHtml = locationHubRoot ? removeLegacyCityLists(page.contentHtml, locationHubRoot, page.h1) : page.contentHtml;
+  const relatedCards = page.type === "location" && !locationHubRoot ? buildRelatedCards(publicPages, path, root) : [];
+  const importedContentHtml = locationHubRoot ? removeLegacyCityLists(page.contentHtml, locationHubRoot, page.h1) : page.contentHtml;
+  const contentHtml = decorateInlineRegistrationCtas(importedContentHtml, registrationUrl(path));
   const breadcrumbName = page.type === "location" ? undefined : page.h1;
   const breadcrumbs = buildBreadcrumbs(path, breadcrumbName);
   const breadcrumbSchema = buildBreadcrumbSchema(path, breadcrumbName);
@@ -43,6 +48,6 @@ export default async function ImportedPageView({ params }: Props) {
       <div className="rich-content" dangerouslySetInnerHTML={{ __html: contentHtml }} />
       <aside className="inline-cta"><h2>Bereit für Deinen ersten Kontakt?</h2><p>Erstelle kostenlos Dein Profil und entdecke Frauen, die ähnliche Wünsche und Werte mitbringen.</p><a className="button button-green" href={registrationUrl(path)}>Kostenlos registrieren</a></aside>
     </article>
-    {related.length ? <aside className="related"><p className="kicker">Weiter entdecken</p><h2>Weitere passende Einstiege</h2><div className="related-grid">{related.map((item) => <Link href={item.path} key={item.path}><strong>{item.h1}</strong><span>Mehr erfahren →</span></Link>)}</div></aside> : null}
+    {relatedCards.length ? <RelatedCardSection cards={relatedCards} /> : related.length ? <aside className="related"><p className="kicker">Weiter entdecken</p><h2>Weitere passende Einstiege</h2><div className="related-grid">{related.map((item) => <Link href={item.path} key={item.path}><strong>{item.h1}</strong><span>Mehr erfahren →</span></Link>)}</div></aside> : null}
   </main>;
 }
