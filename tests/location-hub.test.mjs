@@ -92,3 +92,8 @@ test("country hubs expose country-specific public presentation copy", () => {
 test("long imported source URLs wrap inside the editorial content column", () => {
   assert.match(globalCss, /\.rich-content\s*\{[^}]*overflow-wrap\s*:\s*anywhere/i);
 });
+
+test("city cards disable motion when the visitor requests reduced motion", () => {
+  assert.match(globalCss, /@media\s*\(prefers-reduced-motion:\s*reduce\)[\s\S]*?\.city-tile img[^}]*transition:\s*none[^}]*transform:\s*none/i);
+  assert.match(globalCss, /@media\s*\(prefers-reduced-motion:\s*reduce\)[\s\S]*?\.city-tile-action[^}]*transition:\s*none[^}]*transform:\s*none/i);
+});
