@@ -1,42 +1,41 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import { decorateInlineRegistrationCtas } from "../lib/inline-content-cta.mjs";
+import catalog from "../data/pages.json" with { type: "json" };
 
-const registrationUrl = "https://www.sie-sucht-sie.de/registration/?AID=magazin";
+const registrationAnchor = /<a\b([^>]*)href="(https:\/\/www\.sie-sucht-sie\.de\/registration[^\"]*)"([^>]*)>([\s\S]*?)<\/a>/gi;
 
-test("registration links inside imported prose become tracked inline CTA buttons", () => {
-  const html = '<p><a href="https://www.sie-sucht-sie.de/registration">Chatte jetzt mit Frauen</a></p><p><a href="https://www.sie-sucht-sie.de/registration/">Jetzt kostenlos registrieren</a></p>';
-  const result = decorateInlineRegistrationCtas(html, registrationUrl);
-  assert.match(result, new RegExp(`href="${registrationUrl.replace(/[?]/g, "\\?")}" class="inline-content-cta"`));
-  assert.equal((result.match(/class="inline-content-cta"/g) || []).length, 2);
+test("the sanitized snapshot classifies every eligible registration CTA with the page-family AID", () => {
+  let decorated = 0;
+  let preserved = 0;
+  for (const page of catalog.pages) {
+    const aid = page.type === "location" ? "location" : "magazin";
+    for (const match of page.contentHtml.matchAll(registrationAnchor)) {
+      const openingAttributes = `${match[1]} ${match[3]}`;
+      if (/\bclass="inline-content-cta"/.test(openingAttributes)) {
+        decorated += 1;
+        assert.equal(match[2], `https://www.sie-sucht-sie.de/registration/?AID=${aid}`, page.path);
+        assert.doesNotMatch(match[4], /<img\b/i, page.path);
+        assert.ok(match[4].replace(/<[^>]*>/g, "").replace(/&nbsp;/gi, " ").trim(), page.path);
+      } else {
+        preserved += 1;
+        assert.ok(/<img\b/i.test(match[4]) || !match[4].replace(/<[^>]*>/g, "").trim(), page.path);
+      }
+    }
+  }
+  assert.equal(decorated, 152);
+  assert.equal(preserved, 2);
 });
 
 test("ordinary editorial links remain ordinary text links", () => {
-  const editorial = '<a href="https://www.sie-sucht-sie.de/magazin/lesbische-beziehung">eine harmonische Beziehung</a>';
-  assert.equal(decorateInlineRegistrationCtas(editorial, registrationUrl), editorial);
+  const page = catalog.pages.find((item) => item.path === "/lexikon/kostenloser-lesbenchat");
+  assert.match(page.contentHtml, /<a href="https:\/\/www\.sie-sucht-sie\.de\/magazin\/lesbische-beziehung">eine harmonische Beziehung<\/a>/);
 });
 
-test("empty and image-only registration anchors are not turned into blank buttons", () => {
-  const html = '<a href="https://www.sie-sucht-sie.de/registration"><img src="/promo.jpg" alt="" /></a><a href="https://www.sie-sucht-sie.de/registration"></a>';
-  assert.equal(decorateInlineRegistrationCtas(html, registrationUrl), html);
-});
-
-test("anchor-shaped text outside safe prose anchors is preserved byte-for-byte", () => {
-  const cases = [
-    '<!-- <a href="https://www.sie-sucht-sie.de/registration">fake</a> -->',
-    '<script>const x = `<a href="https://www.sie-sucht-sie.de/registration">fake</a>`;</script>',
-    '<textarea><a href="https://www.sie-sucht-sie.de/registration">fake</a></textarea>',
-    '<div title="<a href=\'https://www.sie-sucht-sie.de/registration\'>fake</a>">Text</div>',
-    '<a data-href="https://www.sie-sucht-sie.de/registration" href="/ordinary">ordinary</a>',
-    '<a href="https://www.sie-sucht-sie.de/registration"><button>nested</button></a>',
-  ];
-  for (const html of cases) assert.equal(decorateInlineRegistrationCtas(html, registrationUrl), html);
-});
-
-test("malformed anchors fail closed without mutation", () => {
-  const html = '<p><a href="https://www.sie-sucht-sie.de/registration">unfinished';
-  assert.equal(decorateInlineRegistrationCtas(html, registrationUrl), html);
+test("runtime rendering does not contain a second HTML parser", () => {
+  const pageSource = fs.readFileSync(new URL("../app/[...slug]/page.tsx", import.meta.url), "utf8");
+  assert.doesNotMatch(pageSource, /decorateInlineRegistrationCtas|inline-content-cta\.mjs/);
+  assert.equal(fs.existsSync(new URL("../lib/inline-content-cta.mjs", import.meta.url)), false);
 });
 
 test("inline CTA styling is button-like, keyboard-visible and mobile-safe", () => {

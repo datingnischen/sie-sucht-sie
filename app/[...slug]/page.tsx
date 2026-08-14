@@ -9,7 +9,6 @@ import { removeLegacyCityLists } from "@/lib/location-hub.mjs";
 import { buildBreadcrumbs, buildBreadcrumbSchema } from "@/lib/breadcrumbs.mjs";
 import { buildRelatedCards } from "@/lib/related-cards.mjs";
 import { RelatedCardSection } from "@/components/related-card-section";
-import { decorateInlineRegistrationCtas } from "@/lib/inline-content-cta.mjs";
 import { buildPageEntityGraph, serializePageEntityGraph } from "@/lib/page-entities.mjs";
 
 type Props = { params: Promise<{ slug: string[] }> };
@@ -35,8 +34,7 @@ export default async function ImportedPageView({ params }: Props) {
   const locationHubRoot = ["partnersuche", "oesterreich", "schweiz"].includes(root) && path === `/${root}` ? root as "partnersuche" | "oesterreich" | "schweiz" : null;
   const related = !locationHubRoot && ["partnersuche", "oesterreich", "schweiz", "lexikon"].includes(root) ? getFamilyPages(root).filter((item) => item.path !== path).slice(0, 6) : [];
   const relatedCards = page.type === "location" && !locationHubRoot ? buildRelatedCards(publicPages, path, root) : [];
-  const importedContentHtml = locationHubRoot ? removeLegacyCityLists(page.contentHtml, locationHubRoot, page.h1) : page.contentHtml;
-  const contentHtml = decorateInlineRegistrationCtas(importedContentHtml, registrationUrl(path));
+  const contentHtml = locationHubRoot ? removeLegacyCityLists(page.contentHtml, locationHubRoot, page.h1) : page.contentHtml;
   const breadcrumbName = page.type === "location" ? undefined : page.h1;
   const breadcrumbs = buildBreadcrumbs(path, breadcrumbName);
   const breadcrumbSchema = buildBreadcrumbSchema(path, breadcrumbName);

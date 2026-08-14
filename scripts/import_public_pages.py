@@ -119,7 +119,13 @@ def clean_content(soup: BeautifulSoup, kind: str, source_url: str) -> str:
                 node.unwrap()
                 continue
             node.attrs = {"href": safe}
-            if safe.startswith("http") and not safe.startswith(SITE):
+            if safe.startswith(f"{SITE}/registration") and not node.find("img") and node.get_text(" ", strip=True):
+                aid = "location" if kind == "location" else "magazin"
+                node.attrs = {
+                    "href": f"{SITE}/registration/?AID={aid}",
+                    "class": "inline-content-cta",
+                }
+            elif safe.startswith("http") and not safe.startswith(SITE):
                 node.attrs.update({"rel": "nofollow noopener noreferrer", "target": "_blank"})
         elif node.name == "img":
             source = urljoin(source_url, node.get("src", ""))

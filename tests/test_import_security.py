@@ -39,7 +39,9 @@ class ImportSecurityTests(unittest.TestCase):
         )
         for forbidden in ("<script", "<iframe", "<form", "<video", "javascript:", "onerror", "singleboersen-ueberblick.de"):
             self.assertNotIn(forbidden, cleaned.lower())
-        self.assertIn('href="https://www.sie-sucht-sie.de/registration?AID=location"', cleaned)
+        cleaned_soup = BeautifulSoup(cleaned, "html.parser")
+        registration = cleaned_soup.find("a", class_="inline-content-cta")
+        self.assertEqual(registration["href"], "https://www.sie-sucht-sie.de/registration/?AID=location")
         self.assertIn('src="https://static-cms.icony-hosting.de/cms/city.jpg"', cleaned)
 
     def test_fragment_drops_renderer_owned_main_and_h1_but_preserves_article_structure(self):
@@ -61,6 +63,33 @@ class ImportSecurityTests(unittest.TestCase):
         self.assertIn("<h2>Useful section</h2>", cleaned)
         self.assertIn("Useful introduction.", cleaned)
         self.assertIn("Useful details.", cleaned)
+
+    def test_importer_classifies_only_text_registration_ctas(self):
+        markup = """
+        <main id="static">
+          <p><a href="/registration">Jetzt kostenlos registrieren</a></p>
+          <a href="/registration"><img src="https://static-cms.icony-hosting.de/cms/promo.jpg" alt="Promo"></a>
+          <a href="/registration"></a>
+          <a href="/lexikon/lesbenseiten">Normaler Inhaltslink</a>
+        </main>
+        """
+        editorial = clean_content(
+            BeautifulSoup(markup, "html.parser"),
+            "lexicon",
+            "https://www.sie-sucht-sie.de/lexikon/example",
+        )
+        location = clean_content(
+            BeautifulSoup(markup, "html.parser"),
+            "location",
+            "https://www.sie-sucht-sie.de/partnersuche/berlin",
+        )
+        editorial_soup = BeautifulSoup(editorial, "html.parser")
+        location_soup = BeautifulSoup(location, "html.parser")
+        self.assertEqual(len(editorial_soup.select("a.inline-content-cta")), 1)
+        self.assertEqual(editorial_soup.select_one("a.inline-content-cta")["href"], "https://www.sie-sucht-sie.de/registration/?AID=magazin")
+        self.assertEqual(location_soup.select_one("a.inline-content-cta")["href"], "https://www.sie-sucht-sie.de/registration/?AID=location")
+        self.assertIn('<a href="/lexikon/lesbenseiten">Normaler Inhaltslink</a>', editorial)
+        self.assertEqual(editorial.count('<a href="https://www.sie-sucht-sie.de/registration">'), 2)
 
 
 if __name__ == "__main__":
