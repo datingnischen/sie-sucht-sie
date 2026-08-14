@@ -109,6 +109,10 @@ def clean_content(soup: BeautifulSoup, kind: str, source_url: str) -> str:
         node.decompose()
     for node in fragment.find_all("main"):
         node.unwrap()
+    nested_anchors = [node for node in fragment.find_all("a") if node.find_parent("a") or node.find("a")]
+    for node in reversed(nested_anchors):
+        if node.parent:
+            node.unwrap()
     for node in list(fragment.find_all(True)):
         if node.name not in ALLOWED_TAGS:
             node.unwrap()
@@ -119,13 +123,16 @@ def clean_content(soup: BeautifulSoup, kind: str, source_url: str) -> str:
                 node.unwrap()
                 continue
             node.attrs = {"href": safe}
-            if safe.startswith(f"{SITE}/registration") and not node.find("img") and node.get_text(" ", strip=True):
+            parsed_href = urlparse(safe)
+            is_internal = parsed_href.scheme == "https" and parsed_href.hostname == "www.sie-sucht-sie.de"
+            is_registration = is_internal and parsed_href.path.rstrip("/") == "/registration"
+            if is_registration and not node.find("img") and node.get_text(" ", strip=True):
                 aid = "location" if kind == "location" else "magazin"
                 node.attrs = {
                     "href": f"{SITE}/registration/?AID={aid}",
                     "class": "inline-content-cta",
                 }
-            elif safe.startswith("http") and not safe.startswith(SITE):
+            elif parsed_href.scheme in {"http", "https"} and not is_internal:
                 node.attrs.update({"rel": "nofollow noopener noreferrer", "target": "_blank"})
         elif node.name == "img":
             source = urljoin(source_url, node.get("src", ""))

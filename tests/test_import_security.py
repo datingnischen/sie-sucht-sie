@@ -68,6 +68,12 @@ class ImportSecurityTests(unittest.TestCase):
         markup = """
         <main id="static">
           <p><a href="/registration">Jetzt kostenlos registrieren</a></p>
+          <p><a href="/registration/?ref=test">Mit Referenz registrieren</a></p>
+          <p><a href="//www.sie-sucht-sie.de/registration">Protokollrelativ registrieren</a></p>
+          <a href="/registration/profile">Registrierungsprofil</a>
+          <a href="/registrationevil">Ähnlicher Pfad</a>
+          <a href="https://www.sie-sucht-sie.de.evil.example/registration">Fremder Lookalike-Host</a>
+          <a href="/registration">Außen <a href="/registration">Innen</a></a>
           <a href="/registration"><img src="https://static-cms.icony-hosting.de/cms/promo.jpg" alt="Promo"></a>
           <a href="/registration"></a>
           <a href="/lexikon/lesbenseiten">Normaler Inhaltslink</a>
@@ -85,9 +91,15 @@ class ImportSecurityTests(unittest.TestCase):
         )
         editorial_soup = BeautifulSoup(editorial, "html.parser")
         location_soup = BeautifulSoup(location, "html.parser")
-        self.assertEqual(len(editorial_soup.select("a.inline-content-cta")), 1)
-        self.assertEqual(editorial_soup.select_one("a.inline-content-cta")["href"], "https://www.sie-sucht-sie.de/registration/?AID=magazin")
+        self.assertEqual(len(editorial_soup.select("a.inline-content-cta")), 3)
+        self.assertTrue(all(a["href"] == "https://www.sie-sucht-sie.de/registration/?AID=magazin" for a in editorial_soup.select("a.inline-content-cta")))
         self.assertEqual(location_soup.select_one("a.inline-content-cta")["href"], "https://www.sie-sucht-sie.de/registration/?AID=location")
+        self.assertIsNone(editorial_soup.select_one('a[href="/registration/profile"].inline-content-cta'))
+        self.assertIsNone(editorial_soup.select_one('a[href="/registrationevil"].inline-content-cta'))
+        self.assertIsNone(editorial_soup.select_one('a[href*="evil.example"].inline-content-cta'))
+        self.assertEqual(editorial_soup.select_one('a[href*="evil.example"]')["rel"], ["nofollow", "noopener", "noreferrer"])
+        self.assertNotIn("Außen <a", editorial)
+        self.assertIn("Außen Innen", editorial)
         self.assertIn('<a href="/lexikon/lesbenseiten">Normaler Inhaltslink</a>', editorial)
         self.assertEqual(editorial.count('<a href="https://www.sie-sucht-sie.de/registration">'), 2)
 
