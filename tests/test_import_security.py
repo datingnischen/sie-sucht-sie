@@ -42,6 +42,26 @@ class ImportSecurityTests(unittest.TestCase):
         self.assertIn('href="https://www.sie-sucht-sie.de/registration?AID=location"', cleaned)
         self.assertIn('src="https://static-cms.icony-hosting.de/cms/city.jpg"', cleaned)
 
+    def test_fragment_drops_renderer_owned_main_and_h1_but_preserves_article_structure(self):
+        markup = """
+        <main id="static">
+          <h1>Imported duplicate title</h1>
+          <p>Useful introduction.</p>
+          <h2>Useful section</h2>
+          <p>Useful details.</p>
+        </main>
+        """
+        cleaned = clean_content(
+            BeautifulSoup(markup, "html.parser"),
+            "lexicon",
+            "https://www.sie-sucht-sie.de/lexikon/example",
+        )
+        self.assertNotIn("<main", cleaned)
+        self.assertNotIn("<h1", cleaned)
+        self.assertIn("<h2>Useful section</h2>", cleaned)
+        self.assertIn("Useful introduction.", cleaned)
+        self.assertIn("Useful details.", cleaned)
+
 
 if __name__ == "__main__":
     unittest.main()

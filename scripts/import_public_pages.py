@@ -103,6 +103,12 @@ def clean_content(soup: BeautifulSoup, kind: str, source_url: str) -> str:
             node.decompose()
     for node in fragment.find_all(string=lambda value: isinstance(value, Comment)):
         node.extract()
+    # The Next.js page shell owns the single main landmark and visible h1.
+    # Imported fragments must not create nested mains or duplicate page titles.
+    for node in fragment.find_all("h1"):
+        node.decompose()
+    for node in fragment.find_all("main"):
+        node.unwrap()
     for node in list(fragment.find_all(True)):
         if node.name not in ALLOWED_TAGS:
             node.unwrap()

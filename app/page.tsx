@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getFamilyPages } from "@/lib/content";
 import { locationName, registrationUrl, SITE_URL } from "@/lib/site";
+import { buildPageEntityGraph, serializePageEntityGraph } from "@/lib/page-entities.mjs";
 
 export const metadata: Metadata = {
   title: "Sie sucht Sie – Die Singlebörse für Frauen, die Frauen lieben",
@@ -18,7 +19,15 @@ const trust = [
 
 export default function HomePage() {
   const cities = getFamilyPages("partnersuche").slice(0, 8);
+  const pageEntityGraph = buildPageEntityGraph({
+    path: "/",
+    canonical: `${SITE_URL}/`,
+    type: "editorial",
+    h1: "Finde eine Partnerin, die wirklich zu Dir passt.",
+    description: metadata.description,
+  });
   return <main>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializePageEntityGraph(pageEntityGraph) }} />
     <section className="hero wrap">
       <img className="hero-image" src="/home/hero.webp" alt="Zwei glückliche Frauen in einer liebevollen Begegnung" width="1170" height="659" />
       <div className="hero-card"><p className="kicker">Frauen kennenlernen</p><h1>Finde eine Partnerin, die wirklich zu Dir passt.</h1><p>Ob große Liebe, ehrliche Gespräche oder neue Kontakte: Bei Sie-sucht-Sie.de begegnest Du Frauen, die Frauen lieben – direkt in Deiner Region.</p><a className="button button-green" href={registrationUrl("/")}>Kostenlos registrieren</a><ul className="hero-trust"><li>Über 20 Jahre Erfahrung</li><li>Server in Deutschland</li><li>Keine versteckten Kosten</li></ul></div>
