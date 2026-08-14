@@ -11,7 +11,7 @@ test("imported article fragments do not duplicate the page main landmark or h1",
   assert.deepEqual(offenders.map((page) => page.path), []);
 });
 
-test("lexicon pages expose a canonical WebPage and DefinedTerm entity graph", () => {
+test("lexicon routes remain factual canonical WebPages without unsupported term claims", () => {
   const graph = buildPageEntityGraph({
     path: "/lexikon/kostenloser-lesbenchat",
     canonical: `${SITE}/lexikon/kostenloser-lesbenchat`,
@@ -21,7 +21,6 @@ test("lexicon pages expose a canonical WebPage and DefinedTerm entity graph", ()
   });
   assert.equal(graph["@context"], "https://schema.org");
   const webpage = graph["@graph"].find((node) => node["@type"] === "WebPage");
-  const term = graph["@graph"].find((node) => node["@type"] === "DefinedTerm");
   assert.deepEqual(webpage, {
     "@type": "WebPage",
     "@id": `${SITE}/lexikon/kostenloser-lesbenchat#webpage`,
@@ -30,16 +29,9 @@ test("lexicon pages expose a canonical WebPage and DefinedTerm entity graph", ()
     description: "Was ein kostenloser Lesbenchat bietet und worauf Frauen beim Kennenlernen achten können.",
     inLanguage: "de-DE",
     isPartOf: { "@id": `${SITE}/#website` },
-    mainEntity: { "@id": `${SITE}/lexikon/kostenloser-lesbenchat#term` },
   });
-  assert.deepEqual(term, {
-    "@type": "DefinedTerm",
-    "@id": `${SITE}/lexikon/kostenloser-lesbenchat#term`,
-    url: `${SITE}/lexikon/kostenloser-lesbenchat`,
-    name: "Kostenloser Lesbenchat",
-    description: "Was ein kostenloser Lesbenchat bietet und worauf Frauen beim Kennenlernen achten können.",
-    inDefinedTermSet: `${SITE}/lexikon`,
-  });
+  assert.equal(graph["@graph"].some((node) => node["@type"] === "DefinedTerm"), false);
+  assert.equal(webpage.mainEntity, undefined);
 });
 
 test("location pages stay factual WebPages without invented Place or Article claims", () => {
