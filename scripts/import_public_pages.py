@@ -68,6 +68,10 @@ def text_or(node, fallback=""):
     return node.get_text(" ", strip=True) if node else fallback
 
 
+def is_internal_market_url(parsed) -> bool:
+    return parsed.scheme == "https" and parsed.netloc.lower() in {"sie-sucht-sie.de", "www.sie-sucht-sie.de"}
+
+
 def safe_href(raw_href: str, source_url: str) -> str | None:
     raw = raw_href.strip()
     if not raw:
@@ -80,7 +84,7 @@ def safe_href(raw_href: str, source_url: str) -> str | None:
     parsed = urlparse(absolute)
     if parsed.scheme not in {"http", "https"} or parsed.hostname in EXCLUDED_RESOURCE_HOSTS:
         return None
-    if parsed.hostname in {"sie-sucht-sie.de", "www.sie-sucht-sie.de"}:
+    if is_internal_market_url(parsed):
         path = normalize_path(absolute)
         path = KNOWN_PATH_FIXES.get(path, path)
         root = path.lstrip("/").split("/", 1)[0]
@@ -124,7 +128,7 @@ def clean_content(soup: BeautifulSoup, kind: str, source_url: str) -> str:
                 continue
             node.attrs = {"href": safe}
             parsed_href = urlparse(safe)
-            is_internal = parsed_href.scheme == "https" and parsed_href.hostname == "www.sie-sucht-sie.de"
+            is_internal = is_internal_market_url(parsed_href)
             is_registration = is_internal and parsed_href.path.rstrip("/") == "/registration"
             if is_registration and not node.find("img") and node.get_text(" ", strip=True):
                 aid = "location" if kind == "location" else "magazin"

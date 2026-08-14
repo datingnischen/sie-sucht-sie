@@ -73,6 +73,8 @@ class ImportSecurityTests(unittest.TestCase):
           <a href="/registration/profile">Registrierungsprofil</a>
           <a href="/registrationevil">Ähnlicher Pfad</a>
           <a href="https://www.sie-sucht-sie.de.evil.example/registration">Fremder Lookalike-Host</a>
+          <a href="https://www.sie-sucht-sie.de:444/registration">Fremder Port</a>
+          <a href="https://user@www.sie-sucht-sie.de/registration">URL mit Userinfo</a>
           <a href="/registration">Außen <a href="/registration">Innen</a></a>
           <a href="/registration"><img src="https://static-cms.icony-hosting.de/cms/promo.jpg" alt="Promo"></a>
           <a href="/registration"></a>
@@ -98,6 +100,10 @@ class ImportSecurityTests(unittest.TestCase):
         self.assertIsNone(editorial_soup.select_one('a[href="/registrationevil"].inline-content-cta'))
         self.assertIsNone(editorial_soup.select_one('a[href*="evil.example"].inline-content-cta'))
         self.assertEqual(editorial_soup.select_one('a[href*="evil.example"]')["rel"], ["nofollow", "noopener", "noreferrer"])
+        self.assertIsNone(editorial_soup.select_one('a[href*=":444/registration"].inline-content-cta'))
+        self.assertEqual(editorial_soup.select_one('a[href*=":444/registration"]')["rel"], ["nofollow", "noopener", "noreferrer"])
+        self.assertIsNone(editorial_soup.select_one('a[href*="user@"].inline-content-cta'))
+        self.assertEqual(editorial_soup.select_one('a[href*="user@"]')["rel"], ["nofollow", "noopener", "noreferrer"])
         self.assertNotIn("Außen <a", editorial)
         self.assertIn("Außen Innen", editorial)
         self.assertIn('<a href="/lexikon/lesbenseiten">Normaler Inhaltslink</a>', editorial)
