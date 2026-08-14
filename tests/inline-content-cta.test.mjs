@@ -22,6 +22,23 @@ test("empty and image-only registration anchors are not turned into blank button
   assert.equal(decorateInlineRegistrationCtas(html, registrationUrl), html);
 });
 
+test("anchor-shaped text outside safe prose anchors is preserved byte-for-byte", () => {
+  const cases = [
+    '<!-- <a href="https://www.sie-sucht-sie.de/registration">fake</a> -->',
+    '<script>const x = `<a href="https://www.sie-sucht-sie.de/registration">fake</a>`;</script>',
+    '<textarea><a href="https://www.sie-sucht-sie.de/registration">fake</a></textarea>',
+    '<div title="<a href=\'https://www.sie-sucht-sie.de/registration\'>fake</a>">Text</div>',
+    '<a data-href="https://www.sie-sucht-sie.de/registration" href="/ordinary">ordinary</a>',
+    '<a href="https://www.sie-sucht-sie.de/registration"><button>nested</button></a>',
+  ];
+  for (const html of cases) assert.equal(decorateInlineRegistrationCtas(html, registrationUrl), html);
+});
+
+test("malformed anchors fail closed without mutation", () => {
+  const html = '<p><a href="https://www.sie-sucht-sie.de/registration">unfinished';
+  assert.equal(decorateInlineRegistrationCtas(html, registrationUrl), html);
+});
+
 test("inline CTA styling is button-like, keyboard-visible and mobile-safe", () => {
   const css = fs.readFileSync(new URL("../app/globals.css", import.meta.url), "utf8");
   assert.match(css, /\.rich-content a\.inline-content-cta\s*\{[^}]*display:inline-flex[^}]*background:/i);
