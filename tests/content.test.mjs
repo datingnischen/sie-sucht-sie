@@ -55,6 +55,13 @@ test("city heroes prefer representative city photography over seals and statisti
   assert.equal(hero.alt, "Partnersuche in Stuttgart");
 });
 
+test("location image inventories contain only images retained by the sanitized fragment", () => {
+  for (const page of catalog.pages.filter((item) => item.type === "location")) {
+    const retained = [...page.contentHtml.matchAll(/<img\b[^>]*\bsrc=["']([^"']+)["']/gi)].map((match) => match[1]);
+    assert.deepEqual(page.images.map((image) => image.src), [...new Set(retained)], page.path);
+  }
+});
+
 test("editorial hero images never select recommendation seals", () => {
   for (const page of catalog.pages) {
     const hero = selectHeroImage(page.images);

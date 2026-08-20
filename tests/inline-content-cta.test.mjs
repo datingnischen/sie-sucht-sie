@@ -23,7 +23,7 @@ test("the sanitized snapshot classifies every eligible registration CTA with the
       }
     }
   }
-  assert.equal(decorated, 152);
+  assert.equal(decorated, 150);
   assert.equal(preserved, 2);
 });
 

@@ -72,6 +72,106 @@ def is_internal_market_url(parsed) -> bool:
     return parsed.scheme == "https" and parsed.netloc.lower() in {"sie-sucht-sie.de", "www.sie-sucht-sie.de"}
 
 
+def statistics_module_end(start):
+    node = start.next_sibling
+    factor = None
+    while node:
+        if getattr(node, "name", None) == "h2":
+            break
+        if getattr(node, "name", None) == "h3" and "Flirt-Faktor" in node.get_text(" ", strip=True):
+            factor = node
+            break
+        node = node.next_sibling
+    if not factor:
+        return None
+
+    end = factor
+    summary_seen = False
+    node = factor.next_sibling
+    while node:
+        following = node.next_sibling
+        name = getattr(node, "name", None)
+        text = node.get_text(" ", strip=True) if name else str(node).strip()
+        has_image = bool(name and node.find("img"))
+        if not text and not has_image and (name in {"p", "br"} or name is None):
+            end = node
+        elif name in {"p", "small"} and not has_image and not summary_seen:
+            end = node
+            summary_seen = True
+        else:
+            break
+        node = following
+    return end
+
+
+def remove_inclusive_range(start, end) -> None:
+    node = start
+    while node:
+        following = node.next_sibling
+        finished = node is end
+        node.extract()
+        if finished:
+            break
+        node = following
+
+
+def clean_location_structure(fragment: BeautifulSoup) -> None:
+    statistics_heading = re.compile(r"\b(?:flirt\s*&\s*)?dating(?:\s|-).*statistik\b", re.IGNORECASE)
+    for heading in list(fragment.find_all("h2")):
+        if statistics_heading.search(heading.get_text(" ", strip=True)):
+            preceding = heading.previous_sibling
+            while preceding:
+                name = getattr(preceding, "name", None)
+                text = preceding.get_text(" ", strip=True) if name else str(preceding).strip()
+                if text or (name and preceding.find("img")):
+                    break
+                preceding = preceding.previous_sibling
+            if preceding and getattr(preceding, "name", None) and preceding.find("img") and not preceding.get_text(" ", strip=True):
+                preceding.decompose()
+
+            statistics_section = None
+            sibling = heading.next_sibling
+            while sibling and getattr(sibling, "name", None) != "h2":
+                if getattr(sibling, "name", None) == "section" and any(
+                    "Flirt-Faktor" in marker.get_text(" ", strip=True) for marker in sibling.find_all("h3")
+                ):
+                    statistics_section = sibling
+                    break
+                sibling = sibling.next_sibling
+            if statistics_section:
+                heading.decompose()
+                statistics_section.decompose()
+                continue
+            end = statistics_module_end(heading)
+            if end:
+                remove_inclusive_range(heading, end)
+
+    # Some legacy pages lost the h2 introducing the same statistics module.
+    for heading in list(fragment.find_all("h3")):
+        if not heading.get_text(" ", strip=True).startswith("👩‍❤️‍👩 Community in"):
+            continue
+        sibling = heading
+        has_flirt_factor = False
+        while sibling and getattr(sibling, "name", None) != "h2":
+            if getattr(sibling, "name", None) == "h3" and "Flirt-Faktor" in sibling.get_text(" ", strip=True):
+                has_flirt_factor = True
+                break
+            sibling = sibling.next_sibling
+        if has_flirt_factor:
+            end = statistics_module_end(heading)
+            if end:
+                remove_inclusive_range(heading, end)
+
+    for heading in list(fragment.find_all(["h2", "h3", "h4"])):
+        if heading.find("img") and not heading.get_text(" ", strip=True):
+            heading.unwrap()
+        elif not heading.get_text(" ", strip=True):
+            heading.decompose()
+    for paragraph in list(fragment.find_all("p")):
+        if not paragraph.get_text(" ", strip=True) and not paragraph.find("img"):
+            paragraph.decompose()
+
+
 def safe_href(raw_href: str, source_url: str) -> str | None:
     raw = raw_href.strip()
     if not raw:
@@ -113,6 +213,8 @@ def clean_content(soup: BeautifulSoup, kind: str, source_url: str) -> str:
         node.decompose()
     for node in fragment.find_all("main"):
         node.unwrap()
+    if kind == "location":
+        clean_location_structure(fragment)
     nested_anchors = [node for node in fragment.find_all("a") if node.find_parent("a") or node.find("a")]
     for node in reversed(nested_anchors):
         if node.parent:

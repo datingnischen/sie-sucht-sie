@@ -1,9 +1,27 @@
 import unittest
+import json
+import re
+from pathlib import Path
 from bs4 import BeautifulSoup
 from scripts.import_public_pages import clean_content, safe_href
 
 
 class ImportSecurityTests(unittest.TestCase):
+    def test_location_snapshot_contains_no_legacy_statistics_or_broken_heading_wrappers(self):
+        catalog = json.loads((Path(__file__).parents[1] / "data" / "pages.json").read_text(encoding="utf-8"))["pages"]
+        offenders = []
+        for page in (item for item in catalog if item["type"] == "location"):
+            soup = BeautifulSoup(page["contentHtml"], "html.parser")
+            if any(re.search(r"(?:dating.*statistik|flirt-faktor)", heading.get_text(" ", strip=True), re.IGNORECASE) for heading in soup.find_all(["h2", "h3"])):
+                offenders.append((page["path"], "statistics"))
+            if any(heading.find("img") and not heading.get_text(" ", strip=True) for heading in soup.find_all(["h2", "h3", "h4"])):
+                offenders.append((page["path"], "image-heading"))
+            if any(not heading.get_text(" ", strip=True) and not heading.find("img") for heading in soup.find_all(["h2", "h3", "h4"])):
+                offenders.append((page["path"], "empty-heading"))
+            if any(not paragraph.get_text(" ", strip=True) and not paragraph.find("img") for paragraph in soup.find_all("p")):
+                offenders.append((page["path"], "empty-paragraph"))
+        self.assertEqual(offenders, [])
+
     def test_rejects_active_url_schemes_and_excluded_review_host(self):
         source = "https://www.sie-sucht-sie.de/partnersuche/berlin/"
         self.assertIsNone(safe_href("javascript:alert(1)", source))
@@ -108,6 +126,86 @@ class ImportSecurityTests(unittest.TestCase):
         self.assertIn("Außen Innen", editorial)
         self.assertIn('<a href="/lexikon/lesbenseiten">Normaler Inhaltslink</a>', editorial)
         self.assertEqual(editorial.count('<a href="https://www.sie-sucht-sie.de/registration">'), 2)
+
+    def test_location_cleanup_removes_legacy_statistics_and_repairs_heading_structure(self):
+        markup = """
+        <main id="static">
+          <h2>Lesbisch in Wien – Flirt & Dating Statistik</h2>
+          <p>Unbelegte Statistik-Einleitung</p>
+          <h3>👩‍❤️‍👩 Community in Wien</h3><p>ca. 40.000 Frauen</p>
+          <h3>🔥 Flirt-Faktor: 89%</h3><p>Berechneter Index</p>
+          <h2>Tolle Events zum Flirten in Wien</h2>
+          <p>Dieser nützliche Eventtext bleibt erhalten.</p>
+          <h3>Vienna Pride & LGBTQ+ Events</h3><p>Legitimer Community-Abschnitt.</p>
+          <h2></h2><p>   </p>
+        </main>
+        """
+        cleaned = clean_content(BeautifulSoup(markup, "html.parser"), "location", "https://www.sie-sucht-sie.de/oesterreich/wien")
+        soup = BeautifulSoup(cleaned, "html.parser")
+        self.assertNotIn("Statistik", cleaned)
+        self.assertNotIn("Flirt-Faktor", cleaned)
+        self.assertNotIn("Unbelegte Statistik-Einleitung", cleaned)
+        self.assertIn("Tolle Events zum Flirten in Wien", cleaned)
+        self.assertIn("Legitimer Community-Abschnitt", cleaned)
+        self.assertIsNone(soup.find(["h2", "h3"], string=lambda value: value and "Wien2" in value))
+        self.assertFalse(any(not heading.get_text(" ", strip=True) and not heading.find("img") for heading in soup.find_all(["h2", "h3", "h4"])))
+        self.assertFalse(any(not paragraph.get_text(" ", strip=True) and not paragraph.find("img") for paragraph in soup.find_all("p")))
+
+        augsburg = """
+        <main><p>Die Einleitung bleibt.</p>
+          <h3>👩‍❤️‍👩 Community in Augsburg</h3><p>Modellwert</p>
+          <h3>💬 Dating-Aktivität</h3><p>Interne Auswertung</p>
+          <h3>🔥 Flirt-Faktor: 87 %</h3><p>Berechneter Index</p>
+          <h2>Tolle Events zum Flirten</h2><p>Nützlicher Augsburg-Text.</p>
+        </main>
+        """
+        cleaned_augsburg = clean_content(BeautifulSoup(augsburg, "html.parser"), "location", "https://www.sie-sucht-sie.de/partnersuche/augsburg")
+        self.assertIn("Die Einleitung bleibt", cleaned_augsburg)
+        self.assertIn("Nützlicher Augsburg-Text", cleaned_augsburg)
+        self.assertNotIn("Community in Augsburg", cleaned_augsburg)
+        self.assertNotIn("Flirt-Faktor", cleaned_augsburg)
+
+        duesseldorf = """
+        <main><h2>Lesbisch in Düsseldorf – Dating-Statistik</h2>
+          <h3>👩‍❤️‍👩 Community in Düsseldorf</h3><p>Modellwert</p>
+          <h3>🔥 Flirt-Faktor: 88%</h3><p>Berechneter Index</p><p></p>
+          <p>Gleichgeschlechtliche Liebe und nützliche Date-Ideen in Düsseldorf.</p>
+          <p><a href="/registration">Jetzt kostenlos registrieren</a></p>
+        </main>
+        """
+        cleaned_duesseldorf = clean_content(BeautifulSoup(duesseldorf, "html.parser"), "location", "https://www.sie-sucht-sie.de/partnersuche/duesseldorf")
+        self.assertNotIn("Dating-Statistik", cleaned_duesseldorf)
+        self.assertNotIn("Flirt-Faktor", cleaned_duesseldorf)
+        self.assertIn("nützliche Date-Ideen", cleaned_duesseldorf)
+        self.assertIn("Jetzt kostenlos registrieren", cleaned_duesseldorf)
+
+        section_variant = """
+        <main><h2>Lesbisch in Köln – Dating-Statistik</h2>
+          <p><a href="/registration">Frauen aus Köln finden</a></p>
+          <section><p>Unbelegte Statistik</p><h3>🔥 Flirt-Faktor: 91%</h3><p>Berechneter Index</p></section>
+          <h2>Wenn zwei Frauen sich in Köln treffen</h2><p>Nützlicher Köln-Text.</p>
+        </main>
+        """
+        cleaned_section = clean_content(BeautifulSoup(section_variant, "html.parser"), "location", "https://www.sie-sucht-sie.de/partnersuche/koeln")
+        self.assertNotIn("Dating-Statistik", cleaned_section)
+        self.assertNotIn("Flirt-Faktor", cleaned_section)
+        self.assertIn("Frauen aus Köln finden", cleaned_section)
+        self.assertIn("Nützlicher Köln-Text", cleaned_section)
+
+        image_variant = """
+        <main><h2><img src="https://static-cms.icony-hosting.de/cms/statistics/1000/Wien.jpg" alt="Wien"></h2><p></p>
+          <h2>Lesbisch in Wien – Flirt & Dating Statistik</h2>
+          <h3>👩‍❤️‍👩 Community in Wien</h3><p>Modellwert</p>
+          <h3>🔥 Flirt-Faktor: 89%</h3><p>Berechneter Index</p><p></p>
+          <h2><img src="https://static-cms.icony-hosting.de/cms/city/1000/Wien2.jpg" alt="Wien2"></h2>
+          <h2>Tolle Events zum Flirten in Wien</h2><p>Nützlicher Wien-Text.</p>
+        </main>
+        """
+        cleaned_images = clean_content(BeautifulSoup(image_variant, "html.parser"), "location", "https://www.sie-sucht-sie.de/oesterreich/wien")
+        self.assertNotIn("Wien.jpg", cleaned_images)
+        self.assertIn("Wien2.jpg", cleaned_images)
+        self.assertNotIn("<h2><img", cleaned_images)
+        self.assertIn("Tolle Events zum Flirten in Wien", cleaned_images)
 
 
 if __name__ == "__main__":
