@@ -193,7 +193,7 @@ class ImportSecurityTests(unittest.TestCase):
         self.assertIn("Nützlicher Köln-Text", cleaned_section)
 
         image_variant = """
-        <main><h2><img src="https://static-cms.icony-hosting.de/cms/statistics/1000/Wien.jpg" alt="Wien"></h2><p></p>
+        <main><h2><img src="https://static-cms.icony-hosting.de/cms/1C77F826642907FF8CC1C0C57AF48D532202C05892EE2D707B4862543E20201B/1000/Wien.jpg" alt="Wien"></h2><p></p>
           <h2>Lesbisch in Wien – Flirt & Dating Statistik</h2>
           <h3>👩‍❤️‍👩 Community in Wien</h3><p>Modellwert</p>
           <h3>🔥 Flirt-Faktor: 89%</h3><p>Berechneter Index</p><p></p>
@@ -206,6 +206,29 @@ class ImportSecurityTests(unittest.TestCase):
         self.assertIn("Wien2.jpg", cleaned_images)
         self.assertNotIn("<h2><img", cleaned_images)
         self.assertIn("Tolle Events zum Flirten in Wien", cleaned_images)
+
+        representative_before_module = """
+        <main><h2><img src="https://static-cms.icony-hosting.de/cms/CITYASSET/1000/representative-city.jpg" alt="Repräsentatives Stadtbild"></h2>
+          <h2>Lesbisch in Beispielstadt – Dating-Statistik</h2>
+          <h3>👩‍❤️‍👩 Community in Beispielstadt</h3><p>Modellwert</p>
+          <h3>🔥 Flirt-Faktor: 80%</h3><p>Berechneter Index</p>
+          <h2>Nützliche Date-Ideen</h2><p>Redaktioneller Text.</p>
+        </main>
+        """
+        cleaned_representative = clean_content(BeautifulSoup(representative_before_module, "html.parser"), "location", "https://www.sie-sucht-sie.de/partnersuche/beispielstadt")
+        self.assertIn("representative-city.jpg", cleaned_representative)
+        self.assertNotIn("Dating-Statistik", cleaned_representative)
+
+        incomplete_module = """
+        <main><h2><img src="https://static-cms.icony-hosting.de/cms/1C77F826642907FF8CC1C0C57AF48D532202C05892EE2D707B4862543E20201B/1000/Wien.jpg" alt="Wien"></h2>
+          <h2>Lesbisch in Wien – Flirt & Dating Statistik</h2>
+          <p>Kein vollständiges Statistikmodul.</p>
+          <h2>Nützlicher Folgeabschnitt</h2>
+        </main>
+        """
+        cleaned_incomplete = clean_content(BeautifulSoup(incomplete_module, "html.parser"), "location", "https://www.sie-sucht-sie.de/oesterreich/wien")
+        self.assertIn("Wien.jpg", cleaned_incomplete)
+        self.assertIn("Flirt &amp; Dating Statistik", cleaned_incomplete)
 
 
 if __name__ == "__main__":
