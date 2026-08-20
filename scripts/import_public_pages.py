@@ -232,6 +232,10 @@ def safe_href(raw_href: str, source_url: str) -> str | None:
     return absolute
 
 
+def clean_location_description(description: str) -> str:
+    return re.sub(r"\s+und\s+Flirt-(?:Faktor|Statistik)\b", "", description, flags=re.IGNORECASE)
+
+
 def is_well_formed_image_reference(value) -> bool:
     if not isinstance(value, str) or not value or value != value.strip():
         return False
@@ -346,6 +350,8 @@ def main():
         title = text_or(soup.title, fallback_title(path))
         description_node = soup.find("meta", attrs={"name": "description"})
         description = (description_node.get("content", "").strip() if description_node else "") or f"Informationen und hilfreiche Einstiege zu {fallback_title(path)} auf Sie-sucht-Sie.de."
+        if kind == "location":
+            description = clean_location_description(description)
         h1 = text_or(soup.find("h1"), fallback_title(path))
         canonical = f"{SITE}{'/' if path == '/' else path}"
         content = clean_content(soup, kind, source_url)

@@ -113,6 +113,8 @@ class ImportSecurityTests(unittest.TestCase):
         offenders = []
         for page in (item for item in catalog if item["type"] == "location"):
             soup = BeautifulSoup(page["contentHtml"], "html.parser")
+            if re.search(r"(?:flirt-(?:faktor|statistik)|auswertung\s+der\s+mitglieder)", page.get("description", ""), re.IGNORECASE):
+                offenders.append((page["path"], "statistics-description"))
             if any(re.search(r"(?:dating.*statistik|flirt-faktor)", heading.get_text(" ", strip=True), re.IGNORECASE) for heading in soup.find_all(["h2", "h3"])):
                 offenders.append((page["path"], "statistics"))
             if any(heading.find("img") and not heading.get_text(" ", strip=True) for heading in soup.find_all(["h2", "h3", "h4"])):
