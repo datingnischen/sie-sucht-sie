@@ -32,6 +32,16 @@ class ImportSecurityTests(unittest.TestCase):
             "https://static-cms.icony-hosting.de/cms/b.jpg",
         ]
         fragment.main.append(multi_value_image)
+        non_scalar_sources = [
+            ["https://static-cms.icony-hosting.de/cms/singleton.jpg"],
+            123,
+            ("https://static-cms.icony-hosting.de/cms/tuple.jpg",),
+            b"https://static-cms.icony-hosting.de/cms/bytes.jpg",
+        ]
+        for index, source in enumerate(non_scalar_sources):
+            image = fragment.new_tag("img", alt=f"nicht-skalar-{index}")
+            image["src"] = source
+            fragment.main.append(image)
 
         cleaned = clean_content(fragment, "location", "https://www.sie-sucht-sie.de/oesterreich/wien")
         json.dumps({"contentHtml": cleaned}, ensure_ascii=False).encode("utf-8")

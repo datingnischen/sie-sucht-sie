@@ -246,6 +246,11 @@ def clean_content(soup: BeautifulSoup, kind: str, source_url: str) -> str:
     main = soup.select_one("main#static") or soup.select_one("main.city-container") or soup.select_one("main")
     if not main:
         return ""
+    # Validate original attribute values before serialization can coerce
+    # parser-produced lists, tuples, bytes, or numeric values into strings.
+    for image in list(main.find_all("img")):
+        if not is_well_formed_image_reference(image.get("src", "")):
+            image.decompose()
     fragment = BeautifulSoup(str(main), "html.parser")
     for selector in DYNAMIC_SELECTORS:
         for node in fragment.select(selector):
