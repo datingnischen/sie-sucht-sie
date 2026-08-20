@@ -145,11 +145,30 @@ def verified_preceding_statistics_image(heading):
         preceding = preceding.previous_sibling
     if not preceding or not getattr(preceding, "name", None) or preceding.get_text(" ", strip=True):
         return None
-    images = preceding.find_all("img", src=True)
-    if len(images) != 1:
+
+    direct_elements = preceding.find_all(True, recursive=False)
+    all_images = preceding.find_all("img")
+    if len(direct_elements) != 1 or direct_elements[0].name != "img" or len(all_images) != 1 or direct_elements[0] is not all_images[0]:
         return None
-    source = images[0]["src"]
-    return preceding if any(f"/cms/{asset_id}/" in source for asset_id in VERIFIED_LOCATION_STATISTIC_ASSET_IDS) else None
+    if any(not getattr(child, "name", None) and str(child).strip() for child in preceding.contents):
+        return None
+
+    source = all_images[0].get("src", "")
+    parsed = urlparse(source)
+    parts = parsed.path.split("/")
+    if (
+        parsed.scheme != "https"
+        or parsed.netloc.lower() != "static-cms.icony-hosting.de"
+        or parsed.query
+        or parsed.fragment
+        or len(parts) < 4
+        or parts[0] != ""
+        or parts[1] != "cms"
+        or parts[2] not in VERIFIED_LOCATION_STATISTIC_ASSET_IDS
+        or not parts[3]
+    ):
+        return None
+    return preceding
 
 
 def clean_location_structure(fragment: BeautifulSoup) -> None:

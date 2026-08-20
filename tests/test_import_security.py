@@ -3,10 +3,37 @@ import json
 import re
 from pathlib import Path
 from bs4 import BeautifulSoup
-from scripts.import_public_pages import clean_content, safe_href
+from scripts.import_public_pages import clean_content, safe_href, verified_preceding_statistics_image
 
 
 class ImportSecurityTests(unittest.TestCase):
+    def test_statistics_image_verification_fails_closed(self):
+        asset_id = "1C77F826642907FF8CC1C0C57AF48D532202C05892EE2D707B4862543E20201B"
+        valid_url = f"https://static-cms.icony-hosting.de/cms/{asset_id}/1000/Wien.jpg"
+
+        def predecessor(markup):
+            soup = BeautifulSoup(f"<main>{markup}<h2 id='statistics'>Dating-Statistik</h2></main>", "html.parser")
+            return soup, soup.select_one("#statistics")
+
+        soup, heading = predecessor(f'<h2 id="candidate"><img src="{valid_url}" alt="Wien"></h2>')
+        self.assertIs(verified_preceding_statistics_image(heading), soup.select_one("#candidate"))
+
+        invalid_predecessors = [
+            f'<h2><span><img src="{valid_url}" alt="Wien"></span></h2>',
+            f'<h2><img src="{valid_url}" alt="Wien"><img alt="ohne src"></h2>',
+            f'<h2><img src="https://evil.example/cms/{asset_id}/1000/Wien.jpg" alt="Wien"></h2>',
+            f'<h2><img src="https://static-cms.icony-hosting.de/image.jpg?asset=/cms/{asset_id}/1000/Wien.jpg" alt="Wien"></h2>',
+            f'<h2><img src="https://static-cms.icony-hosting.de/image.jpg#cms/{asset_id}/1000/Wien.jpg" alt="Wien"></h2>',
+            f'<h2><img src="/cms/{asset_id}/1000/Wien.jpg" alt="Wien"></h2>',
+            f'<h2><img src="https://user@static-cms.icony-hosting.de/cms/{asset_id}/1000/Wien.jpg" alt="Wien"></h2>',
+            f'<h2><img src="https://static-cms.icony-hosting.de:443/cms/{asset_id}/1000/Wien.jpg" alt="Wien"></h2>',
+            f'<h2><img src="https://static-cms.icony-hosting.de/cms/NOT{asset_id}/1000/Wien.jpg" alt="Wien"></h2>',
+        ]
+        for markup in invalid_predecessors:
+            with self.subTest(markup=markup):
+                _, heading = predecessor(markup)
+                self.assertIsNone(verified_preceding_statistics_image(heading))
+
     def test_location_snapshot_contains_no_legacy_statistics_or_broken_heading_wrappers(self):
         catalog = json.loads((Path(__file__).parents[1] / "data" / "pages.json").read_text(encoding="utf-8"))["pages"]
         offenders = []
