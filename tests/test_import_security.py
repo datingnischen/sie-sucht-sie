@@ -7,6 +7,19 @@ from scripts.import_public_pages import clean_content, safe_href, verified_prece
 
 
 class ImportSecurityTests(unittest.TestCase):
+    def test_malformed_or_missing_image_sources_are_removed_without_aborting_cleanup(self):
+        markup = """
+        <main><p>Nützlicher Inhalt bleibt.</p>
+          <img src="https://[invalid/cms/x.jpg" alt="kaputt">
+          <img alt="ohne src">
+        </main>
+        """
+        cleaned = clean_content(BeautifulSoup(markup, "html.parser"), "location", "https://www.sie-sucht-sie.de/oesterreich/wien")
+        self.assertIn("Nützlicher Inhalt bleibt", cleaned)
+        self.assertNotIn("invalid", cleaned)
+        self.assertNotIn("ohne src", cleaned)
+        self.assertNotIn("<img", cleaned)
+
     def test_statistics_image_verification_fails_closed(self):
         asset_id = "1C77F826642907FF8CC1C0C57AF48D532202C05892EE2D707B4862543E20201B"
         valid_url = f"https://static-cms.icony-hosting.de/cms/{asset_id}/1000/Wien.jpg"
