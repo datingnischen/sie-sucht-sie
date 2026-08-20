@@ -28,6 +28,18 @@ class ImportSecurityTests(unittest.TestCase):
             f'<h2><img src="https://user@static-cms.icony-hosting.de/cms/{asset_id}/1000/Wien.jpg" alt="Wien"></h2>',
             f'<h2><img src="https://static-cms.icony-hosting.de:443/cms/{asset_id}/1000/Wien.jpg" alt="Wien"></h2>',
             f'<h2><img src="https://static-cms.icony-hosting.de/cms/NOT{asset_id}/1000/Wien.jpg" alt="Wien"></h2>',
+            f'<h2><img src="HTTPS://static-cms.icony-hosting.de/cms/{asset_id}/1000/Wien.jpg" alt="Wien"></h2>',
+            f'<h2><img src="https://STATIC-CMS.ICONY-HOSTING.DE/cms/{asset_id}/1000/Wien.jpg" alt="Wien"></h2>',
+            f'<h2><img src="https://[invalid/cms/{asset_id}/1000/Wien.jpg" alt="Wien"></h2>',
+            f'<h2><img src="https://static-cms.icony-hosting.de/cms/{asset_id}/1000%2FWien.jpg" alt="Wien"></h2>',
+            f'<h2><img src="https://static-cms.icony-hosting.de/cms/{asset_id}/1000/../Wien.jpg" alt="Wien"></h2>',
+            f'<h2><img src="https://static-cms.icony-hosting.de/cms/{asset_id}/1000\\Wien.jpg" alt="Wien"></h2>',
+            f'<h2><img src="https://static-cms.icony-hosting.de/cms/{asset_id}/1000//Wien.jpg" alt="Wien"></h2>',
+            f'<h2><img src="https://static-cms.icony-hosting.de/cms/{asset_id}/1000/" alt="Wien"></h2>',
+            f'<h2><img src="http://static-cms.icony-hosting.de/cms/{asset_id}/1000/Wien.jpg" alt="Wien"></h2>',
+            f'<h2><img src="//static-cms.icony-hosting.de/cms/{asset_id}/1000/Wien.jpg" alt="Wien"></h2>',
+            f'<h2><img src="https://static-cms.icony-hosting.de./cms/{asset_id}/1000/Wien.jpg" alt="Wien"></h2>',
+            f'<h2><!--marker--><img src="{valid_url}" alt="Wien"></h2>',
         ]
         for markup in invalid_predecessors:
             with self.subTest(markup=markup):
