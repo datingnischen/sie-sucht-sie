@@ -232,6 +232,14 @@ def safe_href(raw_href: str, source_url: str) -> str | None:
     return absolute
 
 
+def is_well_formed_image_reference(value) -> bool:
+    if not isinstance(value, str) or not value or value != value.strip():
+        return False
+    if "\\" in value or any(char.isspace() or ord(char) < 0x20 or ord(char) == 0x7F or 0xD800 <= ord(char) <= 0xDFFF for char in value):
+        return False
+    return re.search(r"%(?![0-9A-Fa-f]{2})", value) is None
+
+
 def clean_content(soup: BeautifulSoup, kind: str, source_url: str) -> str:
     if kind == "platform":
         return ""
@@ -278,18 +286,27 @@ def clean_content(soup: BeautifulSoup, kind: str, source_url: str) -> str:
             elif parsed_href.scheme in {"http", "https"} and not is_internal:
                 node.attrs.update({"rel": "nofollow noopener noreferrer", "target": "_blank"})
         elif node.name == "img":
-            raw_source = node.get("src", "").strip()
-            if not raw_source:
+            raw_source = node.get("src", "")
+            if not is_well_formed_image_reference(raw_source):
                 node.decompose()
                 continue
             try:
                 source = urljoin(source_url, raw_source)
                 parsed = urlparse(source)
                 hostname = parsed.hostname
-            except (TypeError, ValueError):
+                port = parsed.port
+            except (TypeError, ValueError, UnicodeError):
                 node.decompose()
                 continue
-            if parsed.scheme != "https" or hostname not in ALLOWED_IMAGE_HOSTS or hostname in EXCLUDED_RESOURCE_HOSTS:
+            if (
+                parsed.scheme != "https"
+                or hostname not in ALLOWED_IMAGE_HOSTS
+                or hostname in EXCLUDED_RESOURCE_HOSTS
+                or parsed.username is not None
+                or parsed.password is not None
+                or port is not None
+                or parsed.netloc != hostname
+            ):
                 node.decompose()
                 continue
             node.attrs = {key: node.attrs[key] for key in ("src", "alt", "width", "height") if key in node.attrs}

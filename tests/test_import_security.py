@@ -8,17 +8,56 @@ from scripts.import_public_pages import clean_content, safe_href, verified_prece
 
 class ImportSecurityTests(unittest.TestCase):
     def test_malformed_or_missing_image_sources_are_removed_without_aborting_cleanup(self):
+        malformed_sources = [
+            "https://[invalid/cms/x.jpg",
+            "https://static-cms.icony-hosting.de:bad/cms/x.jpg",
+            "https://static-cms.icony-hosting.de:99999/cms/x.jpg",
+            "https://static-cms.icony-hosting.de/cms/%ZZ.jpg",
+            "https://user@static-cms.icony-hosting.de/cms/x.jpg",
+            "https://static-cms.icony-hosting.de./cms/x.jpg",
+            "https://STATIC-CMS.ICONY-HOSTING.DE/cms/x.jpg",
+            "https://static-cms.icony-hosting.de／@evil.example/cms/x.jpg",
+            "https://static-cms.icony-hosting.de/cms/a b.jpg",
+            "https://static-cms.icony-hosting.de/cms/\x00x.jpg",
+            "https://static-cms.icony-hosting.de/cms/\ud800.jpg",
+        ]
+        fragment = BeautifulSoup("<main><p>Nützlicher Inhalt bleibt.</p><img alt='ohne src'></main>", "html.parser")
+        for index, source in enumerate(malformed_sources):
+            image = fragment.new_tag("img", alt=f"kaputt-{index}")
+            image["src"] = source
+            fragment.main.append(image)
+        multi_value_image = fragment.new_tag("img", alt="mehrere Werte")
+        multi_value_image["src"] = [
+            "https://static-cms.icony-hosting.de/cms/a.jpg",
+            "https://static-cms.icony-hosting.de/cms/b.jpg",
+        ]
+        fragment.main.append(multi_value_image)
+
+        cleaned = clean_content(fragment, "location", "https://www.sie-sucht-sie.de/oesterreich/wien")
+        json.dumps({"contentHtml": cleaned}, ensure_ascii=False).encode("utf-8")
+        self.assertIn("Nützlicher Inhalt bleibt", cleaned)
+        self.assertNotIn("<img", cleaned)
+
+    def test_canonical_image_sources_remain_supported(self):
         markup = """
         <main><p>Nützlicher Inhalt bleibt.</p>
-          <img src="https://[invalid/cms/x.jpg" alt="kaputt">
-          <img alt="ohne src">
+          <img src="https://static-cms.icony-hosting.de/cms/example/photo.jpg" alt="absolut">
+          <img src="//static-cms.icony-hosting.de/cms/example/photo-2.jpg" alt="protokollrelativ">
+          <img src="/images/brand-mark.svg" alt="relativ">
+          <img src="https://static-cms.icony-hosting.de/cms/example/photo%20three.jpg" alt="kodiert">
         </main>
         """
         cleaned = clean_content(BeautifulSoup(markup, "html.parser"), "location", "https://www.sie-sucht-sie.de/oesterreich/wien")
-        self.assertIn("Nützlicher Inhalt bleibt", cleaned)
-        self.assertNotIn("invalid", cleaned)
-        self.assertNotIn("ohne src", cleaned)
-        self.assertNotIn("<img", cleaned)
+        soup = BeautifulSoup(cleaned, "html.parser")
+        self.assertEqual(
+            [image["src"] for image in soup.find_all("img")],
+            [
+                "https://static-cms.icony-hosting.de/cms/example/photo.jpg",
+                "https://static-cms.icony-hosting.de/cms/example/photo-2.jpg",
+                "https://www.sie-sucht-sie.de/images/brand-mark.svg",
+                "https://static-cms.icony-hosting.de/cms/example/photo%20three.jpg",
+            ],
+        )
 
     def test_statistics_image_verification_fails_closed(self):
         asset_id = "1C77F826642907FF8CC1C0C57AF48D532202C05892EE2D707B4862543E20201B"
