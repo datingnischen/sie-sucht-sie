@@ -10,6 +10,7 @@ import { buildBreadcrumbs, buildBreadcrumbSchema } from "@/lib/breadcrumbs.mjs";
 import { buildRelatedCards } from "@/lib/related-cards.mjs";
 import { RelatedCardSection } from "@/components/related-card-section";
 import { buildPageEntityGraph, serializePageEntityGraph } from "@/lib/page-entities.mjs";
+import { getCitySearchUrl } from "@/lib/location-search.mjs";
 
 type Props = { params: Promise<{ slug: string[] }> };
 
@@ -39,6 +40,7 @@ export default async function ImportedPageView({ params }: Props) {
   const breadcrumbs = buildBreadcrumbs(path, breadcrumbName);
   const breadcrumbSchema = buildBreadcrumbSchema(path, breadcrumbName);
   const pageEntityGraph = buildPageEntityGraph(page);
+  const citySearchUrl = page.type === "location" && !locationHubRoot ? getCitySearchUrl(path) : null;
   return <main className="wrap page-shell">
     <article className="article-card">
       <nav className="breadcrumbs" aria-label="Breadcrumb"><ol>{breadcrumbs.map((item, index) => <li key={item.path}>{index < breadcrumbs.length - 1 ? <Link href={item.path}>{item.name}</Link> : <span aria-current="page">{item.name}</span>}</li>)}</ol></nav>
@@ -47,6 +49,7 @@ export default async function ImportedPageView({ params }: Props) {
       <div className="article-hero"><div><p className="kicker">{page.type === "location" ? "Regional kennenlernen" : page.type === "lexicon" ? "Kurz erklärt" : "Gut informiert"}</p><h1>{page.h1}</h1><p className="lead">{page.description}</p><a className="button button-green" href={registrationUrl(path)}>Jetzt kostenlos starten</a></div>{image ? <img src={image.src} alt={image.alt || page.h1} /> : null}</div>
       {locationHubRoot ? <CityCardSection pages={publicPages} root={locationHubRoot} /> : null}
       <div className="rich-content" dangerouslySetInnerHTML={{ __html: contentHtml }} />
+      {citySearchUrl ? <aside className="inline-cta location-search-cta"><h2>Frauen in Deiner Stadt entdecken</h2><p>Starte die öffentliche Suche mit der zentralen Postleitzahl Deiner Stadt.</p><a className="button button-pink" href={citySearchUrl}>Frauen in meiner Stadt finden</a></aside> : null}
       <aside className="inline-cta"><h2>Bereit für Deinen ersten Kontakt?</h2><p>Erstelle kostenlos Dein Profil und entdecke Frauen, die ähnliche Wünsche und Werte mitbringen.</p><a className="button button-green" href={registrationUrl(path)}>Kostenlos registrieren</a></aside>
     </article>
     {relatedCards.length ? <RelatedCardSection cards={relatedCards} /> : related.length ? <aside className="related"><p className="kicker">Weiter entdecken</p><h2>Weitere passende Einstiege</h2><div className="related-grid">{related.map((item) => <Link href={item.path} key={item.path}><strong>{item.h1}</strong><span>Mehr erfahren →</span></Link>)}</div></aside> : null}
