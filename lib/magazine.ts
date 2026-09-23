@@ -34,7 +34,29 @@ export type MagazineCategory = { id: number; name: string; slug: string; count: 
 export type MagazineAuthor = { id: number; name: string; slug: string; description: string };
 type MagazineAsset = { localPath: string; legacyPaths: string[] };
 
-export const magazineEntries = catalog.entries as MagazineEntry[];
+export const magazineCategories = catalog.categories as MagazineCategory[];
+
+/**
+ * Editorial category fixes on top of the WordPress snapshot, keyed by post slug.
+ * WordPress filed these guides under "Lesbenportale", which is reserved for portal reviews.
+ */
+const CATEGORY_CORRECTIONS: Record<string, string[]> = {
+  "spaetes-coming-out-frauen": ["ratgeber"],
+  "vaginale-selbsttests-dating": ["ratgeber"],
+};
+
+function withCategoryCorrections(entry: MagazineEntry): MagazineEntry {
+  const slugs = CATEGORY_CORRECTIONS[entry.slug];
+  if (!slugs) return entry;
+  const categories = slugs.map((slug) => {
+    const category = magazineCategories.find((item) => item.slug === slug);
+    if (!category) throw new Error(`Unknown magazine category ${slug}`);
+    return { id: category.id, name: category.name, slug: category.slug };
+  });
+  return { ...entry, categories };
+}
+
+export const magazineEntries = (catalog.entries as MagazineEntry[]).map(withCategoryCorrections);
 export const magazineAttachments = catalog.attachments as MagazineAttachment[];
 /** Unmigrated WordPress URLs (member contact ads, tag listings) that permanently redirect. */
 export const magazineRetiredPaths = catalog.retired as MagazineRetiredPath[];
@@ -44,7 +66,6 @@ export const magazinePosts = magazineEntries
 export const magazinePages = magazineEntries
   .filter((entry) => entry.type === "page")
   .sort((a, b) => a.title.localeCompare(b.title, "de"));
-export const magazineCategories = catalog.categories as MagazineCategory[];
 export const magazineAuthors = catalog.authors as MagazineAuthor[];
 
 const magazineAssets = catalog.assets as MagazineAsset[];

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
 import { MagazineBreadcrumbs } from "@/components/magazine-breadcrumbs";
+import { PortalRanking } from "@/components/portal-ranking-sidebar";
 import {
   getMagazineAttachment,
   getMagazineEntry,
@@ -9,6 +10,7 @@ import {
   magazineStaticParams,
   relatedMagazineEntries,
 } from "@/lib/magazine";
+import { PORTAL_RANKING_CATEGORY } from "@/lib/portal-ranking";
 import { registrationUrl, SITE_URL } from "@/lib/site";
 
 export const dynamicParams = false;
@@ -59,6 +61,7 @@ export default async function MagazineDetailPage({ params }: Props) {
     notFound();
   }
   const related = relatedMagazineEntries(entry);
+  const isPortalReview = entry.categories.some((category) => category.slug === PORTAL_RANKING_CATEGORY);
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": entry.type === "post" ? "Article" : "WebPage",
@@ -96,9 +99,11 @@ export default async function MagazineDetailPage({ params }: Props) {
                 <p>Entdecke Frauen, die zu Dir und Deinen Wünschen passen.</p>
                 <a className="button button-green" href={registrationUrl(path)}>Kostenlos registrieren</a>
               </div>
-              <a className="magazine-radar-card" href={registrationUrl(path)}>
-                <img src="/brand/umkreissuche-radar.svg" alt="Umkreissuche: Frauen in Deiner Nähe – kostenlos anmelden" width={320} height={480} loading="lazy" decoding="async" />
-              </a>
+              {isPortalReview ? <PortalRanking currentPath={path} /> : (
+                <a className="magazine-radar-card" href={registrationUrl(path)}>
+                  <img src="/brand/umkreissuche-radar.svg" alt="Umkreissuche: Frauen in Deiner Nähe – kostenlos anmelden" width={320} height={480} loading="lazy" decoding="async" />
+                </a>
+              )}
             </aside>
           </div>
         </article>

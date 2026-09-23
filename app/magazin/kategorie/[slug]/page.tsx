@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MagazineArchive } from "@/components/magazine-archive";
+import { PortalRankingSidebar } from "@/components/portal-ranking-sidebar";
 import { getMagazineCategory, magazineCategories, postsForMagazineCategory } from "@/lib/magazine";
+import { PORTAL_RANKING_CATEGORY } from "@/lib/portal-ranking";
+import { registrationUrl } from "@/lib/site";
 
 export const dynamicParams = false;
 export function generateStaticParams() { return magazineCategories.map(({ slug }) => ({ slug })); }
@@ -16,5 +19,5 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function CategoryPage({ params }: Props) {
   const category = getMagazineCategory((await params).slug);
   if (!category) notFound();
-  return <MagazineArchive kicker="Magazin-Kategorie" title={category.name} intro={category.description || `Alle Beiträge aus der Kategorie ${category.name}.`} entries={postsForMagazineCategory(category.id)} />;
+  return <MagazineArchive kicker="Magazin-Kategorie" title={category.name} intro={category.description || `Alle Beiträge aus der Kategorie ${category.name}.`} entries={postsForMagazineCategory(category.id)} aside={category.slug === PORTAL_RANKING_CATEGORY ? <PortalRankingSidebar registrationHref={registrationUrl(`/magazin/kategorie/${category.slug}`)} /> : undefined} />;
 }
