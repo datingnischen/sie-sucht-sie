@@ -14,7 +14,7 @@ from bs4 import BeautifulSoup, Comment
 SITE = "https://www.sie-sucht-sie.de"
 SITEMAP = f"{SITE}/sitemap.php"
 OUT = Path(__file__).resolve().parents[1] / "data" / "pages.json"
-PLATFORM_ROOTS = {"registration", "login", "suche", "hilfe", "kontakt", "gutschein", "datenschutz.html", "impressum.html", "agb.html", "magazin"}
+PLATFORM_ROOTS = {"registration", "login", "suche", "hilfe", "kontakt", "gutschein", "datenschutz.html", "impressum.html", "agb.html", "sicherheit-und-datenschutz.html", "redaktionelle-kontrolle.html", "kostenlose-basis-mitgliedschaft.html", "unsere-erfolgsgeschichten.html", "magazin"}
 ALLOWED_TAGS = {
     "a", "b", "blockquote", "br", "div", "em", "figcaption", "figure", "h1", "h2", "h3", "h4",
     "hr", "img", "li", "main", "ol", "p", "picture", "section", "small", "span", "strong", "ul",

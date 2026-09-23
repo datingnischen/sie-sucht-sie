@@ -69,3 +69,14 @@ test("editorial hero images never select recommendation seals", () => {
     assert.doesNotMatch(hero?.src || "", /singleboersen-ueberblick\.de/i, page.path);
   }
 });
+
+test("ICONY-served trust pages are platform routes linked on the live domain", async () => {
+  const { classifyPath } = await import("../lib/site-contract.mjs");
+  const trustPaths = ["/sicherheit-und-datenschutz.html", "/redaktionelle-kontrolle.html", "/kostenlose-basis-mitgliedschaft.html", "/unsere-erfolgsgeschichten.html"];
+  for (const path of trustPaths) assert.equal(classifyPath(path), "platform");
+  const shell = await readFile(new URL("../components/site-shell.tsx", import.meta.url), "utf8");
+  const home = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
+  for (const path of trustPaths) assert.ok(!(shell + home).includes(`"${path}"`), `${path} must not be a relative link`);
+  const content = await readFile(new URL("../lib/content.ts", import.meta.url), "utf8");
+  assert.match(content, /ICONY_PAGE_LINK/);
+});

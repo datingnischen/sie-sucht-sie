@@ -29,4 +29,8 @@ export const platform = {
   privacy: `${LIVE}/datenschutz.html`,
   legal: `${LIVE}/impressum.html`,
   terms: `${LIVE}/agb.html`,
+  safety: `${LIVE}/sicherheit-und-datenschutz.html`,
+  editorialControl: `${LIVE}/redaktionelle-kontrolle.html`,
+  basicMembership: `${LIVE}/kostenlose-basis-mitgliedschaft.html`,
+  successStories: `${LIVE}/unsere-erfolgsgeschichten.html`,
 };
