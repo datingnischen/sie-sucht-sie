@@ -10,7 +10,7 @@ const nav = [
   ["Schweiz", "/schweiz"],
   ["Lexikon", "/lexikon"],
   ["Dating-Tipps", "/dating-tipps"],
-  ["Magazin", "https://www.sie-sucht-sie.de/magazin/"],
+  ["Magazin", "/magazin"],
 ] as const;
 
 export function Header() {

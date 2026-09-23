@@ -29,7 +29,7 @@ test("the sanitized snapshot classifies every eligible registration CTA with the
 
 test("ordinary editorial links remain ordinary text links", () => {
   const page = catalog.pages.find((item) => item.path === "/lexikon/kostenloser-lesbenchat");
-  assert.match(page.contentHtml, /<a href="https:\/\/www\.sie-sucht-sie\.de\/magazin\/lesbische-beziehung">eine harmonische Beziehung<\/a>/);
+  assert.match(page.contentHtml, /<a href="\/magazin\/lesbische-beziehung">eine harmonische Beziehung<\/a>/);
 });
 
 test("runtime rendering does not contain a second HTML parser", () => {

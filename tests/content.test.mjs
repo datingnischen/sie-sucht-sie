@@ -40,9 +40,10 @@ test("imported HTML allows no active or privacy-leaking URLs", () => {
   assert.doesNotMatch(html, /href=["']\/(?:videodate\.html|startseite)["']/i);
 });
 
-test("excluded platform and magazine links stay absolute for upstream ownership", () => {
+test("excluded platform links stay absolute for upstream ownership", () => {
   const html = catalog.pages.map((page) => page.contentHtml).join("\n");
-  for (const root of ["registration", "login", "hilfe", "kontakt", "datenschutz.html", "impressum.html", "agb.html", "magazin"]) {
+  // The magazine is migrated (data/magazine.json); its links are relative on purpose.
+  for (const root of ["registration", "login", "hilfe", "kontakt", "datenschutz.html", "impressum.html", "agb.html"]) {
     const relative = new RegExp(`href=["']/${root}(?:[/?"'])`, "i");
     assert.doesNotMatch(html, relative, `relative excluded link found for ${root}`);
   }

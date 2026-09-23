@@ -14,10 +14,11 @@ Language: de-DE
 - [Österreich](https://www.sie-sucht-sie.de/oesterreich): Regionale Einstiege für Österreich.
 - [Schweiz](https://www.sie-sucht-sie.de/schweiz): Regionale Einstiege für die Schweiz.
 - [Lexikon](https://www.sie-sucht-sie.de/lexikon): Begriffe rund um lesbisches Dating, Beziehungen und Community.
+- [Magazin](https://www.sie-sucht-sie.de/magazin): Artikel über Dating, Liebe, Coming-out und die lesbische Szene.
 
 ## Plattformgrenze
 
-Registrierung, Login, Suche, Hilfe und rechtliche Seiten bleiben Plattformfunktionen auf der Canonical-Domain. Die Sitemap enthält die öffentlich migrierten redaktionellen Seiten.
+Registrierung, Login, Suche, Hilfe und rechtliche Seiten bleiben Plattformfunktionen auf der Canonical-Domain. Das öffentliche Magazin und seine Beiträge werden statisch auf der neuen redaktionellen Oberfläche bereitgestellt.
 `;
 
 export function GET() {
