@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
       { source: "/magazin/kategorie/kontaktanzeigen/:rest*", destination: "/magazin", permanent: true },
       { source: "/magazin/schlagwort/:rest*", destination: "/magazin", permanent: true },
       { source: "/magazin/page/:page(\\d+)", destination: "/magazin", permanent: true },
-      { source: "/magazin/:year(\\d{4})/:rest*", destination: "/magazin", permanent: true },
+      { source: "/magazin/:year(\\d{4})/:rest*", destination: "/magazin/archiv", permanent: true },
     ];
   },
   async headers() {

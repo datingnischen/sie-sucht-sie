@@ -81,6 +81,16 @@ export function postsForMagazineCategory(id: number) {
   return magazinePosts.filter((entry) => entry.categories.some((category) => category.id === id));
 }
 
+/** Posts grouped by publication year, newest year first (posts stay newest first). */
+export function magazinePostsByYear() {
+  const years = new Map<string, MagazineEntry[]>();
+  for (const entry of magazinePosts) {
+    const year = entry.date.slice(0, 4);
+    years.set(year, [...(years.get(year) ?? []), entry]);
+  }
+  return [...years].map(([year, posts]) => ({ year, posts }));
+}
+
 export function postsForMagazineAuthor(id: number) {
   return magazinePosts.filter((entry) => entry.author?.id === id);
 }

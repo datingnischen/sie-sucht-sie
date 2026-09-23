@@ -15,6 +15,9 @@ export const metadata: Metadata = {
   },
 };
 
+// Landing shows the newest posts only; everything else lives in /magazin/archiv.
+const LANDING_POST_COUNT = 15;
+
 // Author bio pages are linked from bylines; they are not listed as guides.
 const BIO_PAGE_SLUGS = new Set(["alicia", "christian-m-haas", "redaktion"]);
 
@@ -24,7 +27,8 @@ function dateLabel(date: string) {
 
 export default function MagazinePage() {
   const featured = magazinePosts.slice(0, 3);
-  const morePosts = magazinePosts.slice(3);
+  const morePosts = magazinePosts.slice(3, LANDING_POST_COUNT);
+  const olderCount = magazinePosts.length - LANDING_POST_COUNT;
   const guides = magazinePages.filter((entry) => !BIO_PAGE_SLUGS.has(entry.slug));
   const categories = magazineCategories.filter((category) => postsForMagazineCategory(category.id).length > 0);
   return (
@@ -60,12 +64,13 @@ export default function MagazinePage() {
 
       {categories.length > 0 && (
         <nav className="wrap magazine-category-nav" aria-label="Magazin-Kategorien">
+          <Link className="magazine-category-all" href="/magazin/archiv">Alle Artikel</Link>
           {categories.map((category) => <Link href={`/magazin/kategorie/${category.slug}`} key={category.id}>{category.name}</Link>)}
         </nav>
       )}
 
       <section className="wrap magazine-section" aria-labelledby="alle-beitraege">
-        <div className="magazine-heading"><div><p className="kicker">Weiterlesen</p><h2 id="alle-beitraege">Alle Beiträge</h2></div><p>Lies über Partnersuche, Coming-out, Sex, Beziehungen, Serien und lesbische Kultur.</p></div>
+        <div className="magazine-heading"><div><p className="kicker">Weiterlesen</p><h2 id="alle-beitraege">Weitere Beiträge</h2></div><p>Lies über Partnersuche, Coming-out, Sex, Beziehungen, Serien und lesbische Kultur.</p></div>
         <div className="magazine-card-grid">
           {morePosts.map((entry) => (
             <article className="magazine-card" key={entry.id}>
@@ -81,6 +86,16 @@ export default function MagazinePage() {
             </article>
           ))}
         </div>
+        {olderCount > 0 && (
+          <div className="magazine-archive-cta">
+            <div>
+              <p className="kicker">Inhaltsverzeichnis</p>
+              <h3>Noch {olderCount} ältere Artikel</h3>
+              <p>Alle {magazinePosts.length} Beiträge nach Jahren sortiert, mit Themenübersicht.</p>
+            </div>
+            <Link className="button button-pink" href="/magazin/archiv">Alle Artikel ansehen →</Link>
+          </div>
+        )}
       </section>
 
       <section className="wrap magazine-section magazine-guides" aria-labelledby="guides">

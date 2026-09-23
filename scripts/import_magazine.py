@@ -42,8 +42,10 @@ KNOWN_PATH_FIXES = {
 # User-submitted contact ads (2016-2019) carry member names, ages, regions and
 # private social profiles. They are not migrated; their URLs redirect to /magazin.
 RETIRED_CATEGORY_SLUGS = {"kontaktanzeigen"}
-# Pages that only list contact-ad tags or WordPress date archives.
-RETIRED_PAGE_SLUGS = {"kontaktanzeigen-bundeslaender", "archiv"}
+# Pages that only list contact-ad tags.
+RETIRED_PAGE_SLUGS = {"kontaktanzeigen-bundeslaender"}
+# Pages whose URL is served by a dedicated Next.js route (app/magazin/archiv).
+REPLACED_PAGE_SLUGS = {"archiv"}
 RETIRED_TARGET = "/magazin"
 # WordPress archives that are not rebuilt; links to them are unwrapped.
 UNBUILT_ARCHIVE_PATH = re.compile(r"^/magazin/(?:schlagwort/|(?:19|20)\d{2}(?:/|$)|page/\d+$)")
@@ -442,7 +444,7 @@ def main() -> None:
                 raise FetchPolicyError(f"Refusing non-published WordPress entry {item.get('id')}")
             slug = item["slug"]
             path = f"/magazin/{slug}"
-            if path in retired_paths:
+            if path in retired_paths or (kind == "page" and slug in REPLACED_PAGE_SLUGS):
                 continue
             title = _plain(item.get("title", {}).get("rendered", ""))
             raw_content = item.get("content", {}).get("rendered", "")
@@ -527,7 +529,8 @@ def main() -> None:
     OUT.write_text(json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"Wrote {len(entries)} entries, {len(retired)} retired paths, {len(attachments)} attachments and {len(assets)} assets to {OUT}")
     category_paths = {f"/magazin/kategorie/{item['slug']}" for item in public_categories}
-    localize_public_pages(set(entry_paths) | category_paths, asset_map)
+    replaced_paths = {f"/magazin/{slug}" for slug in REPLACED_PAGE_SLUGS}
+    localize_public_pages(set(entry_paths) | category_paths | replaced_paths, asset_map)
 
 
 if __name__ == "__main__":

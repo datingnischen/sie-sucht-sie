@@ -30,7 +30,7 @@ test("magazine snapshot contains the public editorial inventory without contact 
 
 test("contact ads and their category are retired instead of migrated", () => {
   assert.ok(catalog.sourceCounts.retiredContactAds > 300);
-  assert.equal(retired.length, catalog.sourceCounts.retiredContactAds + 2);
+  assert.equal(retired.length, catalog.sourceCounts.retiredContactAds + 1);
   const entryPaths = new Set(entries.map((entry) => entry.path));
   for (const item of retired) {
     assert.match(item.path, /^\/magazin\/[^/]+$/);
@@ -108,7 +108,7 @@ test("all retained internal magazine links resolve to migrated content or archiv
   for (const entry of entries) {
     for (const match of entry.contentHtml.matchAll(/href="(\/[^"#?]+)["?#]/g)) {
       const path = decodeURI(match[1]).replace(/\/$/, "");
-      if (path.startsWith("/magazin/") && !owned.has(path) && !categories.has(path)) {
+      if (path.startsWith("/magazin/") && !owned.has(path) && !categories.has(path) && path !== "/magazin/archiv") {
         unresolved.push([entry.path, path]);
       }
     }
@@ -119,4 +119,15 @@ test("all retained internal magazine links resolve to migrated content or archiv
 test("imported editorial pages link to the migrated magazine instead of WordPress", () => {
   const serialized = JSON.stringify(pagesCatalog.pages);
   assert.doesNotMatch(serialized, /sie-sucht-sie\.de\/magazin/);
+});
+
+test("landing page stays short and hands older posts to the archive", async () => {
+  const landing = await readFile(new URL("../app/magazin/page.tsx", import.meta.url), "utf8");
+  const match = landing.match(/LANDING_POST_COUNT = (\d+)/);
+  assert.ok(match && Number(match[1]) >= 10 && Number(match[1]) <= 20);
+  assert.match(landing, /magazinePosts\.slice\(3, LANDING_POST_COUNT\)/);
+  assert.match(landing, /href="\/magazin\/archiv"/);
+  await access(new URL("../app/magazin/archiv/page.tsx", import.meta.url));
+  assert.ok(!entries.some((entry) => entry.path === "/magazin/archiv"), "archive route must not collide with an imported page");
+  assert.ok(!retired.some((item) => item.path === "/magazin/archiv"), "archive route must not redirect away");
 });
