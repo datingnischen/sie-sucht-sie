@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getFamilyPages, getImportedPage, normalizePublicPath, publicPages } from "@/lib/content";
-import { selectHeroImage } from "@/lib/hero-image.mjs";
+import { removeHeroImageFromContent, selectHeroImage } from "@/lib/hero-image.mjs";
+import { buildFaqMainEntity, extractFaq } from "@/lib/faq.mjs";
+import { FaqSection } from "@/components/faq-section";
 import { registrationUrl } from "@/lib/site";
 import { CityCardSection } from "@/components/city-card-section";
 import { removeLegacyCityLists } from "@/lib/location-hub.mjs";
@@ -35,11 +37,12 @@ export default async function ImportedPageView({ params }: Props) {
   const locationHubRoot = ["partnersuche", "oesterreich", "schweiz"].includes(root) && path === `/${root}` ? root as "partnersuche" | "oesterreich" | "schweiz" : null;
   const related = !locationHubRoot && ["partnersuche", "oesterreich", "schweiz", "lexikon"].includes(root) ? getFamilyPages(root).filter((item) => item.path !== path).slice(0, 6) : [];
   const relatedCards = page.type === "location" && !locationHubRoot ? buildRelatedCards(publicPages, path, root) : [];
-  const contentHtml = locationHubRoot ? removeLegacyCityLists(page.contentHtml, locationHubRoot, page.h1) : page.contentHtml;
+  const contentHtml = removeHeroImageFromContent(locationHubRoot ? removeLegacyCityLists(page.contentHtml, locationHubRoot, page.h1) : page.contentHtml, image);
+  const faq = extractFaq(contentHtml);
   const breadcrumbName = page.type === "location" ? undefined : page.h1;
   const breadcrumbs = buildBreadcrumbs(path, breadcrumbName);
   const breadcrumbSchema = buildBreadcrumbSchema(path, breadcrumbName);
-  const pageEntityGraph = buildPageEntityGraph(page);
+  const pageEntityGraph = buildPageEntityGraph(page, { faqEntities: faq ? buildFaqMainEntity(faq.groups) : [] });
   const citySearchUrl = page.type === "location" && !locationHubRoot ? getCitySearchUrl(path) : null;
   return <main className="wrap page-shell">
     <article className="article-card">
@@ -48,7 +51,11 @@ export default async function ImportedPageView({ params }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializePageEntityGraph(pageEntityGraph) }} />
       <div className="article-hero"><div><p className="kicker">{page.type === "location" ? "Regional kennenlernen" : page.type === "lexicon" ? "Kurz erklärt" : "Gut informiert"}</p><h1>{page.h1}</h1><p className="lead">{page.description}</p><a className="button button-green" href={registrationUrl(path)}>Jetzt kostenlos starten</a></div>{image ? <img src={image.src} alt={image.alt || page.h1} /> : null}</div>
       {locationHubRoot ? <CityCardSection pages={publicPages} root={locationHubRoot} /> : null}
-      <div className="rich-content" dangerouslySetInnerHTML={{ __html: contentHtml }} />
+      {faq ? <>
+        <div className="rich-content" dangerouslySetInnerHTML={{ __html: faq.beforeHtml }} />
+        <FaqSection groups={faq.groups} registrationHref={registrationUrl(path)} />
+        <div className="rich-content" dangerouslySetInnerHTML={{ __html: faq.afterHtml }} />
+      </> : <div className="rich-content" dangerouslySetInnerHTML={{ __html: contentHtml }} />}
       {citySearchUrl ? <aside className="inline-cta location-search-cta"><h2>Frauen in Deiner Stadt entdecken</h2><p>Starte die öffentliche Suche mit der zentralen Postleitzahl Deiner Stadt.</p><a className="button button-pink" href={citySearchUrl}>Frauen in meiner Stadt finden</a></aside> : null}
       <aside className="inline-cta inline-cta-radar"><div><h2>Bereit für Deinen ersten Kontakt?</h2><p>Erstelle kostenlos Dein Profil und entdecke Frauen, die ähnliche Wünsche und Werte mitbringen.</p><a className="button button-green" href={registrationUrl(path)}>Kostenlos registrieren</a></div><a className="radar-card" href={registrationUrl(path)}><img src="/brand/umkreissuche-radar.svg" alt="Umkreissuche: Frauen in Deiner Nähe – kostenlos anmelden" width={320} height={480} loading="lazy" decoding="async" /></a></aside>
     </article>
