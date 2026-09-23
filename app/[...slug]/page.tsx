@@ -50,7 +50,7 @@ export default async function ImportedPageView({ params }: Props) {
       {locationHubRoot ? <CityCardSection pages={publicPages} root={locationHubRoot} /> : null}
       <div className="rich-content" dangerouslySetInnerHTML={{ __html: contentHtml }} />
       {citySearchUrl ? <aside className="inline-cta location-search-cta"><h2>Frauen in Deiner Stadt entdecken</h2><p>Starte die öffentliche Suche mit der zentralen Postleitzahl Deiner Stadt.</p><a className="button button-pink" href={citySearchUrl}>Frauen in meiner Stadt finden</a></aside> : null}
-      <aside className="inline-cta"><h2>Bereit für Deinen ersten Kontakt?</h2><p>Erstelle kostenlos Dein Profil und entdecke Frauen, die ähnliche Wünsche und Werte mitbringen.</p><a className="button button-green" href={registrationUrl(path)}>Kostenlos registrieren</a></aside>
+      <aside className="inline-cta inline-cta-radar"><div><h2>Bereit für Deinen ersten Kontakt?</h2><p>Erstelle kostenlos Dein Profil und entdecke Frauen, die ähnliche Wünsche und Werte mitbringen.</p><a className="button button-green" href={registrationUrl(path)}>Kostenlos registrieren</a></div><a className="radar-card" href={registrationUrl(path)}><img src="/brand/umkreissuche-radar.svg" alt="Umkreissuche: Frauen in Deiner Nähe – kostenlos anmelden" width={320} height={480} loading="lazy" decoding="async" /></a></aside>
     </article>
     {relatedCards.length ? <RelatedCardSection cards={relatedCards} /> : related.length ? <aside className="related"><p className="kicker">Weiter entdecken</p><h2>Weitere passende Einstiege</h2><div className="related-grid">{related.map((item) => <Link href={item.path} key={item.path}><strong>{item.h1}</strong><span>Mehr erfahren →</span></Link>)}</div></aside> : null}
   </main>;
