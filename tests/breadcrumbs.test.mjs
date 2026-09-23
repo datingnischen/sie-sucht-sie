@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { buildBreadcrumbs, buildBreadcrumbSchema } from "../lib/breadcrumbs.mjs";
+import { buildPageEntityGraph } from "../lib/page-entities.mjs";
 
 test("Austrian city pages expose a linked Start / Österreich / Wien hierarchy", () => {
   assert.deepEqual(buildBreadcrumbs("/oesterreich/wien"), [
@@ -40,4 +41,18 @@ test("breadcrumb structured data uses canonical absolute item URLs", () => {
       { "@type": "ListItem", position: 3, name: "Wien", item: "https://www.sie-sucht-sie.de/oesterreich/wien" },
     ],
   });
+});
+
+test("breadcrumb list joins the page entity graph and is referenced by the WebPage", () => {
+  const canonical = "https://www.sie-sucht-sie.de/partnersuche/hamburg";
+  const graph = buildPageEntityGraph(
+    { canonical, h1: "Hamburg", description: "Frauen in Hamburg kennenlernen." },
+    { breadcrumb: buildBreadcrumbSchema("/partnersuche/hamburg") },
+  );
+  const webpage = graph["@graph"].find((node) => node["@id"] === `${canonical}#webpage`);
+  const breadcrumb = graph["@graph"].find((node) => node["@type"] === "BreadcrumbList");
+  assert.deepEqual(webpage.breadcrumb, { "@id": `${canonical}#breadcrumb` });
+  assert.equal(breadcrumb["@id"], `${canonical}#breadcrumb`);
+  assert.equal(breadcrumb["@context"], undefined);
+  assert.equal(breadcrumb.itemListElement.at(-1).item, canonical);
 });
