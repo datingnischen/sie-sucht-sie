@@ -68,6 +68,11 @@ export const magazinePages = magazineEntries
   .sort((a, b) => a.title.localeCompare(b.title, "de"));
 export const magazineAuthors = catalog.authors as MagazineAuthor[];
 
+/** Visible article date: the last update, falling back to the publication date. Pages show no date. */
+export function articleUpdatedDate(entry: MagazineEntry): string {
+  return entry.modified || entry.date;
+}
+
 const magazineAssets = catalog.assets as MagazineAsset[];
 const entryByPath = new Map(magazineEntries.map((entry) => [entry.path, entry]));
 const attachmentByPath = new Map(magazineAttachments.map((attachment) => [attachment.path, attachment]));

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MagazineBreadcrumbs } from "@/components/magazine-breadcrumbs";
-import { magazineCategories, magazinePostsByYear, magazinePosts, postsForMagazineCategory } from "@/lib/magazine";
+import { articleUpdatedDate, magazineCategories, magazinePostsByYear, magazinePosts, postsForMagazineCategory } from "@/lib/magazine";
 
 export const metadata: Metadata = {
   title: "Alle Artikel im Magazin – Inhaltsverzeichnis",
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 function dayLabel(date: string) {
-  return new Intl.DateTimeFormat("de-DE", { day: "2-digit", month: "short" }).format(new Date(date));
+  return new Intl.DateTimeFormat("de-DE", { day: "2-digit", month: "short", year: "numeric" }).format(new Date(date));
 }
 
 export default function MagazineArchivePage() {
@@ -62,7 +62,7 @@ export default function MagazineArchivePage() {
                         <strong>{entry.title}</strong>
                         <span>{entry.categories[0]?.name || "Magazin"}</span>
                       </span>
-                      <time dateTime={entry.date}>{dayLabel(entry.date)}</time>
+                      <time dateTime={articleUpdatedDate(entry)}>Aktualisiert {dayLabel(articleUpdatedDate(entry))}</time>
                     </Link>
                   </li>
                 ))}

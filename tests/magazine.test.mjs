@@ -131,3 +131,19 @@ test("landing page stays short and hands older posts to the archive", async () =
   assert.ok(!entries.some((entry) => entry.path === "/magazin/archiv"), "archive route must not collide with an imported page");
   assert.ok(!retired.some((item) => item.path === "/magazin/archiv"), "archive route must not redirect away");
 });
+
+test("pages show no date; articles show their update date", async () => {
+  const detail = await readFile(new URL("../app/magazin/[...slug]/page.tsx", import.meta.url), "utf8");
+  const landing = await readFile(new URL("../app/magazin/page.tsx", import.meta.url), "utf8");
+  const archive = await readFile(new URL("../app/magazin/archiv/page.tsx", import.meta.url), "utf8");
+  assert.match(detail, /entry\.type === "post" \? articleUpdatedDate\(entry\)/);
+  assert.match(detail, /Aktualisiert am <time dateTime=\{updated\}>/);
+  assert.match(detail, /datePublished: entry\.date/);
+  assert.match(detail, /dateModified: entry\.modified/);
+  for (const source of [detail, landing, archive]) {
+    assert.doesNotMatch(source, /<time dateTime=\{entry\.date\}>/);
+  }
+  assert.match(landing, /Aktualisiert \{dateLabel\(articleUpdatedDate\(entry\)\)\}/);
+  assert.match(archive, /Aktualisiert \{dayLabel\(articleUpdatedDate\(entry\)\)\}/);
+  assert.ok(entries.filter((entry) => entry.type === "post").every((entry) => entry.modified || entry.date));
+});

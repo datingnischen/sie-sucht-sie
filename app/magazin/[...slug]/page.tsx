@@ -4,6 +4,7 @@ import { notFound, permanentRedirect } from "next/navigation";
 import { MagazineBreadcrumbs } from "@/components/magazine-breadcrumbs";
 import { PortalRanking } from "@/components/portal-ranking-sidebar";
 import {
+  articleUpdatedDate,
   getMagazineAttachment,
   getMagazineEntry,
   getRetiredMagazinePath,
@@ -61,6 +62,7 @@ export default async function MagazineDetailPage({ params }: Props) {
     notFound();
   }
   const related = relatedMagazineEntries(entry);
+  const updated = entry.type === "post" ? articleUpdatedDate(entry) : "";
   const isPortalReview = entry.categories.some((category) => category.slug === PORTAL_RANKING_CATEGORY);
   const jsonLd = {
     "@context": "https://schema.org",
@@ -86,7 +88,7 @@ export default async function MagazineDetailPage({ params }: Props) {
             <p className="magazine-article-deck">{entry.description}</p>
             <div className="magazine-byline">
               {entry.author?.name && <span>Von <Link href={`/magazin/author/${entry.author.slug}`}>{entry.author.name}</Link></span>}
-              {entry.date && <time dateTime={entry.date}>{dateLabel(entry.date)}</time>}
+              {updated && <span>Aktualisiert am <time dateTime={updated}>{dateLabel(updated)}</time></span>}
             </div>
           </header>
           {entry.featuredImage && <figure className="magazine-article-hero"><img src={entry.featuredImage} alt="" /></figure>}

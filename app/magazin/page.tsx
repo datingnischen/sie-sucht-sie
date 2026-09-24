@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MagazineBreadcrumbs } from "@/components/magazine-breadcrumbs";
-import { magazineCategories, magazinePages, magazinePosts, postsForMagazineCategory } from "@/lib/magazine";
+import { articleUpdatedDate, magazineCategories, magazinePages, magazinePosts, postsForMagazineCategory } from "@/lib/magazine";
 
 export const metadata: Metadata = {
   title: "Magazin für lesbische und bisexuelle Frauen – Dating, Liebe & Szene",
@@ -54,7 +54,7 @@ export default function MagazinePage() {
                   <span>{entry.categories[0]?.name || "Magazin"}</span>
                   <h3>{entry.title}</h3>
                   <p>{entry.description}</p>
-                  <time dateTime={entry.date}>{dateLabel(entry.date)}</time>
+                  <time dateTime={articleUpdatedDate(entry)}>Aktualisiert {dateLabel(articleUpdatedDate(entry))}</time>
                 </div>
               </Link>
             </article>
@@ -80,7 +80,7 @@ export default function MagazinePage() {
                   <span>{entry.categories[0]?.name || "Ratgeber"}</span>
                   <h3>{entry.title}</h3>
                   <p>{entry.description}</p>
-                  <time dateTime={entry.date}>{dateLabel(entry.date)}</time>
+                  <time dateTime={articleUpdatedDate(entry)}>Aktualisiert {dateLabel(articleUpdatedDate(entry))}</time>
                 </div>
               </Link>
             </article>
