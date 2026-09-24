@@ -97,3 +97,16 @@ test("city cards disable motion when the visitor requests reduced motion", () =>
   assert.match(globalCss, /@media\s*\(prefers-reduced-motion:\s*reduce\)[\s\S]*?\.city-tile img[^}]*transition:\s*none[^}]*transform:\s*none/i);
   assert.match(globalCss, /@media\s*\(prefers-reduced-motion:\s*reduce\)[\s\S]*?\.city-tile-action[^}]*transition:\s*none[^}]*transform:\s*none/i);
 });
+
+test("every city hub points visitors without a city page to the individual live search", async () => {
+  const { getIndividualSearchUrl } = await import("../lib/location-search.mjs");
+  assert.equal(getIndividualSearchUrl(), "https://www.sie-sucht-sie.de/suche/?AID=location");
+  const section = await readFile(new URL("../components/city-card-section.tsx", import.meta.url), "utf8");
+  const fallback = await readFile(new URL("../components/city-search-fallback.tsx", import.meta.url), "utf8");
+  assert.match(section, /<\/div>\s*<CitySearchFallback /);
+  assert.match(fallback, /href=\{getIndividualSearchUrl\(\)\}/);
+  assert.match(fallback, /Deine Stadt fehlt\?/);
+  assert.doesNotMatch(fallback, /vercel\.app/);
+  assert.match(globalCss, /\.city-search-fallback\{display:flex/);
+  assert.match(globalCss, /@media\(max-width:720px\)\{\.city-search-fallback\{flex-direction:column/);
+});
