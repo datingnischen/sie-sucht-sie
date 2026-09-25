@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { platform, registrationUrl } from "@/lib/site";
 import { ABOUT_REVIEWS_PATH, ABOUT_ROOT_PATH, ABOUT_SOCIAL_PATH } from "@/lib/about-pages.mjs";
+import { staticAsset } from "@/lib/static-asset.mjs";
 
 const nav = [
   ["Partnersuche", "/partnersuche"],
@@ -20,7 +21,7 @@ export function Header() {
     <header className="site-header">
       <div className="header-inner">
         <Link className="brand" href="/" aria-label="Sie-sucht-Sie.de Startseite">
-          <img src="/brand/logo.svg" alt="Sie-sucht-Sie.de – Für Single-Frauen, die Frauen suchen" width="306" height="50" />
+          <img src={staticAsset("/brand/logo.svg")} alt="Sie-sucht-Sie.de – Für Single-Frauen, die Frauen suchen" width="306" height="50" />
         </Link>
         <nav className="desktop-nav" aria-label="Hauptnavigation">
           {nav.map(([label, href]) => href.startsWith("http") ? <a href={href} key={label}>{label}</a> : <Link href={href} key={label}>{label}</Link>)}
@@ -46,11 +47,11 @@ export function Footer() {
       </section>
       <div className="footer-grid">
         <div className="footer-brand">
-          <img src="/brand/logo.svg" alt="Sie-sucht-Sie.de" width="306" height="50" />
+          <img src={staticAsset("/brand/logo.svg")} alt="Sie-sucht-Sie.de" width="306" height="50" />
           <p>Eine Community für Frauen, die Frauen lieben – mit regionalen Einstiegen, Datingwissen und redaktionell geprüften Profilen.</p>
           <ul className="trust-list"><li>Über 20 Jahre Dating-Erfahrung</li><li>Server in Deutschland</li><li>Keine versteckten Kosten beim Einstieg</li></ul>
           <a className="seal" href="https://singleboersen-ueberblick.de/testbericht/sie-sucht-sie-de" rel="nofollow noopener noreferrer" target="_blank">
-            <img src="/trust/empfohlen-45-sterne.png" alt="Empfohlen von Singlebörsen-Überblick.de – 4,5 Sterne" width="300" height="60" />
+            <img src={staticAsset("/trust/empfohlen-45-sterne.png")} alt="Empfohlen von Singlebörsen-Überblick.de – 4,5 Sterne" width="300" height="60" />
           </a>
         </div>
         <FooterColumn title="Entdecken" links={[["Partnersuche", "/partnersuche"], ["Österreich", "/oesterreich"], ["Schweiz", "/schweiz"], ["Lexikon", "/lexikon"], ["Dating-Tipps", platform.datingTips], ["Magazin", "/magazin"]]} />

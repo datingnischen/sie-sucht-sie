@@ -13,6 +13,7 @@ import {
 } from "@/lib/magazine";
 import { PORTAL_RANKING_CATEGORY } from "@/lib/portal-ranking";
 import { registrationUrl, SITE_URL } from "@/lib/site";
+import { staticAsset } from "@/lib/static-asset.mjs";
 
 export const dynamicParams = false;
 
@@ -73,7 +74,7 @@ export default async function MagazineDetailPage({ params }: Props) {
     description: entry.description,
     datePublished: entry.date,
     dateModified: entry.modified,
-    image: entry.featuredImage ? `${SITE_URL}${entry.featuredImage}` : undefined,
+    image: entry.featuredImage || undefined,
     author: entry.author ? { "@type": "Person", name: entry.author.name } : undefined,
     isPartOf: { "@id": `${SITE_URL}/#website` },
   };
@@ -103,7 +104,7 @@ export default async function MagazineDetailPage({ params }: Props) {
               </div>
               {isPortalReview ? <PortalRanking currentPath={path} /> : (
                 <a className="magazine-radar-card" href={registrationUrl(path)}>
-                  <img src="/brand/umkreissuche-radar.svg" alt="Umkreissuche: Frauen in Deiner Nähe – kostenlos anmelden" width={320} height={480} loading="lazy" decoding="async" />
+                  <img src={staticAsset("/brand/umkreissuche-radar.svg")} alt="Umkreissuche: Frauen in Deiner Nähe – kostenlos anmelden" width={320} height={480} loading="lazy" decoding="async" />
                 </a>
               )}
             </aside>

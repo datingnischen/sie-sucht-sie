@@ -1,6 +1,7 @@
 import catalog from "@/data/pages.json";
 import { classifyPath, SITE_URL } from "./site-contract.mjs";
 import { ABOUT_PAGE_MOVES, aboutPathForImportedPath } from "./about-pages.mjs";
+import { absolutizeAssetUrls, staticAsset } from "./static-asset.mjs";
 
 export type ImportedPage = {
   path: string;
@@ -34,7 +35,16 @@ function withAboutPath(page: ImportedPage): ImportedPage {
   return path === page.path ? page : { ...page, path, canonical: `${SITE_URL}${path}` };
 }
 
-const pages = (catalog.pages as ImportedPage[]).map(withPlatformOwnership).map(withAboutPath);
+// Importierte Medien liegen in public/magazine/media und kommen vom Asset-Host (nginx reicht nur Seitenrouten durch).
+function withAbsoluteAssets(page: ImportedPage): ImportedPage {
+  return {
+    ...page,
+    contentHtml: absolutizeAssetUrls(page.contentHtml),
+    images: page.images.map((image) => ({ ...image, src: staticAsset(image.src) })),
+  };
+}
+
+const pages = (catalog.pages as ImportedPage[]).map(withPlatformOwnership).map(withAboutPath).map(withAbsoluteAssets);
 const pageMap = new Map(pages.map((page) => [page.path, page]));
 
 export const publicPages = pages.filter((page) => page.type !== "platform" && page.type !== "magazine");

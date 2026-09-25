@@ -1,4 +1,5 @@
 import catalog from "@/data/magazine.json";
+import { absolutizeAssetUrls, staticAsset } from "./static-asset.mjs";
 
 export type MagazineEntry = {
   id: number;
@@ -56,8 +57,19 @@ function withCategoryCorrections(entry: MagazineEntry): MagazineEntry {
   return { ...entry, categories };
 }
 
-export const magazineEntries = (catalog.entries as MagazineEntry[]).map(withCategoryCorrections);
-export const magazineAttachments = catalog.attachments as MagazineAttachment[];
+// Medien kommen vom Asset-Host, weil der nginx vor der Live-Domain nur Seitenrouten durchreicht.
+function withAbsoluteAssets(entry: MagazineEntry): MagazineEntry {
+  return {
+    ...entry,
+    featuredImage: entry.featuredImage ? staticAsset(entry.featuredImage) : entry.featuredImage,
+    contentHtml: absolutizeAssetUrls(entry.contentHtml),
+  };
+}
+
+export const magazineEntries = (catalog.entries as MagazineEntry[]).map(withCategoryCorrections).map(withAbsoluteAssets);
+export const magazineAttachments = (catalog.attachments as MagazineAttachment[]).map((attachment) =>
+  attachment.targetType === "asset" ? { ...attachment, target: staticAsset(attachment.target) } : attachment,
+);
 /** Unmigrated WordPress URLs (member contact ads, tag listings) that permanently redirect. */
 export const magazineRetiredPaths = catalog.retired as MagazineRetiredPath[];
 export const magazinePosts = magazineEntries
@@ -80,7 +92,7 @@ const retiredByPath = new Map(magazineRetiredPaths.map((retired) => [retired.pat
 const categoryBySlug = new Map(magazineCategories.map((category) => [category.slug, category]));
 const authorBySlug = new Map(magazineAuthors.map((author) => [author.slug, author]));
 const legacyAssetByPath = new Map(
-  magazineAssets.flatMap((asset) => asset.legacyPaths.map((path) => [safeDecodePath(path), asset.localPath] as const)),
+  magazineAssets.flatMap((asset) => asset.legacyPaths.map((path) => [safeDecodePath(path), staticAsset(asset.localPath)] as const)),
 );
 
 export function getMagazineEntry(path: string) {

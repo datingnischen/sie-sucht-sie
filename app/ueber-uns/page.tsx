@@ -6,6 +6,7 @@ import { serializePageEntityGraph } from "@/lib/page-entities.mjs";
 import { platform, registrationUrl, SITE_URL } from "@/lib/site";
 import { socialChannels, socialProfileUrls } from "@/lib/social-channels";
 import { SocialIcon } from "@/components/social-icon";
+import { staticAsset } from "@/lib/static-asset.mjs";
 
 const canonical = `${SITE_URL}${ABOUT_ROOT_PATH}`;
 const title = "Über uns: Wer hinter Sie-sucht-Sie.de steht";
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical },
-  openGraph: { title, description, url: canonical, images: ["/about/magazin-redaktion.webp"] },
+  openGraph: { title, description, url: canonical, images: [staticAsset("/about/magazin-redaktion.webp")] },
 };
 
 function aboutEntityGraph() {
@@ -32,7 +33,7 @@ function aboutEntityGraph() {
     "@context": "https://schema.org",
     "@graph": [
       { "@type": "WebSite", "@id": `${SITE_URL}/#website`, url: `${SITE_URL}/`, name: "Sie-sucht-Sie.de", inLanguage: "de-DE" },
-      { "@type": "Organization", "@id": `${SITE_URL}/#organization`, name: "Sie-sucht-Sie.de", url: `${SITE_URL}/`, logo: `${SITE_URL}/brand/logo.svg`, sameAs: socialProfileUrls },
+      { "@type": "Organization", "@id": `${SITE_URL}/#organization`, name: "Sie-sucht-Sie.de", url: `${SITE_URL}/`, logo: staticAsset("/brand/logo.svg"), sameAs: socialProfileUrls },
       { "@type": "AboutPage", "@id": `${canonical}#webpage`, url: canonical, name: "Über uns", description, inLanguage: "de-DE", isPartOf: { "@id": `${SITE_URL}/#website` }, about: { "@id": `${SITE_URL}/#organization` } },
     ],
   };
@@ -65,14 +66,14 @@ export default function AboutPage() {
         </div>
         <div className="about-card-grid about-card-grid-duo">
           <div className="about-card">
-            <img className="about-card-image" src="/about/betrieb-support.webp" alt="Frau lächelt beim Selfie in die Kamera" width="720" height="450" loading="lazy" />
+            <img className="about-card-image" src={staticAsset("/about/betrieb-support.webp")} alt="Frau lächelt beim Selfie in die Kamera" width="720" height="450" loading="lazy" />
             <p className="kicker">Betrieb &amp; Support</p>
             <h3>Im Partnernetzwerk der ICONY GmbH</h3>
             <p>Über 20 Jahre Dating-Erfahrung und Server in Deutschland: Unser Supportteam prüft zu Deiner Sicherheit jedes Profil.</p>
             <a className="about-card-link" href={platform.legal}>Zum Impressum</a>
           </div>
           <div className="about-card">
-            <img className="about-card-image" src="/about/magazin-redaktion.webp" alt="Zwei Frauen lachen sich in einer Bar an" width="720" height="450" loading="lazy" />
+            <img className="about-card-image" src={staticAsset("/about/magazin-redaktion.webp")} alt="Zwei Frauen lachen sich in einer Bar an" width="720" height="450" loading="lazy" />
             <p className="kicker">Magazin &amp; Redaktion</p>
             <h3>Wissen rund um lesbisches Dating</h3>
             <p>Unsere Redaktion schreibt über Dating, Beziehungen und Community-Themen – verständlich und nah an dem, was Frauen bewegt, die Frauen lieben.</p>
@@ -96,7 +97,7 @@ export default function AboutPage() {
         </div>
         <div className="about-section-actions">
           <Link className="button button-pink" href={ABOUT_REVIEWS_PATH}>Alle Bewertungen &amp; Erfahrungen</Link>
-          <img src="/trust/empfohlen-45-sterne.png" alt="Empfohlen von Singlebörsen-Überblick.de – 4,5 Sterne" width="300" height="60" />
+          <img src={staticAsset("/trust/empfohlen-45-sterne.png")} alt="Empfohlen von Singlebörsen-Überblick.de – 4,5 Sterne" width="300" height="60" />
         </div>
       </section>
 
