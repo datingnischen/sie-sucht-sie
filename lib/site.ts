@@ -33,4 +33,5 @@ export const platform = {
   editorialControl: `${LIVE}/redaktionelle-kontrolle.html`,
   basicMembership: `${LIVE}/kostenlose-basis-mitgliedschaft.html`,
   successStories: `${LIVE}/unsere-erfolgsgeschichten.html`,
+  datingTips: `${LIVE}/dating-tipps/`,
 };

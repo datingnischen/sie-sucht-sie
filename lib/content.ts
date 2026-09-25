@@ -1,5 +1,6 @@
 import catalog from "@/data/pages.json";
 import { classifyPath, SITE_URL } from "./site-contract.mjs";
+import { ABOUT_PAGE_MOVES, aboutPathForImportedPath } from "./about-pages.mjs";
 
 export type ImportedPage = {
   path: string;
@@ -17,14 +18,23 @@ export type ImportedPage = {
 
 // Pages that ICONY still serves on the live domain are never rendered here,
 // and imported links to them point straight to the live domain.
-const ICONY_PAGE_LINK = /href="(\/(?:sicherheit-und-datenschutz|redaktionelle-kontrolle|kostenlose-basis-mitgliedschaft|unsere-erfolgsgeschichten)\.html)"/g;
+const ICONY_PAGE_LINK = /href="(\/(?:(?:sicherheit-und-datenschutz|redaktionelle-kontrolle|kostenlose-basis-mitgliedschaft|unsere-erfolgsgeschichten)\.html|dating-tipps\/?))"/g;
+// Imported links to pages that moved below "Über uns" point to their new path.
+const ABOUT_PAGE_LINK = new RegExp(`href="(${Object.keys(ABOUT_PAGE_MOVES).join("|")})/?"`, "g");
 
 function withPlatformOwnership(page: ImportedPage): ImportedPage {
-  const contentHtml = page.contentHtml.replace(ICONY_PAGE_LINK, `href="${SITE_URL}$1"`);
+  const contentHtml = page.contentHtml
+    .replace(ICONY_PAGE_LINK, `href="${SITE_URL}$1"`)
+    .replace(ABOUT_PAGE_LINK, (_, path: string) => `href="${aboutPathForImportedPath(path)}"`);
   return { ...page, contentHtml, type: classifyPath(page.path) === "platform" ? "platform" : page.type };
 }
 
-const pages = (catalog.pages as ImportedPage[]).map(withPlatformOwnership);
+function withAboutPath(page: ImportedPage): ImportedPage {
+  const path = aboutPathForImportedPath(page.path);
+  return path === page.path ? page : { ...page, path, canonical: `${SITE_URL}${path}` };
+}
+
+const pages = (catalog.pages as ImportedPage[]).map(withPlatformOwnership).map(withAboutPath);
 const pageMap = new Map(pages.map((page) => [page.path, page]));
 
 export const publicPages = pages.filter((page) => page.type !== "platform" && page.type !== "magazine");

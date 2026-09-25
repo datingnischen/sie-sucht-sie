@@ -3,14 +3,15 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { platform, registrationUrl } from "@/lib/site";
+import { ABOUT_REVIEWS_PATH, ABOUT_ROOT_PATH, ABOUT_SOCIAL_PATH } from "@/lib/about-pages.mjs";
 
 const nav = [
   ["Partnersuche", "/partnersuche"],
   ["Österreich", "/oesterreich"],
   ["Schweiz", "/schweiz"],
   ["Lexikon", "/lexikon"],
-  ["Dating-Tipps", "/dating-tipps"],
   ["Magazin", "/magazin"],
+  ["Über uns", ABOUT_ROOT_PATH],
 ] as const;
 
 export function Header() {
@@ -52,7 +53,8 @@ export function Footer() {
             <img src="/trust/empfohlen-45-sterne.png" alt="Empfohlen von Singlebörsen-Überblick.de – 4,5 Sterne" width="300" height="60" />
           </a>
         </div>
-        <FooterColumn title="Entdecken" links={[["Partnersuche", "/partnersuche"], ["Österreich", "/oesterreich"], ["Schweiz", "/schweiz"], ["Lexikon", "/lexikon"], ["Dating-Tipps", "/dating-tipps"]]} />
+        <FooterColumn title="Entdecken" links={[["Partnersuche", "/partnersuche"], ["Österreich", "/oesterreich"], ["Schweiz", "/schweiz"], ["Lexikon", "/lexikon"], ["Dating-Tipps", platform.datingTips], ["Magazin", "/magazin"]]} />
+        <FooterColumn title="Über uns" links={[["Über Sie-sucht-Sie", ABOUT_ROOT_PATH], ["Bewertungen & Erfahrungen", ABOUT_REVIEWS_PATH], ["Social Media", ABOUT_SOCIAL_PATH]]} />
         <FooterColumn title="Vertrauen" links={[["Sicherheit & Datenschutz", platform.safety], ["Redaktionelle Kontrolle", platform.editorialControl], ["Basis-Mitgliedschaft", platform.basicMembership], ["Erfolgsgeschichten", platform.successStories], ["FAQ", "/faq"]]} />
         <div className="footer-column"><h2>Service</h2><ul>
           <li><a href={platform.help}>Hilfe & Support</a></li><li><a href={platform.login}>Login</a></li><li><a href={register}>Registrieren</a></li>
@@ -65,5 +67,5 @@ export function Footer() {
 }
 
 function FooterColumn({ title, links }: { title: string; links: readonly (readonly [string, string])[] }) {
-  return <div className="footer-column"><h2>{title}</h2><ul>{links.map(([label, href]) => <li key={href}><Link href={href}>{label}</Link></li>)}</ul></div>;
+  return <div className="footer-column"><h2>{title}</h2><ul>{links.map(([label, href]) => <li key={href}>{href.startsWith("http") ? <a href={href}>{label}</a> : <Link href={href}>{label}</Link>}</li>)}</ul></div>;
 }
