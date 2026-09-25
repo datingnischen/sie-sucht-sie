@@ -26,6 +26,9 @@ export default function nextConfig(phase: string): NextConfig {
 
   return {
     poweredByHeader: false,
+    // Seiten-URLs enden auf "/" wie die ICONY-Plattform; Next leitet Pfade ohne Schrägstrich per 308 um
+    // (relativ, Dateien wie /sitemap.xml und Bild-URLs bleiben ohne).
+    trailingSlash: true,
     assetPrefix: isDev ? undefined : `${assetHost}${assetPathPrefix}`,
     turbopack: { root: process.cwd() },
     async redirects() {
@@ -35,15 +38,15 @@ export default function nextConfig(phase: string): NextConfig {
         { source: "/magazin/sitemap_index.xml", destination: "/magazin/sitemap.xml", permanent: true },
         { source: "/magazin/post-sitemap.xml", destination: "/magazin/sitemap.xml", permanent: true },
         { source: "/magazin/page-sitemap.xml", destination: "/magazin/sitemap.xml", permanent: true },
-        { source: "/magazin/szenebars-berlin", destination: "/magazin/lesbische-szenebars-in-berlin", permanent: true },
-        { source: "/magazin/queer-definition-bedeutung", destination: "/magazin/queer", permanent: true },
-        { source: "/magazin/autor/alicia-schlienz", destination: "/magazin/alicia", permanent: true },
-        { source: "/magazin/autor/christian-m-haas", destination: "/magazin/christian-m-haas", permanent: true },
+        { source: "/magazin/szenebars-berlin", destination: "/magazin/lesbische-szenebars-in-berlin/", permanent: true },
+        { source: "/magazin/queer-definition-bedeutung", destination: "/magazin/queer/", permanent: true },
+        { source: "/magazin/autor/alicia-schlienz", destination: "/magazin/alicia/", permanent: true },
+        { source: "/magazin/autor/christian-m-haas", destination: "/magazin/christian-m-haas/", permanent: true },
         // WordPress archives that are not rebuilt: tag listings (mostly contact ads), date archives, pagination.
-        { source: "/magazin/kategorie/kontaktanzeigen/:rest*", destination: "/magazin", permanent: true },
-        { source: "/magazin/schlagwort/:rest*", destination: "/magazin", permanent: true },
-        { source: "/magazin/page/:page(\\d+)", destination: "/magazin", permanent: true },
-        { source: "/magazin/:year(\\d{4})/:rest*", destination: "/magazin/archiv", permanent: true },
+        { source: "/magazin/kategorie/kontaktanzeigen/:rest*", destination: "/magazin/", permanent: true },
+        { source: "/magazin/schlagwort/:rest*", destination: "/magazin/", permanent: true },
+        { source: "/magazin/page/:page(\\d+)", destination: "/magazin/", permanent: true },
+        { source: "/magazin/:year(\\d{4})/:rest*", destination: "/magazin/archiv/", permanent: true },
       ];
     },
     async rewrites() {

@@ -13,7 +13,7 @@ type Props = { params: Promise<{ slug: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const category = getMagazineCategory((await params).slug);
   if (!category) return { robots: { index: false, follow: false } };
-  return { title: `${category.name} im Sie-sucht-Sie Magazin`, description: category.description || `Beiträge aus der Kategorie ${category.name}.`, alternates: { canonical: `https://www.sie-sucht-sie.de/magazin/kategorie/${category.slug}` }, robots: { index: false, follow: true } };
+  return { title: `${category.name} im Sie-sucht-Sie Magazin`, description: category.description || `Beiträge aus der Kategorie ${category.name}.`, alternates: { canonical: `https://www.sie-sucht-sie.de/magazin/kategorie/${category.slug}/` }, robots: { index: false, follow: true } };
 }
 
 export default async function CategoryPage({ params }: Props) {

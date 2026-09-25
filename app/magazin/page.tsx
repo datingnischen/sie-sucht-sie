@@ -6,10 +6,10 @@ import { articleUpdatedDate, magazineCategories, magazinePages, magazinePosts, p
 export const metadata: Metadata = {
   title: "Magazin für lesbische und bisexuelle Frauen – Dating, Liebe & Szene",
   description: "Artikel über lesbisches Dating, Beziehungen, Coming-out, Szene-Treffpunkte und das Leben als Frau, die Frauen liebt.",
-  alternates: { canonical: "https://www.sie-sucht-sie.de/magazin" },
+  alternates: { canonical: "https://www.sie-sucht-sie.de/magazin/" },
   openGraph: {
     type: "website",
-    url: "https://www.sie-sucht-sie.de/magazin",
+    url: "https://www.sie-sucht-sie.de/magazin/",
     title: "Das Sie-sucht-Sie Magazin",
     description: "Artikel über lesbisches Dating, Beziehungen, Coming-out und Szene-Treffpunkte.",
   },

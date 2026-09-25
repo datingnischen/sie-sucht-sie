@@ -1,5 +1,5 @@
 import catalog from "@/data/pages.json";
-import { classifyPath, SITE_URL } from "./site-contract.mjs";
+import { classifyPath, publicUrl, SITE_URL, slashInternalLinks, withTrailingSlash } from "./site-contract.mjs";
 import { ABOUT_PAGE_MOVES, aboutPathForImportedPath } from "./about-pages.mjs";
 import { absolutizeAssetUrls, staticAsset } from "./static-asset.mjs";
 
@@ -32,7 +32,12 @@ function withPlatformOwnership(page: ImportedPage): ImportedPage {
 
 function withAboutPath(page: ImportedPage): ImportedPage {
   const path = aboutPathForImportedPath(page.path);
-  return path === page.path ? page : { ...page, path, canonical: `${SITE_URL}${path}` };
+  return path === page.path ? page : { ...page, path, canonical: publicUrl(path) };
+}
+
+// Seiten-URLs enden auf "/" wie die ICONY-Plattform; der Import-Snapshot bleibt unverändert.
+function withTrailingSlashUrls(page: ImportedPage): ImportedPage {
+  return { ...page, canonical: withTrailingSlash(page.canonical), contentHtml: slashInternalLinks(page.contentHtml) };
 }
 
 // Importierte Medien liegen in public/magazine/media und kommen vom Asset-Host (nginx reicht nur Seitenrouten durch).
@@ -44,7 +49,7 @@ function withAbsoluteAssets(page: ImportedPage): ImportedPage {
   };
 }
 
-const pages = (catalog.pages as ImportedPage[]).map(withPlatformOwnership).map(withAboutPath).map(withAbsoluteAssets);
+const pages = (catalog.pages as ImportedPage[]).map(withPlatformOwnership).map(withAboutPath).map(withTrailingSlashUrls).map(withAbsoluteAssets);
 const pageMap = new Map(pages.map((page) => [page.path, page]));
 
 export const publicPages = pages.filter((page) => page.type !== "platform" && page.type !== "magazine");

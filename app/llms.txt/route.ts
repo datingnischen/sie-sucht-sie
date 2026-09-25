@@ -10,11 +10,11 @@ Language: de-DE
 
 ## Öffentliche Inhaltsbereiche
 
-- [Partnersuche in Deutschland](https://www.sie-sucht-sie.de/partnersuche): Regionale Einstiege und deutsche Städte.
-- [Österreich](https://www.sie-sucht-sie.de/oesterreich): Regionale Einstiege für Österreich.
-- [Schweiz](https://www.sie-sucht-sie.de/schweiz): Regionale Einstiege für die Schweiz.
-- [Lexikon](https://www.sie-sucht-sie.de/lexikon): Begriffe rund um lesbisches Dating, Beziehungen und Community.
-- [Magazin](https://www.sie-sucht-sie.de/magazin): Artikel über Dating, Liebe, Coming-out und die lesbische Szene.
+- [Partnersuche in Deutschland](https://www.sie-sucht-sie.de/partnersuche/): Regionale Einstiege und deutsche Städte.
+- [Österreich](https://www.sie-sucht-sie.de/oesterreich/): Regionale Einstiege für Österreich.
+- [Schweiz](https://www.sie-sucht-sie.de/schweiz/): Regionale Einstiege für die Schweiz.
+- [Lexikon](https://www.sie-sucht-sie.de/lexikon/): Begriffe rund um lesbisches Dating, Beziehungen und Community.
+- [Magazin](https://www.sie-sucht-sie.de/magazin/): Artikel über Dating, Liebe, Coming-out und die lesbische Szene.
 
 ## Plattformgrenze
 

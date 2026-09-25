@@ -32,7 +32,7 @@ export function FaqSection({ groups, registrationHref }: { groups: FaqGroup[]; r
         <p>In der Hilfe findest Du weitere Antworten und den direkten Draht zu unserem Support.</p>
       </div>
       <div className="faq-help-actions">
-        <a className="button button-outline" href="https://www.sie-sucht-sie.de/hilfe">Zur Hilfe</a>
+        <a className="button button-outline" href="https://www.sie-sucht-sie.de/hilfe/">Zur Hilfe</a>
         <a className="button button-green" href={registrationHref}>Kostenlos starten</a>
       </div>
     </aside>

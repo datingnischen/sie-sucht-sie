@@ -37,14 +37,14 @@ test("breadcrumb structured data uses canonical absolute item URLs", () => {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Start", item: "https://www.sie-sucht-sie.de/" },
-      { "@type": "ListItem", position: 2, name: "Österreich", item: "https://www.sie-sucht-sie.de/oesterreich" },
-      { "@type": "ListItem", position: 3, name: "Wien", item: "https://www.sie-sucht-sie.de/oesterreich/wien" },
+      { "@type": "ListItem", position: 2, name: "Österreich", item: "https://www.sie-sucht-sie.de/oesterreich/" },
+      { "@type": "ListItem", position: 3, name: "Wien", item: "https://www.sie-sucht-sie.de/oesterreich/wien/" },
     ],
   });
 });
 
 test("breadcrumb list joins the page entity graph and is referenced by the WebPage", () => {
-  const canonical = "https://www.sie-sucht-sie.de/partnersuche/hamburg";
+  const canonical = "https://www.sie-sucht-sie.de/partnersuche/hamburg/";
   const graph = buildPageEntityGraph(
     { canonical, h1: "Hamburg", description: "Frauen in Hamburg kennenlernen." },
     { breadcrumb: buildBreadcrumbSchema("/partnersuche/hamburg") },

@@ -1,5 +1,6 @@
 import catalog from "@/data/magazine.json";
 import { absolutizeAssetUrls, staticAsset } from "./static-asset.mjs";
+import { slashInternalLinks, withTrailingSlash } from "./site-contract.mjs";
 
 export type MagazineEntry = {
   id: number;
@@ -58,20 +59,24 @@ function withCategoryCorrections(entry: MagazineEntry): MagazineEntry {
 }
 
 // Medien kommen vom Asset-Host, weil der nginx vor der Live-Domain nur Seitenrouten durchreicht.
+// Seiten-URLs (Canonical, interne Links) enden auf "/" wie die ICONY-Plattform; der Snapshot bleibt unverändert.
 function withAbsoluteAssets(entry: MagazineEntry): MagazineEntry {
   return {
     ...entry,
+    canonical: withTrailingSlash(entry.canonical),
     featuredImage: entry.featuredImage ? staticAsset(entry.featuredImage) : entry.featuredImage,
-    contentHtml: absolutizeAssetUrls(entry.contentHtml),
+    contentHtml: absolutizeAssetUrls(slashInternalLinks(entry.contentHtml)),
   };
 }
 
 export const magazineEntries = (catalog.entries as MagazineEntry[]).map(withCategoryCorrections).map(withAbsoluteAssets);
 export const magazineAttachments = (catalog.attachments as MagazineAttachment[]).map((attachment) =>
-  attachment.targetType === "asset" ? { ...attachment, target: staticAsset(attachment.target) } : attachment,
+  attachment.targetType === "asset"
+    ? { ...attachment, target: staticAsset(attachment.target) }
+    : { ...attachment, target: withTrailingSlash(attachment.target) },
 );
 /** Unmigrated WordPress URLs (member contact ads, tag listings) that permanently redirect. */
-export const magazineRetiredPaths = catalog.retired as MagazineRetiredPath[];
+export const magazineRetiredPaths = (catalog.retired as MagazineRetiredPath[]).map((retired) => ({ ...retired, target: withTrailingSlash(retired.target) }));
 export const magazinePosts = magazineEntries
   .filter((entry) => entry.type === "post")
   .sort((a, b) => b.date.localeCompare(a.date));

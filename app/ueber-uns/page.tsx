@@ -4,11 +4,12 @@ import { ABOUT_REVIEWS_PATH, ABOUT_ROOT_PATH, ABOUT_SOCIAL_PATH } from "@/lib/ab
 import { buildBreadcrumbs, buildBreadcrumbSchema } from "@/lib/breadcrumbs.mjs";
 import { serializePageEntityGraph } from "@/lib/page-entities.mjs";
 import { platform, registrationUrl, SITE_URL } from "@/lib/site";
+import { publicUrl } from "@/lib/site-contract.mjs";
 import { socialChannels, socialProfileUrls } from "@/lib/social-channels";
 import { SocialIcon } from "@/components/social-icon";
 import { staticAsset } from "@/lib/static-asset.mjs";
 
-const canonical = `${SITE_URL}${ABOUT_ROOT_PATH}`;
+const canonical = publicUrl(ABOUT_ROOT_PATH);
 const title = "Über uns: Wer hinter Sie-sucht-Sie.de steht";
 const description = "Lerne die Plattform hinter Sie-sucht-Sie.de kennen: Betrieb, Redaktion, Bewertungen, Erfahrungen und unsere Social-Media-Kanäle.";
 

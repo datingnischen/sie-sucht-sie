@@ -6,7 +6,7 @@ import { articleUpdatedDate, magazineCategories, magazinePostsByYear, magazinePo
 export const metadata: Metadata = {
   title: "Alle Artikel im Magazin – Inhaltsverzeichnis",
   description: "Alle Artikel aus dem Sie-sucht-Sie Magazin nach Jahren sortiert: lesbisches Dating, Beziehungen, Coming-out, Serien und Szene.",
-  alternates: { canonical: "https://www.sie-sucht-sie.de/magazin/archiv" },
+  alternates: { canonical: "https://www.sie-sucht-sie.de/magazin/archiv/" },
 };
 
 function dayLabel(date: string) {
