@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { platform, registrationUrl } from "@/lib/site";
 import { ABOUT_REVIEWS_PATH, ABOUT_ROOT_PATH, ABOUT_SOCIAL_PATH } from "@/lib/about-pages.mjs";
 import { staticAsset } from "@/lib/static-asset.mjs";
+import { SITE_SEARCH_PATH } from "@/lib/site-search.mjs";
 
 const nav = [
   ["Partnersuche", "/partnersuche"],
@@ -27,6 +28,9 @@ export function Header() {
           {nav.map(([label, href]) => href.startsWith("http") ? <a href={href} key={label}>{label}</a> : <Link href={href} key={label}>{label}</Link>)}
         </nav>
         <div className="header-actions">
+          <Link className="header-search" href={SITE_SEARCH_PATH} aria-label="Magazin, Städte und Lexikon durchsuchen" title="Suche">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" strokeWidth="2.2" /><path d="m15.5 15.5 5 5" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" /></svg>
+          </Link>
           <a className="login" href={platform.login}>Login</a>
           <a className="button button-green button-compact" href={registrationUrl(pathname)}>Registrieren</a>
         </div>
@@ -55,7 +59,7 @@ export function Footer() {
           </a>
         </div>
         <FooterColumn title="Entdecken" links={[["Partnersuche", "/partnersuche"], ["Österreich", "/oesterreich"], ["Schweiz", "/schweiz"], ["Lexikon", "/lexikon"], ["Dating-Tipps", platform.datingTips], ["Magazin", "/magazin"]]} />
-        <FooterColumn title="Über uns" links={[["Über Sie-sucht-Sie", ABOUT_ROOT_PATH], ["Bewertungen & Erfahrungen", ABOUT_REVIEWS_PATH], ["Social Media", ABOUT_SOCIAL_PATH]]} />
+        <FooterColumn title="Über uns" links={[["Über Sie-sucht-Sie", ABOUT_ROOT_PATH], ["Bewertungen & Erfahrungen", ABOUT_REVIEWS_PATH], ["Social Media", ABOUT_SOCIAL_PATH], ["Suche", SITE_SEARCH_PATH]]} />
         <FooterColumn title="Vertrauen" links={[["Sicherheit & Datenschutz", platform.safety], ["Redaktionelle Kontrolle", platform.editorialControl], ["Basis-Mitgliedschaft", platform.basicMembership], ["Erfolgsgeschichten", platform.successStories], ["FAQ", "/faq"]]} />
         <div className="footer-column"><h2>Service</h2><ul>
           <li><a href={platform.help}>Hilfe & Support</a></li><li><a href={platform.login}>Login</a></li><li><a href={register}>Registrieren</a></li>

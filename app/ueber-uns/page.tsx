@@ -8,6 +8,7 @@ import { publicUrl } from "@/lib/site-contract.mjs";
 import { socialChannels, socialProfileUrls } from "@/lib/social-channels";
 import { SocialIcon } from "@/components/social-icon";
 import { staticAsset } from "@/lib/static-asset.mjs";
+import { SiteSearchForm } from "@/components/site-search-form";
 
 const canonical = publicUrl(ABOUT_ROOT_PATH);
 const title = "Über uns: Wer hinter Sie-sucht-Sie.de steht";
@@ -57,6 +58,7 @@ export default function AboutPage() {
           <li><a href="#bewertungen">Bewertungen &amp; Erfahrungen</a></li>
           <li><a href="#social-media">Social Media</a></li>
         </ul>
+        <div className="about-search"><SiteSearchForm id="about-search-q" /></div>
       </header>
 
       <section className="about-section" id="wer-wir-sind" aria-labelledby="wer-wir-sind-title">
