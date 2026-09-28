@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { MagazineBreadcrumbs } from "@/components/magazine-breadcrumbs";
-import { articleUpdatedDate, magazineCategories, magazinePostsByYear, magazinePosts, postsForMagazineCategory } from "@/lib/magazine";
+import { BookIcon } from "@/components/icons";
+import { MagazineArchiveHero, MagazineFilterChips } from "@/components/magazine-archive";
+import { categoriesWithPosts } from "@/components/magazine/content";
+import { MagazineCard } from "@/components/magazine/magazine-card";
+import { magazinePostsByYear, magazinePosts } from "@/lib/magazine";
 
 export const metadata: Metadata = {
   title: "Alle Artikel im Magazin – Inhaltsverzeichnis",
@@ -9,78 +12,62 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://www.sie-sucht-sie.de/magazin/archiv/" },
 };
 
-function dayLabel(date: string) {
-  return new Intl.DateTimeFormat("de-DE", { day: "2-digit", month: "short", year: "numeric" }).format(new Date(date));
-}
-
 export default function MagazineArchivePage() {
   const years = magazinePostsByYear();
-  const categories = magazineCategories
-    .map((category) => ({ ...category, total: postsForMagazineCategory(category.id).length }))
-    .filter((category) => category.total > 0);
+  const categories = categoriesWithPosts();
   const firstYear = years.at(-1)?.year;
+  const covers = magazinePosts.filter((entry) => entry.featuredImage).slice(0, 3);
   return (
-    <main className="magazine-main">
-      <section className="magazine-archive-hero magazine-toc-hero">
-        <div className="wrap">
-          <MagazineBreadcrumbs current="Alle Artikel" />
-          <p className="kicker">Inhaltsverzeichnis</p>
-          <h1>Alle Artikel im Magazin</h1>
-          <p>Alle Beiträge auf einen Blick, die neuesten zuerst. Spring direkt zu einem Jahrgang oder stöbere nach Thema.</p>
-          <dl className="magazine-toc-stats">
-            <div><dt>Artikel</dt><dd>{magazinePosts.length}</dd></div>
-            <div><dt>Jahrgänge</dt><dd>{years.length}</dd></div>
-            <div><dt>Themen</dt><dd>{categories.length}</dd></div>
-            {firstYear && <div><dt>Seit</dt><dd>{firstYear}</dd></div>}
-          </dl>
-        </div>
-      </section>
+    <main className="mz-main">
+      <MagazineArchiveHero
+        kicker="Inhaltsverzeichnis"
+        kickerIcon={<BookIcon />}
+        title={<>Alle Artikel im <em>Magazin</em></>}
+        crumb="Alle Artikel"
+        intro={<p>Alle Beiträge auf einen Blick, die neuesten zuerst. Spring direkt zu einem Jahrgang oder stöbere nach Thema.</p>}
+        stats={[
+          { value: magazinePosts.length, label: "Artikel" },
+          { value: years.length, label: "Jahrgänge" },
+          { value: categories.length, label: "Themen" },
+          ...(firstYear ? [{ value: firstYear, label: "Seit" }] : []),
+        ]}
+        visual={covers.length === 3 ? (
+          <div className="mz-hero-stack" aria-hidden="true">
+            {covers.map((entry) => <img src={entry.featuredImage ?? ""} alt="" key={entry.id} decoding="async" />)}
+          </div>
+        ) : undefined}
+      />
+      <MagazineFilterChips active="alle" />
 
-      <nav className="magazine-toc-jump" aria-label="Zu Jahrgang springen">
-        <div className="wrap">
-          <span>Jahr</span>
-          {years.map(({ year, posts }) => <a href={`#jahr-${year}`} key={year}>{year}<small>{posts.length}</small></a>)}
-        </div>
+      <nav className="wrap mz-years" aria-label="Zu Jahrgang springen">
+        <span>Jahrgang</span>
+        {years.map(({ year, posts }) => <a href={`#jahr-${year}`} key={year}>{year}<small>{posts.length}</small></a>)}
       </nav>
 
-      <div className="wrap magazine-toc-layout">
-        <div className="magazine-toc-years">
-          {years.map(({ year, posts }) => (
-            <section className="magazine-toc-year" id={`jahr-${year}`} aria-labelledby={`jahr-${year}-titel`} key={year}>
-              <header>
-                <h2 id={`jahr-${year}-titel`}>{year}</h2>
-                <p>{posts.length} Artikel</p>
-              </header>
-              <ol>
-                {posts.map((entry) => (
-                  <li key={entry.id}>
-                    <Link className="magazine-toc-row" href={entry.path}>
-                      {entry.featuredImage
-                        ? <img src={entry.featuredImage} alt="" loading="lazy" />
-                        : <span className="magazine-toc-thumb" aria-hidden="true" />}
-                      <span className="magazine-toc-copy">
-                        <strong>{entry.title}</strong>
-                        <span>{entry.categories[0]?.name || "Magazin"}</span>
-                      </span>
-                      <time dateTime={articleUpdatedDate(entry)}>Aktualisiert {dayLabel(articleUpdatedDate(entry))}</time>
-                    </Link>
-                  </li>
-                ))}
-              </ol>
-            </section>
-          ))}
-        </div>
-
-        <aside className="magazine-toc-side" aria-labelledby="themen">
-          <h2 id="themen">Nach Thema</h2>
-          <ul>
-            {categories.map((category) => (
-              <li key={category.id}><Link href={`/magazin/kategorie/${category.slug}`}><span>{category.name}</span><small>{category.total}</small></Link></li>
-            ))}
-          </ul>
-          <Link className="button button-outline" href="/magazin">Zur Magazin-Startseite</Link>
-        </aside>
+      <div className="wrap mz-year-list">
+        {years.map(({ year, posts }) => (
+          <section className="mz-year" id={`jahr-${year}`} aria-labelledby={`jahr-${year}-titel`} key={year}>
+            <header className="mz-year-head">
+              <h2 id={`jahr-${year}-titel`}>{year}</h2>
+              <p>{posts.length} Artikel</p>
+            </header>
+            <div className="mz-grid mz-grid-compact">
+              {posts.map((entry) => <MagazineCard entry={entry} variant="compact" showExcerpt={false} key={entry.id} />)}
+            </div>
+          </section>
+        ))}
       </div>
+
+      <section className="wrap mz-section">
+        <div className="mz-archive-cta">
+          <div>
+            <p className="kicker">Zurück zum Anfang</p>
+            <h2>Neues, Szene-Guides und <em>Begriffe</em></h2>
+            <p>Auf der Magazin-Startseite findest Du die neuesten Beiträge, lesbische Szenebars nach Städten und das Glossar.</p>
+          </div>
+          <Link className="button button-green" href="/magazin">Zur Magazin-Startseite</Link>
+        </div>
+      </section>
     </main>
   );
 }

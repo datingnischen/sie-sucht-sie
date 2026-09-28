@@ -2,13 +2,18 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ABOUT_REVIEWS_PATH, ABOUT_ROOT_PATH, ABOUT_SOCIAL_PATH } from "@/lib/about-pages.mjs";
 import { buildBreadcrumbs, buildBreadcrumbSchema } from "@/lib/breadcrumbs.mjs";
+import { getFamilyPages } from "@/lib/content";
+import { getMagazineAuthor, magazineCategories, magazinePosts } from "@/lib/magazine";
 import { serializePageEntityGraph } from "@/lib/page-entities.mjs";
-import { platform, registrationUrl, SITE_URL } from "@/lib/site";
+import { locationName, platform, registrationUrl, SITE_URL } from "@/lib/site";
 import { publicUrl } from "@/lib/site-contract.mjs";
 import { socialChannels, socialProfileUrls } from "@/lib/social-channels";
-import { SocialIcon } from "@/components/social-icon";
 import { staticAsset } from "@/lib/static-asset.mjs";
+import { AboutHero, RatingStars } from "@/components/about/about-hero";
+import { stripTags } from "@/components/editorial/imported-html";
+import { ArrowIcon, BookIcon, HeartFilledIcon, HeartIcon, KeyIcon, PinIcon, ShieldIcon, SparkIcon, StarIcon, VenusPairIcon } from "@/components/icons";
 import { SiteSearchForm } from "@/components/site-search-form";
+import { SocialIcon } from "@/components/social-icon";
 
 const canonical = publicUrl(ABOUT_ROOT_PATH);
 const title = "Über uns: Wer hinter Sie-sucht-Sie.de steht";
@@ -16,10 +21,20 @@ const description = "Lerne die Plattform hinter Sie-sucht-Sie.de kennen: Betrieb
 
 // Scores and wording come from the imported ICONY page /bewertungen-und-erfahrungen and the footer seal.
 const ratings = [
-  { source: "Trustpilot", score: "4,4", scale: "5", label: "Sterne", text: "Nutzerinnen loben die einfache Anmeldung, die Übersichtlichkeit der Funktionen und die vielen aktiven Mitglieder.", href: "https://www.trustpilot.com/review/sie-sucht-sie.de" },
-  { source: "Singlebörsen-Überblick.de", score: "4,5", scale: "5", label: "Sterne", text: "Hervorgehoben wird die klare Ausrichtung auf lesbische Frauen, die ernsthafte Kontakte leichter macht.", href: "https://singleboersen-ueberblick.de/testbericht/sie-sucht-sie-de" },
-  { source: "Singlebörsen-Vergleichen.de", score: null, scale: null, label: "Testbericht", text: "Betont werden die faire Preisgestaltung und die Möglichkeit, die Plattform erst einmal kostenlos zu testen.", href: "https://www.singleboersen-vergleichen.de/singleportal/sie-sucht-sie/" },
+  { source: "Trustpilot", score: "4,4", value: 4.4, scale: "5", label: "Sterne", text: "Nutzerinnen loben die einfache Anmeldung, die Übersichtlichkeit der Funktionen und die vielen aktiven Mitglieder.", href: "https://www.trustpilot.com/review/sie-sucht-sie.de" },
+  { source: "Singlebörsen-Überblick.de", score: "4,5", value: 4.5, scale: "5", label: "Sterne", text: "Hervorgehoben wird die klare Ausrichtung auf lesbische Frauen, die ernsthafte Kontakte leichter macht.", href: "https://singleboersen-ueberblick.de/testbericht/sie-sucht-sie-de" },
+  { source: "Singlebörsen-Vergleichen.de", score: null, value: null, scale: null, label: "Testbericht", text: "Betont werden die faire Preisgestaltung und die Möglichkeit, die Plattform erst einmal kostenlos zu testen.", href: "https://www.singleboersen-vergleichen.de/singleportal/sie-sucht-sie/" },
 ] as const;
+
+// Werte aus den Aussagen dieser Seite (Betrieb & Support, Wer wir sind) – keine neuen Versprechen.
+const values = [
+  { icon: <HeartIcon />, title: "Liebe, Freundschaft, Flirt", text: "Für die feste Beziehung genauso wie für neue Freundschaften und ehrliche Flirts." },
+  { icon: <ShieldIcon />, title: "Geprüfte Profile", text: "Unser Supportteam prüft zu Deiner Sicherheit jedes Profil." },
+  { icon: <KeyIcon />, title: "Server in Deutschland", text: "Sie-sucht-Sie.de läuft auf Servern in Deutschland." },
+  { icon: <SparkIcon />, title: "Über 20 Jahre Erfahrung", text: "Hinter Sie-sucht-Sie.de steckt über 20 Jahre Dating-Erfahrung." },
+];
+
+const FEATURED_CITIES = ["/partnersuche/berlin", "/partnersuche/hamburg", "/partnersuche/muenchen", "/partnersuche/koeln", "/partnersuche/frankfurt-am-main", "/partnersuche/leipzig", "/oesterreich/wien", "/schweiz/zuerich"];
 
 const profileChannels = socialChannels.filter((channel) => channel.profile);
 
@@ -41,88 +56,160 @@ function aboutEntityGraph() {
   };
 }
 
+function shorten(text: string, max = 230) {
+  return text.length > max ? `${text.slice(0, max).replace(/\s+\S*$/, "")} …` : text;
+}
+
 export default function AboutPage() {
   const breadcrumbs = buildBreadcrumbs(ABOUT_ROOT_PATH, "Über uns");
-  return <main className="wrap page-shell about-page">
-    <article className="article-card">
-      <nav className="breadcrumbs" aria-label="Breadcrumb"><ol>{breadcrumbs.map((item, index) => <li key={item.path}>{index < breadcrumbs.length - 1 ? <Link href={item.path}>{item.name}</Link> : <span aria-current="page">{item.name}</span>}</li>)}</ol></nav>
-      <script type="application/ld+json">{JSON.stringify(buildBreadcrumbSchema(ABOUT_ROOT_PATH, "Über uns"))}</script>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializePageEntityGraph(aboutEntityGraph()) }} />
+  const cities = [...getFamilyPages("partnersuche"), ...getFamilyPages("oesterreich"), ...getFamilyPages("schweiz")];
+  const cityPaths = new Set(cities.map((city) => city.path));
+  const featuredCities = FEATURED_CITIES.filter((path) => cityPaths.has(path));
+  const author = getMagazineAuthor("lesbischeliebe");
+  const authorText = author?.description ? shorten(stripTags(author.description)) : "";
 
-      <header className="about-hero">
-        <p className="kicker">Hinter den Kulissen</p>
-        <h1>Über Sie-sucht-Sie und die Menschen dahinter</h1>
-        <p className="lead">Sie-sucht-Sie.de bringt Frauen zusammen, die Frauen lieben. Hier erfährst Du, wer hinter der Plattform steht, wie andere uns bewerten und wo Du uns auf Social Media findest.</p>
-        <ul className="about-chips" aria-label="Themen auf dieser Seite">
-          <li><a href="#wer-wir-sind">Wer wir sind</a></li>
-          <li><a href="#bewertungen">Bewertungen &amp; Erfahrungen</a></li>
-          <li><a href="#social-media">Social Media</a></li>
+  return <main className="ab-page">
+    <script type="application/ld+json">{JSON.stringify(buildBreadcrumbSchema(ABOUT_ROOT_PATH, "Über uns"))}</script>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializePageEntityGraph(aboutEntityGraph()) }} />
+
+    <AboutHero
+      breadcrumbs={breadcrumbs}
+      badge="Hinter den Kulissen"
+      badgeIcon={<VenusPairIcon />}
+      title={<>Über Sie-sucht-Sie und die <em>Menschen</em> dahinter</>}
+      lead={<p>Sie-sucht-Sie.de bringt Frauen zusammen, die Frauen lieben. Hier erfährst Du, wer hinter der Plattform steht, wie andere uns bewerten und wo Du uns auf Social Media findest.</p>}
+      media={<figure className="ab-collage">
+        <span className="ab-arch"><img src={staticAsset("/about/betrieb-support.webp")} alt="Frau lächelt beim Selfie in die Kamera" width="720" height="900" fetchPriority="high" /></span>
+        <span className="ab-float-heart" aria-hidden="true"><HeartFilledIcon /></span>
+        <span className="ab-float-card"><SparkIcon /><span><small>Seit über</small><strong>20 Jahren Dating-Erfahrung</strong></span></span>
+      </figure>}
+    >
+      <ul className="ab-hero-chips" aria-label="Themen auf dieser Seite">
+        <li><a href="#wer-wir-sind">Wer wir sind</a></li>
+        <li><a href="#community">Community</a></li>
+        <li><a href="#magazin">Magazin</a></li>
+        <li><a href="#bewertungen">Bewertungen &amp; Erfahrungen</a></li>
+        <li><a href="#social-media">Social Media</a></li>
+      </ul>
+    </AboutHero>
+
+    <div className="wrap ab-search-float">
+      <SiteSearchForm id="about-search-q" />
+    </div>
+
+    <section className="wrap ab-section" id="wer-wir-sind" aria-labelledby="wer-wir-sind-title">
+      <div className="ab-head">
+        <p className="kicker">Wer wir sind</p>
+        <h2 id="wer-wir-sind-title">Eine Community von Frauen <em>für Frauen</em></h2>
+        <p>Sie-sucht-Sie.de ist eine deutschsprachige Singlebörse für lesbische und bisexuelle Frauen – für die feste Beziehung genauso wie für neue Freundschaften und ehrliche Flirts.</p>
+      </div>
+      <ul className="ab-values">
+        {values.map((value) => <li className="ab-value" key={value.title}>
+          <span className="ab-value-icon" aria-hidden="true">{value.icon}</span>
+          <strong>{value.title}</strong>
+          <span>{value.text}</span>
+        </li>)}
+      </ul>
+      <div className="ab-operator">
+        <span className="ab-operator-icon" aria-hidden="true"><KeyIcon /></span>
+        <div>
+          <p className="kicker">Betrieb &amp; Support</p>
+          <h3>Im Partnernetzwerk der ICONY GmbH</h3>
+          <p>Über 20 Jahre Dating-Erfahrung und Server in Deutschland: Unser Supportteam prüft zu Deiner Sicherheit jedes Profil.</p>
+        </div>
+        <a className="ab-link" href={platform.legal}>Zum Impressum <ArrowIcon /></a>
+      </div>
+    </section>
+
+    <section className="ab-community" id="community" aria-labelledby="community-title">
+      <div className="wrap ab-community-inner">
+        <div>
+          <p className="kicker">Community</p>
+          <h2 id="community-title">Zuhause in <em>{cities.length} Städten</em></h2>
+          <p>Ob Berlin, Wien oder Zürich: Auf den Städteseiten findest Du Frauen, die Frauen lieben, in Deutschland, Österreich und der Schweiz – mit Tipps für Deine Region.</p>
+          <Link className="button button-green" href="/partnersuche">Alle Städte entdecken</Link>
+        </div>
+        <ul className="ab-city-chips" aria-label="Beliebte Städte">
+          {featuredCities.map((path, index) => <li key={path} style={{ ["--i" as string]: index }}><Link href={path}><PinIcon />{locationName(path)}</Link></li>)}
         </ul>
-        <div className="about-search"><SiteSearchForm id="about-search-q" /></div>
-      </header>
+      </div>
+    </section>
 
-      <section className="about-section" id="wer-wir-sind" aria-labelledby="wer-wir-sind-title">
-        <div className="about-section-heading">
-          <p className="kicker">Wer wir sind</p>
-          <h2 id="wer-wir-sind-title">Eine Community von Frauen für Frauen</h2>
-          <p>Sie-sucht-Sie.de ist eine deutschsprachige Singlebörse für lesbische und bisexuelle Frauen – für die feste Beziehung genauso wie für neue Freundschaften und ehrliche Flirts.</p>
+    <section className="wrap ab-section" id="magazin" aria-labelledby="magazin-title">
+      <div className="ab-feature ab-feature-reverse">
+        <figure className="ab-feature-media ab-feature-media-tilt"><img src={staticAsset("/about/magazin-redaktion.webp")} alt="Zwei Frauen lachen sich in einer Bar an" width="720" height="450" loading="lazy" /></figure>
+        <div>
+          <p className="kicker">Magazin &amp; Redaktion</p>
+          <h2 id="magazin-title">Wissen rund um <em>lesbisches Dating</em></h2>
+          <p>Unsere Redaktion schreibt über Dating, Beziehungen und Community-Themen – verständlich und nah an dem, was Frauen bewegt, die Frauen lieben.</p>
+          <ul className="ab-stats" aria-label="Das Magazin in Zahlen">
+            <li><strong>{magazinePosts.length}</strong> Artikel</li>
+            <li><strong>{magazineCategories.length}</strong> Rubriken</li>
+          </ul>
+          {author && authorText ? <Link className="ab-author" href={`/magazin/author/${author.slug}`}>
+            <span className="ab-author-icon" aria-hidden="true"><BookIcon /></span>
+            <span><small>Aus der Redaktion</small><strong>{author.name}</strong><span>{authorText}</span></span>
+          </Link> : null}
+          <Link className="ab-link" href="/magazin">Zum Magazin <ArrowIcon /></Link>
         </div>
-        <div className="about-card-grid about-card-grid-duo">
-          <div className="about-card">
-            <img className="about-card-image" src={staticAsset("/about/betrieb-support.webp")} alt="Frau lächelt beim Selfie in die Kamera" width="720" height="450" loading="lazy" />
-            <p className="kicker">Betrieb &amp; Support</p>
-            <h3>Im Partnernetzwerk der ICONY GmbH</h3>
-            <p>Über 20 Jahre Dating-Erfahrung und Server in Deutschland: Unser Supportteam prüft zu Deiner Sicherheit jedes Profil.</p>
-            <a className="about-card-link" href={platform.legal}>Zum Impressum</a>
-          </div>
-          <div className="about-card">
-            <img className="about-card-image" src={staticAsset("/about/magazin-redaktion.webp")} alt="Zwei Frauen lachen sich in einer Bar an" width="720" height="450" loading="lazy" />
-            <p className="kicker">Magazin &amp; Redaktion</p>
-            <h3>Wissen rund um lesbisches Dating</h3>
-            <p>Unsere Redaktion schreibt über Dating, Beziehungen und Community-Themen – verständlich und nah an dem, was Frauen bewegt, die Frauen lieben.</p>
-            <Link className="about-card-link" href="/magazin">Zum Magazin</Link>
-          </div>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <section className="about-section about-reviews" id="bewertungen" aria-labelledby="bewertungen-title">
-        <div className="about-section-heading">
+    <section className="wrap ab-section" id="bewertungen" aria-labelledby="bewertungen-title">
+      <div className="ab-reviews-panel">
+        <div className="ab-head ab-head-light">
           <p className="kicker">Bewertungen &amp; Erfahrungen</p>
-          <h2 id="bewertungen-title">Vertrauen entsteht durch echte Eindrücke</h2>
+          <h2 id="bewertungen-title">Vertrauen entsteht durch <em>echte Eindrücke</em></h2>
           <p>Nutzerinnen und unabhängige Vergleichsportale bewerten Sie-sucht-Sie.de. Hier siehst Du die wichtigsten Einordnungen auf einen Blick.</p>
         </div>
-        <div className="about-card-grid">
-          {ratings.map((rating) => <a className="about-rating" href={rating.href} key={rating.source} rel="nofollow noopener noreferrer" target="_blank">
-            <span className="about-rating-score">{rating.score ? <><strong>{rating.score}</strong> / {rating.scale} {rating.label}</> : <strong>{rating.label}</strong>}</span>
-            <span className="about-rating-source">{rating.source}</span>
-            <span className="about-rating-text">{rating.text}</span>
-          </a>)}
+        <ul className="ab-ratings">
+          {ratings.map((rating) => <li key={rating.source}>
+            <a className="ab-rating" href={rating.href} rel="nofollow noopener noreferrer" target="_blank">
+              <span className="ab-rating-top">
+                {rating.score ? <><strong>{rating.score}</strong><span>/ {rating.scale} {rating.label}</span></> : <><StarIcon /><strong className="ab-rating-word">{rating.label}</strong></>}
+              </span>
+              {rating.value ? <RatingStars rating={rating.value} size={18} /> : null}
+              <span className="ab-rating-source">{rating.source}</span>
+              <span className="ab-rating-text">{rating.text}</span>
+            </a>
+          </li>)}
+        </ul>
+        <div className="ab-actions">
+          <Link className="button button-green" href={ABOUT_REVIEWS_PATH}>Alle Bewertungen &amp; Erfahrungen</Link>
+          <img className="ab-seal" src={staticAsset("/trust/empfohlen-45-sterne.png")} alt="Empfohlen von Singlebörsen-Überblick.de – 4,5 Sterne" width="300" height="60" loading="lazy" />
         </div>
-        <div className="about-section-actions">
-          <Link className="button button-pink" href={ABOUT_REVIEWS_PATH}>Alle Bewertungen &amp; Erfahrungen</Link>
-          <img src={staticAsset("/trust/empfohlen-45-sterne.png")} alt="Empfohlen von Singlebörsen-Überblick.de – 4,5 Sterne" width="300" height="60" />
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <section className="about-section about-social" id="social-media" aria-labelledby="social-media-title">
-        <div className="about-section-heading">
-          <p className="kicker">Social Media</p>
-          <h2 id="social-media-title">Folge uns auf unseren Kanälen</h2>
-          <p>Liebesgeschichten, Community-Themen und Neuigkeiten rund um die Plattform – dort, wo Du ohnehin unterwegs bist.</p>
-        </div>
-        <div className="about-card-grid">
-          {profileChannels.map((channel) => <a className="about-social-card" href={channel.href} key={channel.href} rel="nofollow noopener noreferrer" target="_blank">
-            <span className={`about-social-icon social-${channel.platform}`} aria-hidden="true"><SocialIcon platform={channel.platform} /></span>
-            <span className="about-social-name"><strong>{channel.name}</strong><small>{channel.handle}</small></span>
-            <span className="about-social-text">{channel.text}</span>
-          </a>)}
-        </div>
-        <div className="about-section-actions">
-          <Link className="button button-outline" href={ABOUT_SOCIAL_PATH}>Zur Social-Media-Übersicht</Link>
-        </div>
-      </section>
+    <section className="wrap ab-section" id="social-media" aria-labelledby="social-media-title">
+      <div className="ab-head">
+        <p className="kicker">Social Media</p>
+        <h2 id="social-media-title">Folge uns auf <em>unseren Kanälen</em></h2>
+        <p>Liebesgeschichten, Community-Themen und Neuigkeiten rund um die Plattform – dort, wo Du ohnehin unterwegs bist.</p>
+      </div>
+      <ul className="ab-social-grid">
+        {profileChannels.map((channel) => <li key={channel.href}>
+          <a className={`ab-social-card ab-social-${channel.platform}`} href={channel.href} rel="nofollow noopener noreferrer" target="_blank">
+            <span className="ab-social-icon" aria-hidden="true"><SocialIcon platform={channel.platform} size={24} /></span>
+            <strong>{channel.name}</strong>
+            <small>{channel.handle}</small>
+            <span>{channel.text}</span>
+            <em>{channel.cta} <ArrowIcon /></em>
+          </a>
+        </li>)}
+      </ul>
+      <div className="ab-actions ab-actions-center">
+        <Link className="button button-outline" href={ABOUT_SOCIAL_PATH}>Zur Social-Media-Übersicht</Link>
+      </div>
+    </section>
 
-      <aside className="inline-cta"><h2>Du willst nicht nur lesen, sondern Frauen kennenlernen?</h2><p>Erstelle kostenlos Dein Profil und entdecke Frauen aus Deiner Region, die ähnliche Wünsche und Werte mitbringen.</p><a className="button button-green" href={registrationUrl(ABOUT_ROOT_PATH)}>Jetzt kostenlos starten</a></aside>
-    </article>
+    <section className="wrap ab-section" aria-labelledby="about-cta-title">
+      <div className="ab-cta">
+        <span className="ab-cta-heart" aria-hidden="true"><HeartFilledIcon /></span>
+        <h2 id="about-cta-title">Du willst nicht nur lesen, sondern <em>Frauen kennenlernen?</em></h2>
+        <p>Erstelle kostenlos Dein Profil und entdecke Frauen aus Deiner Region, die ähnliche Wünsche und Werte mitbringen.</p>
+        <a className="button button-green" href={registrationUrl(ABOUT_ROOT_PATH)}>Jetzt kostenlos starten</a>
+      </div>
+    </section>
   </main>;
 }

@@ -1,0 +1,366 @@
+/*
+ * Sie-sucht-Sie.de – Designsystem „Sunset“
+ * Farbwelt aus der lesbischen Sunset-Flagge (Orange → Rosa → Magenta) mit einem Hauch Bi-Violett,
+ * dunkles Pflaume als Gegengewicht, warmes Blush als Seitengrund. Überschriften in Fraunces.
+ * Wird nach globals.css geladen und überschreibt dessen Grundwerte.
+ */
+:root {
+  --ink: #2b1a2f;
+  --muted: #6c5a6f;
+  --paper: #fff;
+  --bg: #fff8f5;
+  --bg-2: #fdf0ee;
+  --line: #f1dde3;
+  --dark: #2b1a2f;
+
+  --pink: #ec526b;
+  --pink-dark: #c3345c;
+  --pink-soft: #fff0f2;
+  --green: #c3345c;
+  --green-dark: #a3175f;
+
+  --plum: #3b1240;
+  --plum-deep: #220a27;
+  --berry: #a3175f;
+  --magenta: #d6337a;
+  --coral: #ff8a5c;
+  --peach: #ffe3d4;
+  --lilac: #b69cf2;
+  --lavender: #f2ecff;
+  --violet: #7a4fc9;
+
+  --sunset: linear-gradient(115deg, #ff9466 0%, #f4587a 38%, #d6337a 64%, #8e4bc6 100%);
+  --cta: linear-gradient(135deg, #f65a70 0%, #d6337a 100%);
+  --cta-shadow: 0 12px 26px rgba(214, 51, 122, .28);
+  --display: var(--font-display), "Fraunces", Georgia, "Times New Roman", serif;
+  --radius: 26px;
+  --radius-sm: 16px;
+  --shadow: 0 18px 48px rgba(59, 18, 64, .09);
+  --shadow-lift: 0 24px 56px rgba(59, 18, 64, .16);
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+h1, h2, h3,
+.display {
+  font-family: var(--display);
+  font-optical-sizing: auto;
+  font-variation-settings: "SOFT" 60;
+  font-weight: 650;
+  letter-spacing: -.018em;
+  color: var(--ink);
+}
+h1 { font-weight: 700; letter-spacing: -.028em; }
+h1 em, h2 em, h3 em, .display em {
+  font-style: italic;
+  font-weight: 600;
+  font-variation-settings: "SOFT" 100;
+  background: var(--sunset);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-right: .06em;
+}
+
+::selection { background: #ffd0dc; color: var(--plum-deep); }
+:focus-visible { outline: 3px solid var(--magenta); outline-offset: 3px; }
+
+.kicker {
+  color: var(--berry);
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: .76rem;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+/* Buttons: Primär ist der Sunset-Verlauf. button-green bleibt als Klassenname, weil viele Seiten ihn nutzen. */
+.button {
+  min-height: 50px;
+  padding: 0 26px;
+  border-radius: 999px;
+  border: 0;
+  font-weight: 800;
+  letter-spacing: .005em;
+  box-shadow: none;
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease, background-position .4s ease, color .2s ease, border-color .2s ease;
+}
+.button:hover { transform: translateY(-2px); }
+.button-compact { min-height: 42px; padding-inline: 20px; }
+.button-green,
+.button-pink {
+  background: var(--cta);
+  background-size: 140% 100%;
+  color: #fff;
+  box-shadow: var(--cta-shadow);
+}
+.button-green:hover,
+.button-pink:hover { background-position: 100% 0; box-shadow: 0 16px 32px rgba(214, 51, 122, .36); color: #fff; }
+.button-outline {
+  background: #fff;
+  border: 1.5px solid #efc7d3;
+  color: var(--plum);
+}
+.button-outline:hover { border-color: var(--magenta); color: var(--berry); }
+.button-ghost-light {
+  background: rgba(255, 255, 255, .08);
+  border: 1.5px solid rgba(255, 255, 255, .45);
+  color: #fff;
+}
+.button-ghost-light:hover { background: rgba(255, 255, 255, .16); border-color: #fff; color: #fff; }
+.text-link { color: var(--berry); font-weight: 800; }
+
+/* Streifen der lesbischen Sunset-Flagge */
+.pride-stripe { display: flex; height: 5px; width: 100%; }
+.pride-stripe i { flex: 1; }
+.pride-stripe i:nth-child(1) { background: #d52d00; }
+.pride-stripe i:nth-child(2) { background: #ef7627; }
+.pride-stripe i:nth-child(3) { background: #ff9a56; }
+.pride-stripe i:nth-child(4) { background: #fff; }
+.pride-stripe i:nth-child(5) { background: #d162a4; }
+.pride-stripe i:nth-child(6) { background: #b55690; }
+.pride-stripe i:nth-child(7) { background: #a30262; }
+
+/* Header */
+.site-header {
+  background: rgba(255, 255, 255, .94);
+  border-bottom: 1px solid rgba(241, 221, 227, .9);
+  box-shadow: 0 6px 24px rgba(59, 18, 64, .05);
+}
+.header-inner { min-height: 76px; }
+.desktop-nav { gap: 6px; font-size: .92rem; font-weight: 700; }
+.desktop-nav a {
+  position: relative;
+  padding: 8px 10px;
+  border-radius: 999px;
+  color: var(--plum);
+  transition: color .2s ease, background .2s ease;
+}
+.desktop-nav a::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 3px;
+  height: 2.5px;
+  border-radius: 2px;
+  background: var(--sunset);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .25s ease;
+}
+.desktop-nav a:hover { color: var(--berry); }
+.desktop-nav a:hover::after,
+.desktop-nav a[aria-current="page"]::after { transform: scaleX(1); }
+.desktop-nav a[aria-current="page"] { color: var(--berry); }
+.header-search { color: var(--plum); }
+.header-search:hover { color: var(--berry); background: var(--pink-soft); }
+.login { color: var(--plum); }
+.login:hover { color: var(--berry); }
+
+.mobile-menu { display: none; position: relative; }
+.mobile-menu summary {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+  color: var(--plum);
+  cursor: pointer;
+  list-style: none;
+}
+.mobile-menu summary::-webkit-details-marker { display: none; }
+.mobile-menu .mobile-menu-close,
+.mobile-menu[open] .mobile-menu-open { display: none; }
+.mobile-menu[open] .mobile-menu-close { display: block; }
+.mobile-menu-panel {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 12px);
+  width: min(320px, calc(100vw - 32px));
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: var(--shadow-lift);
+  display: grid;
+  gap: 12px;
+}
+.mobile-menu-panel nav { display: grid; }
+.mobile-menu-panel nav a {
+  padding: 12px 14px;
+  border-radius: 12px;
+  color: var(--plum);
+  font-weight: 700;
+}
+.mobile-menu-panel nav a:hover,
+.mobile-menu-panel nav a[aria-current="page"] { background: var(--pink-soft); color: var(--berry); }
+.mobile-menu-panel .button { width: 100%; }
+
+/* Breadcrumbs */
+.breadcrumbs a { color: var(--berry); text-decoration-color: rgba(163, 23, 95, .3); }
+
+/* Fließtext importierter Seiten */
+.rich-content { color: #3d2d40; }
+.rich-content h2, .rich-content h3 { font-family: var(--display); color: var(--ink); }
+.rich-content a { color: var(--berry); text-decoration-color: rgba(214, 51, 122, .35); }
+.rich-content a:hover { text-decoration-color: currentColor; }
+.rich-content blockquote {
+  margin: 28px 0;
+  padding: 22px 26px;
+  border: 0;
+  border-left: 4px solid transparent;
+  border-image: var(--sunset) 1;
+  background: #fff4f1;
+  font-family: var(--display);
+  font-size: 1.2rem;
+  font-style: italic;
+}
+.rich-content a.inline-content-cta {
+  background: var(--cta);
+  border-radius: 999px;
+  box-shadow: var(--cta-shadow);
+  color: #fff;
+  text-decoration: none;
+}
+.rich-content a.inline-content-cta:hover { box-shadow: 0 16px 32px rgba(214, 51, 122, .36); }
+
+/* Footer */
+.site-footer {
+  position: relative;
+  margin-top: 90px;
+  background: var(--plum-deep);
+  color: #f4e6ef;
+  overflow: hidden;
+}
+.footer-cta {
+  position: relative;
+  padding: 86px 16px 78px;
+  text-align: center;
+  background:
+    radial-gradient(60% 90% at 12% 0%, rgba(255, 148, 102, .35), transparent 60%),
+    radial-gradient(55% 80% at 88% 10%, rgba(142, 75, 198, .4), transparent 62%),
+    radial-gradient(70% 100% at 50% 120%, rgba(214, 51, 122, .45), transparent 70%),
+    var(--plum);
+  isolation: isolate;
+}
+.footer-cta-mark {
+  position: absolute;
+  right: 6%;
+  bottom: -40px;
+  z-index: -1;
+  font-size: 300px;
+  color: rgba(255, 255, 255, .06);
+  line-height: 1;
+}
+.footer-cta .kicker { color: #ffc2d1; margin: 0 0 12px; }
+.footer-cta h2 {
+  max-width: 880px;
+  margin: 0 auto 30px;
+  color: #fff;
+  font-size: clamp(2rem, 4.6vw, 3.4rem);
+  line-height: 1.06;
+}
+.footer-cta h2 em {
+  background: linear-gradient(100deg, #ffb48f, #ff9ac0 55%, #d5b8ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.footer-cta-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+.footer-grid {
+  width: min(1170px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 64px 0 40px;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 34px;
+}
+.footer-brand img:first-child {
+  width: 230px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: #fff;
+}
+.footer-brand p { color: #d9c4d2; }
+.trust-list { list-style: none; padding: 0; margin: 18px 0; display: grid; gap: 8px; }
+.trust-list li { display: flex; align-items: center; gap: 10px; color: #f4e6ef; font-weight: 650; font-size: .92rem; }
+.trust-list li::before { content: none; }
+.trust-list svg { flex: none; width: 20px; height: 20px; padding: 3px; border-radius: 50%; background: rgba(255, 154, 192, .18); color: #ff9ac0; }
+.footer-column h2 {
+  margin: 0 0 14px;
+  color: #fff;
+  font-size: 1.12rem;
+}
+.footer-column ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.footer-column a { color: #d9c4d2; font-size: .93rem; }
+.footer-column a:hover { color: #fff; text-decoration: underline; text-decoration-color: #ff9ac0; text-underline-offset: 4px; }
+.subfooter {
+  width: min(1170px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 22px 0 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px 20px;
+  border-top: 1px solid rgba(255, 255, 255, .12);
+  color: #b9a1b3;
+  font-size: .85rem;
+}
+.subfooter-love { display: inline-flex; align-items: center; gap: 6px; color: #ff9ac0; }
+
+/* Mobile Registrierleiste */
+.sticky-cta { display: none; }
+
+@media (max-width: 1050px) {
+  .desktop-nav { display: none; }
+  .mobile-menu { display: block; }
+  .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .footer-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 720px) {
+  .header-inner { min-height: 66px; }
+  .header-actions .button-compact { display: none; }
+  .footer-cta { padding: 64px 16px 58px; }
+  .footer-cta-actions .button { width: 100%; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px 20px; padding-top: 48px; }
+  .subfooter { justify-content: center; text-align: center; }
+  .sticky-cta {
+    position: fixed;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 8px 8px 8px 16px;
+    border-radius: 999px;
+    background: rgba(34, 10, 39, .94);
+    color: #fff;
+    font-size: .86rem;
+    font-weight: 700;
+    box-shadow: 0 16px 40px rgba(34, 10, 39, .35);
+    backdrop-filter: blur(10px);
+    transform: translateY(140%);
+    transition: transform .3s ease;
+  }
+  .sticky-cta span { display: inline-flex; align-items: center; gap: 7px; }
+  .sticky-cta svg { color: #ff9ac0; }
+  .sticky-cta .button { min-height: 42px; padding-inline: 18px; }
+  .sticky-cta.is-visible { transform: none; }
+  .site-footer { padding-bottom: 70px; }
+}
+@media (max-width: 420px) {
+  .footer-grid { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .button, .desktop-nav a::after, .sticky-cta { transition: none; }
+  .button:hover { transform: none; }
+}

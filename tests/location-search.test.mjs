@@ -7,7 +7,7 @@ import {
 } from "../lib/location-search.mjs";
 
 const catalog = JSON.parse(await readFile(new URL("../data/pages.json", import.meta.url), "utf8"));
-const importedPageSource = await readFile(new URL("../app/[...slug]/page.tsx", import.meta.url), "utf8");
+const importedPageSource = await readFile(new URL("../components/location/location-city-page.tsx", import.meta.url), "utf8");
 const cityPages = catalog.pages.filter((page) =>
   page.type === "location" && /^\/(partnersuche|oesterreich|schweiz)\/[a-z0-9-]+$/.test(page.path)
 );

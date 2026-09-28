@@ -1,17 +1,10 @@
-import Link from "next/link";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 
-export function MagazineBreadcrumbs({ current }: { current?: string }) {
-  const items = [{ name: "Start", path: "/" }, { name: "Magazin", path: "/magazin" }];
-  return (
-    <nav className="breadcrumbs" aria-label="Breadcrumb">
-      <ol>
-        {items.map((item, index) => (
-          <li key={item.path}>
-            {current || index < items.length - 1 ? <Link href={item.path}>{item.name}</Link> : <span aria-current="page">{item.name}</span>}
-          </li>
-        ))}
-        {current && <li><span aria-current="page">{current}</span></li>}
-      </ol>
-    </nav>
-  );
+type Crumb = { name: string; path: string };
+
+/** Start / Magazin / (Zwischenebene) / aktuelle Seite. `mz-crumbs` ist die helle Variante für die Pflaume-Heros. */
+export function MagazineBreadcrumbs({ current, trail = [], className = "mz-crumbs" }: { current?: string; trail?: Crumb[]; className?: string }) {
+  const items: Crumb[] = [{ name: "Start", path: "/" }, { name: "Magazin", path: "/magazin" }, ...trail];
+  if (current) items.push({ name: current, path: "#aktuell" });
+  return <Breadcrumbs items={items} className={className} />;
 }

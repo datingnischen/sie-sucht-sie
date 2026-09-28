@@ -19,7 +19,7 @@ export type ImportedPage = {
 
 // Pages that ICONY still serves on the live domain are never rendered here,
 // and imported links to them point straight to the live domain.
-const ICONY_PAGE_LINK = /href="(\/(?:(?:sicherheit-und-datenschutz|redaktionelle-kontrolle|kostenlose-basis-mitgliedschaft|unsere-erfolgsgeschichten)\.html|dating-tipps\/?))"/g;
+const ICONY_PAGE_LINK = /href="(\/(?:(?:sicherheit-und-datenschutz|redaktionelle-kontrolle|kostenlose-basis-mitgliedschaft|premium-mitgliedschaft|unsere-erfolgsgeschichten|fragenflirt|fotoflirt|videodating)\.html|dating-tipps\/?))"/g;
 // Imported links to pages that moved below "Über uns" point to their new path.
 const ABOUT_PAGE_LINK = new RegExp(`href="(${Object.keys(ABOUT_PAGE_MOVES).join("|")})/?"`, "g");
 

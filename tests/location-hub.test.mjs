@@ -101,12 +101,23 @@ test("city cards disable motion when the visitor requests reduced motion", () =>
 test("every city hub points visitors without a city page to the individual live search", async () => {
   const { getIndividualSearchUrl } = await import("../lib/location-search.mjs");
   assert.equal(getIndividualSearchUrl(), "https://www.sie-sucht-sie.de/suche/?AID=location");
-  const section = await readFile(new URL("../components/city-card-section.tsx", import.meta.url), "utf8");
+  const hub = await readFile(new URL("../components/location/location-hub-page.tsx", import.meta.url), "utf8");
   const fallback = await readFile(new URL("../components/city-search-fallback.tsx", import.meta.url), "utf8");
-  assert.match(section, /<\/div>\s*<CitySearchFallback /);
+  const hubCss = await readFile(new URL("../components/location/sc-hub.css", import.meta.url), "utf8");
+  assert.match(hub, /<CityFinder [^>]*\/>\s*<CitySearchFallback /);
   assert.match(fallback, /href=\{getIndividualSearchUrl\(\)\}/);
   assert.match(fallback, /Deine Stadt fehlt\?/);
   assert.doesNotMatch(fallback, /vercel\.app/);
-  assert.match(globalCss, /\.city-search-fallback\{display:flex/);
-  assert.match(globalCss, /@media\(max-width:720px\)\{\.city-search-fallback\{flex-direction:column/);
+  assert.doesNotMatch(hub, /vercel\.app/);
+  assert.match(hubCss, /\.sh \.city-search-fallback \{[^}]*display: grid/);
+  assert.match(hubCss, /@media \(max-width: 700px\) \{[\s\S]*\.sh \.city-search-fallback \{ grid-template-columns: 1fr; \}/);
+});
+
+test("the city finder keeps every city link server-rendered and filters only in the browser", async () => {
+  const finder = await readFile(new URL("../components/location/city-finder.tsx", import.meta.url), "utf8");
+  assert.match(finder, /^"use client";/);
+  assert.match(finder, /if \(!q\) return regions;/);
+  assert.match(finder, /<Link className="sh-chip" href=\{city\.path\}/);
+  const hubCss = await readFile(new URL("../components/location/sc-hub.css", import.meta.url), "utf8");
+  assert.match(hubCss, /@media \(prefers-reduced-motion: reduce\)[\s\S]*\.sh-region \{ animation: none; \}/);
 });

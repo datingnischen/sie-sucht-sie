@@ -13,7 +13,7 @@ const retired = catalog.retired;
 test("magazine landing copy speaks directly to women who love women", async () => {
   const landing = await readFile(new URL("../app/magazin/page.tsx", import.meta.url), "utf8");
   assert.doesNotMatch(landing, /hilfreiche Einordnungen|neue Perspektiven|für Deine Orientierung|Wissen, Orientierung und Anregungen/i);
-  assert.match(landing, /Dating, Liebe und lesbisches Leben/);
+  assert.match(landing, /Dating, Liebe und (?:<em>)?lesbisches Leben/);
   assert.doesNotMatch(landing, /schwul|Männer/i);
 });
 
@@ -136,14 +136,16 @@ test("pages show no date; articles show their update date", async () => {
   const detail = await readFile(new URL("../app/magazin/[...slug]/page.tsx", import.meta.url), "utf8");
   const landing = await readFile(new URL("../app/magazin/page.tsx", import.meta.url), "utf8");
   const archive = await readFile(new URL("../app/magazin/archiv/page.tsx", import.meta.url), "utf8");
+  const card = await readFile(new URL("../components/magazine/magazine-card.tsx", import.meta.url), "utf8");
   assert.match(detail, /entry\.type === "post" \? articleUpdatedDate\(entry\)/);
   assert.match(detail, /Aktualisiert am <time dateTime=\{updated\}>/);
   assert.match(detail, /datePublished: entry\.date/);
   assert.match(detail, /dateModified: entry\.modified/);
-  for (const source of [detail, landing, archive]) {
+  for (const source of [detail, landing, archive, card]) {
     assert.doesNotMatch(source, /<time dateTime=\{entry\.date\}>/);
   }
-  assert.match(landing, /Aktualisiert \{dateLabel\(articleUpdatedDate\(entry\)\)\}/);
-  assert.match(archive, /Aktualisiert \{dayLabel\(articleUpdatedDate\(entry\)\)\}/);
+  // Landing, archive, category and author lists render MagazineCard: posts show their update date, pages none.
+  assert.match(card, /entry\.type === "post" && <time dateTime=\{articleUpdatedDate\(entry\)\}>Aktualisiert \{dateLabel\(articleUpdatedDate\(entry\)\)\}/);
+  for (const source of [landing, archive]) assert.match(source, /<MagazineCard /);
   assert.ok(entries.filter((entry) => entry.type === "post").every((entry) => entry.modified || entry.date));
 });
