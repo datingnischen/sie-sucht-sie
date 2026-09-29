@@ -47,3 +47,11 @@ test("the author bio names no other platform and has an alt text", () => {
   assert.doesNotMatch(html, /er-sucht-ihn/i);
   assert.doesNotMatch(html, /<img alt=""/);
 });
+
+test("titles, headings and descriptions address visitors informally", () => {
+  const formal = /\b(Lesen Sie|finden Sie|Finden Sie|Ihnen|Ihre[mnrs]?)\b/;
+  for (const page of pages.filter((item) => item.type !== "platform")) {
+    const fixed = applyTextCorrections(page, PAGE_CORRECTIONS);
+    for (const field of ["title", "description", "h1"]) assert.doesNotMatch(fixed[field] ?? "", formal, `${page.path} ${field}`);
+  }
+});
