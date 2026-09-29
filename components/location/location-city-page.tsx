@@ -7,6 +7,7 @@ import { CITY_POSTCODES, getCitySearchUrl } from "@/lib/location-search.mjs";
 import { staticAsset } from "@/lib/static-asset.mjs";
 import { getLocationName } from "@/lib/site-contract.mjs";
 import { buildCityGuide, selectCityPhoto, TOPIC_LABELS } from "@/lib/city-guide.mjs";
+import { cityPhotoCredit } from "@/lib/city-photos.mjs";
 import { COUNTRY_BY_ROOT, cityGeo, nearestCities } from "@/lib/city-geo.mjs";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { ArrowIcon, ClockIcon, HeartFilledIcon, HeartIcon, PinIcon, SearchIcon, VenusPairIcon } from "@/components/icons";
@@ -43,7 +44,7 @@ export function LocationCityPage({ page, path, contentHtml, breadcrumbs, root }:
   const regionName = geo && geo.region !== cityName ? geo.region : country.name;
   const photo = selectCityPhoto(page.images);
   const guide = buildCityGuide({ contentHtml, path, heroSrc: photo?.src ?? null });
-  const credit = guide.credits[0] ?? null;
+  const credit = cityPhotoCredit(path) ?? guide.credits[0] ?? null;
   const signupUrl = registrationUrl(path);
   const citySearchUrl = getCitySearchUrl(path);
   const zip = (CITY_POSTCODES as Record<string, string>)[path] ?? "";
@@ -210,7 +211,7 @@ export function LocationCityPage({ page, path, contentHtml, breadcrumbs, root }:
           <div className={`sc-mag-grid${magazine.length === 1 ? " sc-mag-grid-single" : ""}`}>
             {magazine.map((entry, index) => (
               <Link key={entry.path} className="sc-mag-card" href={entry.path} style={{ "--tilt": `${index % 2 ? 1 : -1}deg` } as CSSProperties}>
-                <span className="sc-mag-media">{entry.featuredImage ? <img src={entry.featuredImage} alt="" loading="lazy" decoding="async" /> : <VenusPairIcon />}</span>
+                <span className="sc-mag-media">{entry.featuredImage ? <img src={entry.featuredImage} alt={`Titelbild: ${entry.title}`} loading="lazy" decoding="async" /> : <VenusPairIcon />}</span>
                 <span className="sc-mag-body">
                   <small>Magazin</small>
                   <strong>{entry.title}</strong>

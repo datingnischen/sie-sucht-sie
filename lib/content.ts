@@ -2,6 +2,9 @@ import catalog from "@/data/pages.json";
 import { classifyPath, publicUrl, SITE_URL, slashInternalLinks, withTrailingSlash } from "./site-contract.mjs";
 import { ABOUT_PAGE_MOVES, aboutPathForImportedPath } from "./about-pages.mjs";
 import { absolutizeAssetUrls, staticAsset } from "./static-asset.mjs";
+import { applyTextCorrections, PAGE_CORRECTIONS } from "./text-corrections.mjs";
+import { withCityPhoto } from "./city-photos.mjs";
+import { withImageAlts } from "./image-alt.mjs";
 
 export type ImportedPage = {
   path: string;
@@ -49,7 +52,7 @@ function withAbsoluteAssets(page: ImportedPage): ImportedPage {
   };
 }
 
-const pages = (catalog.pages as ImportedPage[]).map(withPlatformOwnership).map(withAboutPath).map(withTrailingSlashUrls).map(withAbsoluteAssets);
+const pages = (catalog.pages as ImportedPage[]).map((page) => applyTextCorrections(page, PAGE_CORRECTIONS) as ImportedPage).map(withPlatformOwnership).map(withAboutPath).map(withTrailingSlashUrls).map(withAbsoluteAssets).map((page) => withCityPhoto(page, staticAsset) as ImportedPage).map((page) => withImageAlts(page, page.h1 || page.title) as ImportedPage);
 const pageMap = new Map(pages.map((page) => [page.path, page]));
 
 export const publicPages = pages.filter((page) => page.type !== "platform" && page.type !== "magazine");

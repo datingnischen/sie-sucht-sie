@@ -33,7 +33,7 @@ export default function MagazineArchivePage() {
         ]}
         visual={covers.length === 3 ? (
           <div className="mz-hero-stack" aria-hidden="true">
-            {covers.map((entry) => <img src={entry.featuredImage ?? ""} alt="" key={entry.id} decoding="async" />)}
+            {covers.map((entry) => <img src={entry.featuredImage ?? ""} alt={`Titelbild: ${entry.title}`} key={entry.id} decoding="async" />)}
           </div>
         ) : undefined}
       />

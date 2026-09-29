@@ -207,7 +207,7 @@ export function LocationHubPage({ page, path, image, contentHtml, breadcrumbs, r
       {topTen ? (
         <section className="sc-wrap sc-section" aria-labelledby="sh-mag-title">
           <Link className="sh-topten" href={topTen.path}>
-            <span className="sh-topten-media">{topTen.featuredImage ? <img src={topTen.featuredImage} alt="" loading="lazy" decoding="async" /> : <VenusPairIcon />}</span>
+            <span className="sh-topten-media">{topTen.featuredImage ? <img src={topTen.featuredImage} alt={`Titelbild: ${topTen.title}`} loading="lazy" decoding="async" /> : <VenusPairIcon />}</span>
             <span className="sh-topten-copy">
               <small className="kicker">Aus dem Magazin</small>
               <strong id="sh-mag-title">{topTen.title}</strong>

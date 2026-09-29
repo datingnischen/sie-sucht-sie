@@ -127,7 +127,7 @@ export default function MagazinePage() {
               className={["mz-tile", entry.size ? `mz-tile-${entry.size}` : "", entry.image ? "" : "mz-tile-plain"].filter(Boolean).join(" ")}
               style={{ ["--tilt" as string]: `${index % 2 ? 0.8 : -0.8}deg` }}
             >
-              {entry.image ? <img src={entry.image} alt="" loading="lazy" decoding="async" /> : null}
+              {entry.image ? <img src={entry.image} alt={`Magazin-Thema ${entry.label}`} loading="lazy" decoding="async" /> : null}
               <span className="mz-tile-icon" aria-hidden="true">{entry.icon}</span>
               <span className="mz-tile-copy">
                 <strong>{entry.label}</strong>

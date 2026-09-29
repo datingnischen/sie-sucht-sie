@@ -101,7 +101,7 @@ export function LexikonHub({ page, path, image, contentHtml, breadcrumbs }: Impo
             </span>
           </Link> : null}
           {bridge.featured.map((entry) => <Link className="lx-mag-card" href={entry.path} key={entry.path}>
-            <span className="lx-mag-media">{entry.featuredImage ? <img src={entry.featuredImage} alt="" loading="lazy" decoding="async" width={400} height={260} /> : <SparkIcon />}</span>
+            <span className="lx-mag-media">{entry.featuredImage ? <img src={entry.featuredImage} alt={`Titelbild: ${entry.title}`} loading="lazy" decoding="async" width={400} height={260} /> : <SparkIcon />}</span>
             <span className="lx-mag-body"><small>Begriff im Magazin</small><strong>{entry.title}</strong></span>
           </Link>)}
         </div>
@@ -215,7 +215,7 @@ export function LexikonEntry({ page, path, image, contentHtml, breadcrumbs }: Im
       </div>
       <div className="lx-deeper-grid">
         {magazine.map((entry) => <Link className="lx-mag-card" href={entry.path} key={entry.path}>
-          <span className="lx-mag-media">{entry.featuredImage ? <img src={entry.featuredImage} alt="" loading="lazy" decoding="async" width={400} height={260} /> : <SparkIcon />}</span>
+          <span className="lx-mag-media">{entry.featuredImage ? <img src={entry.featuredImage} alt={`Titelbild: ${entry.title}`} loading="lazy" decoding="async" width={400} height={260} /> : <SparkIcon />}</span>
           <span className="lx-mag-body"><small>{entry.categories[0]?.name || "Magazin"}</small><strong>{entry.title}</strong></span>
         </Link>)}
       </div>

@@ -1,5 +1,7 @@
 import catalog from "@/data/magazine.json";
 import { absolutizeAssetUrls, staticAsset } from "./static-asset.mjs";
+import { applyTextCorrections, MAGAZINE_CORRECTIONS } from "./text-corrections.mjs";
+import { withImageAlts } from "./image-alt.mjs";
 import { slashInternalLinks, withTrailingSlash } from "./site-contract.mjs";
 
 export type MagazineEntry = {
@@ -69,7 +71,7 @@ function withAbsoluteAssets(entry: MagazineEntry): MagazineEntry {
   };
 }
 
-export const magazineEntries = (catalog.entries as MagazineEntry[]).map(withCategoryCorrections).map(withAbsoluteAssets);
+export const magazineEntries = (catalog.entries as MagazineEntry[]).map((entry) => applyTextCorrections(entry, MAGAZINE_CORRECTIONS) as MagazineEntry).map(withCategoryCorrections).map(withAbsoluteAssets).map((entry) => withImageAlts(entry, entry.title) as MagazineEntry);
 export const magazineAttachments = (catalog.attachments as MagazineAttachment[]).map((attachment) =>
   attachment.targetType === "asset"
     ? { ...attachment, target: staticAsset(attachment.target) }

@@ -10,7 +10,7 @@ export function MagazineMedia({ entry, className = "", eager = false }: { entry:
   if (entry.featuredImage) {
     return (
       <span className={`mz-media ${className}`.trim()}>
-        <img src={entry.featuredImage} alt="" loading={eager ? "eager" : "lazy"} decoding="async" />
+        <img src={entry.featuredImage} alt={`Titelbild: ${entry.title}`} loading={eager ? "eager" : "lazy"} decoding="async" />
       </span>
     );
   }

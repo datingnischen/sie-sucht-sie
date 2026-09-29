@@ -106,7 +106,7 @@ export default async function MagazineDetailPage({ params }: Props) {
               {author && (
                 <span className="mz-byline-author">
                   {author.portrait
-                    ? <img src={author.portrait} alt="" width={44} height={44} />
+                    ? <img src={author.portrait} alt={`Porträt von ${author.name}`} width={44} height={44} />
                     : <span className="mz-byline-initials" aria-hidden="true">{initials(author.name)}</span>}
                   <span>Von <Link href={`/magazin/author/${author.slug}`}>{author.name}</Link></span>
                 </span>

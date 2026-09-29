@@ -49,7 +49,7 @@ export function CityFinder({ regions, regionLabel, countryName }: Props) {
               {region.cities.map((city) => (
                 <li key={city.path}>
                   <Link className="sh-chip" href={city.path} title={city.teaser}>
-                    {city.photo ? <img src={city.photo.src} alt="" loading="lazy" decoding="async" /> : <span className="sh-chip-ph" aria-hidden="true"><VenusPairIcon /></span>}
+                    {city.photo ? <img src={city.photo.src} alt={`Stadtansicht von ${city.name}`} loading="lazy" decoding="async" /> : <span className="sh-chip-ph" aria-hidden="true"><VenusPairIcon /></span>}
                     <span className="sh-chip-copy"><strong>{city.name}</strong><small>{city.teaser}</small></span>
                     <ArrowIcon className="sh-chip-go" />
                   </Link>
