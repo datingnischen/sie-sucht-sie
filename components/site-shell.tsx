@@ -9,10 +9,9 @@ import { SITE_SEARCH_PATH } from "@/lib/site-search.mjs";
 import { CheckIcon, HeartFilledIcon, MenuIcon, CloseIcon, PrideStripe, SearchIcon, VenusPairIcon } from "@/components/icons";
 
 const nav = [
-  ["Partnersuche", "/partnersuche"],
+  ["Deutschland", "/partnersuche"],
   ["Österreich", "/oesterreich"],
   ["Schweiz", "/schweiz"],
-  ["Lexikon", "/lexikon"],
   ["Magazin", "/magazin"],
   ["Über uns", ABOUT_ROOT_PATH],
 ] as const;
