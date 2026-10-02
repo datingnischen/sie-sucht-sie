@@ -1,4 +1,4 @@
-import catalog from "@/data/magazine.json";
+import catalog from "../data/magazine.json" with { type: "json" };
 import { absolutizeAssetUrls, staticAsset } from "./static-asset.mjs";
 import { applyTextCorrections, MAGAZINE_CORRECTIONS } from "./text-corrections.mjs";
 import { withImageAlts } from "./image-alt.mjs";
@@ -86,6 +86,9 @@ export const magazinePages = magazineEntries
   .filter((entry) => entry.type === "page")
   .sort((a, b) => a.title.localeCompare(b.title, "de"));
 export const magazineAuthors = catalog.authors as MagazineAuthor[];
+export const magazineTags = catalog.tags as MagazineCategory[];
+/** IDs der ehemaligen WordPress-Inhalte (ohne das Lexikon); nur diese gibt der WP-REST-Endpunkt aus. */
+export const magazineWordpressIds = new Set(catalog.entries.map((entry) => entry.id));
 
 /** Visible article date: the last update, falling back to the publication date. Pages show no date. */
 export function articleUpdatedDate(entry: MagazineEntry): string {
