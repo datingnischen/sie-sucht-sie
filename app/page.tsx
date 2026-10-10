@@ -10,8 +10,8 @@ import { ArrowIcon, BookIcon, ChatIcon, CheckIcon, HeartFilledIcon, HeartIcon, P
 import "./home.css";
 
 export const metadata: Metadata = {
-  title: "Sie sucht Sie – Die Singlebörse für Frauen, die Frauen lieben",
-  description: "Kostenlos registrieren, Frauen aus Deiner Region kennenlernen und mit Sicherheit, Herz und über 20 Jahren Dating-Erfahrung in die Partnersuche starten.",
+  title: "Sie sucht Sie – Frau sucht Frau in Deiner Nähe | Singlebörse",
+  description: "Frau sucht Frau: Lerne kostenlos lesbische und bisexuelle Frauen in Deiner Nähe kennen – sicher, mit Herz und über 20 Jahren Dating-Erfahrung.",
   alternates: { canonical: `${SITE_URL}/` },
   openGraph: { images: [staticAsset("/home/hero.webp")] },
 };
@@ -50,7 +50,7 @@ export default function HomePage() {
     path: "/",
     canonical: `${SITE_URL}/`,
     type: "editorial",
-    h1: "Finde eine Partnerin, die wirklich zu Dir passt.",
+    h1: "Frau sucht Frau: Finde eine Partnerin, die wirklich zu Dir passt.",
     description: metadata.description,
   });
   return <main className="home">
@@ -61,8 +61,8 @@ export default function HomePage() {
       <div className="wrap home-hero-grid">
         <div className="home-hero-copy">
           <span className="home-badge"><VenusPairIcon /> Für lesbische & bisexuelle Frauen</span>
-          <h1>Finde eine Partnerin, die <em>wirklich zu Dir passt.</em></h1>
-          <p className="home-lead">Ob große Liebe, ehrliche Gespräche oder neue Kontakte: Bei Sie-sucht-Sie.de begegnest Du Frauen, die Frauen lieben – direkt in Deiner Region.</p>
+          <h1>Frau sucht Frau: Finde eine Partnerin, die <em>wirklich zu Dir passt.</em></h1>
+          <p className="home-lead">Ob große Liebe, ehrliche Gespräche im <Link href="/lexikon/kostenloser-lesbenchat">Lesbenchat</Link> oder neue Kontakte: Bei Sie-sucht-Sie.de begegnest Du Frauen, die Frauen lieben – direkt in Deiner Nähe.</p>
           <div className="home-actions">
             <a className="button button-green" href={register}>Kostenlos registrieren</a>
             <Link className="button button-ghost-light" href="/partnersuche">Frauen in Deiner Stadt</Link>
