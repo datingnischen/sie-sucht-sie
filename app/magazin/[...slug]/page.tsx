@@ -117,6 +117,7 @@ export default async function MagazineDetailPage({ params }: Props) {
           </div>
           <figure className="mz-article-figure">
             <MagazineMedia entry={entry} className="mz-article-arch" eager />
+            {entry.slug === "temptation-island-vip-2026-erstes-queeres-paar" && <figcaption>KI-generiertes Symbolbild: zwei Frauen an einer mediterranen Villa.</figcaption>}
             <span className="mz-hero-arch-icon" aria-hidden="true"><HeartFilledIcon /></span>
           </figure>
         </div>
