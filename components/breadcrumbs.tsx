@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/link";
 
 type Crumb = { name: string; path: string };
 

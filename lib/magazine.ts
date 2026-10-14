@@ -13,6 +13,8 @@ export type MagazineEntry = {
   canonical: string;
   sourceUrl: string;
   title: string;
+  /** Nur <title>; die Überschrift bleibt title. */
+  seoTitle?: string;
   description: string;
   date: string;
   modified: string;
@@ -71,7 +73,32 @@ function withAbsoluteAssets(entry: MagazineEntry): MagazineEntry {
   };
 }
 
-export const magazineEntries = (catalog.entries as MagazineEntry[]).map((entry) => applyTextCorrections(entry, MAGAZINE_CORRECTIONS) as MagazineEntry).map(withCategoryCorrections).map(withAbsoluteAssets).map((entry) => withImageAlts(entry, entry.title) as MagazineEntry);
+// Seitentitel unter ca. 580 px (Google-Abschnitt), gemessen wie Seobility mit 20px Arial; zu kurze mit Nutzen ergänzt.
+const SEO_TITLES: Record<string, string> = {
+  "spaetes-coming-out-frauen": "Spätes Coming-out: Wenn Frauen neu lieben",
+  "lesben-erkennen": "Lesben erkennen: Diese Zeichen deuten darauf hin",
+  "offene-beziehungen-frauen": "Offene Beziehungen unter Frauen: Freiheit & Regeln",
+  "perfekte-profilbild": "Das perfekte Profilbild für lesbische Dating-Apps",
+  "vaginale-selbsttests-dating": "Vaginale Selbsttests und Dating: offen darüber reden",
+  "deepfake-gewalt-dating": "Deepfake-Gewalt: So schützen sich Frauen beim Dating",
+  "kinderwunsch-social-media-samenspende": "Kinderwunsch über Social Media: Risiken für Lesben",
+  "lesben-staedte-szene": "Lesben-Städteguide: Szene in DE, AT und CH",
+  "coming-out-day": "Coming Out Day: Feiertag für Selbstliebe & Akzeptanz",
+  "lesben-massage": "Lesben Massage: 6 Tipps für deine Freundin",
+  "swag-lesbenparty-mai-2017": "S.W.A.G – Lesbenparty im Rhein-Main-Gebiet",
+  "tag-der-bisexualitaet": "Bisexual Visibility Day: Tag der Bisexualität",
+  redaktion: "Unsere Redaktion: Wer bei Sie sucht Sie schreibt",
+  glossar: "Lesben-Glossar: Begriffe von A bis Z",
+  alicia: "Alicia Schlienz: Dating-Expertin für LGBT-Themen",
+  "zwei-muetter-na-und": "Zwei Mütter! Na und? Leben in einer Regenbogenfamilie",
+};
+
+function withSeoTitle(entry: MagazineEntry): MagazineEntry {
+  const seoTitle = SEO_TITLES[entry.slug];
+  return seoTitle ? { ...entry, seoTitle } : entry;
+}
+
+export const magazineEntries = (catalog.entries as MagazineEntry[]).map((entry) => applyTextCorrections(entry, MAGAZINE_CORRECTIONS) as MagazineEntry).map(withCategoryCorrections).map(withSeoTitle).map(withAbsoluteAssets).map((entry) => withImageAlts(entry, entry.title) as MagazineEntry);
 export const magazineAttachments = (catalog.attachments as MagazineAttachment[]).map((attachment) =>
   attachment.targetType === "asset"
     ? { ...attachment, target: staticAsset(attachment.target) }

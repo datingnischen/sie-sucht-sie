@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { clampMetaDescription } from "@/lib/meta-description.mjs";
 import { notFound } from "next/navigation";
 import { ABOUT_SOCIAL_PATH } from "@/lib/about-pages.mjs";
 import { getImportedPage, normalizePublicPath, publicPages } from "@/lib/content";
@@ -26,7 +27,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const page = getImportedPage(normalizePublicPath(slug));
   if (!page) return {};
-  return { title: page.title, description: page.description, alternates: { canonical: page.canonical }, openGraph: { title: page.title, description: page.description, url: page.canonical, images: selectHeroImage(page.images)?.src ? [selectHeroImage(page.images).src] : undefined } };
+  const title = page.seoTitle ?? page.title;
+  const description = clampMetaDescription(page.seoDescription ?? page.description);
+  return { title, description, alternates: { canonical: page.canonical }, openGraph: { title, description, url: page.canonical, images: selectHeroImage(page.images)?.src ? [selectHeroImage(page.images).src] : undefined } };
 }
 
 /**

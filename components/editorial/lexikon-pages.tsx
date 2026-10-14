@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/link";
 import { registrationUrl } from "@/lib/site";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { ArrowIcon, BookIcon, ClockIcon, HeartFilledIcon, SparkIcon, VenusPairIcon } from "@/components/icons";

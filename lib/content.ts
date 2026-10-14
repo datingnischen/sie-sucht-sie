@@ -13,6 +13,9 @@ export type ImportedPage = {
   type: "location" | "lexicon" | "editorial" | "magazine" | "platform";
   title: string;
   description: string;
+  /** Nur für <title>/Meta-Description, wenn sie vom sichtbaren Seitentext abweichen sollen. */
+  seoTitle?: string;
+  seoDescription?: string;
   h1: string;
   contentHtml: string;
   images: Array<{ src: string; alt: string }>;
@@ -38,6 +41,32 @@ function withAboutPath(page: ImportedPage): ImportedPage {
   return path === page.path ? page : { ...page, path, canonical: publicUrl(path) };
 }
 
+// Seitentitel unter ca. 580 px und eigene Metadaten, gemessen wie Seobility (20px Arial). Nur <title>/Description,
+// die sichtbare Überschrift bleibt. ICONY bedient /bewertungen-und-erfahrungen/ und /social-media/ weiter mit
+// denselben Texten, darum eigene Metadaten für die Über-uns-Kopien.
+const SEO_OVERRIDES: Record<string, Pick<ImportedPage, "seoTitle" | "seoDescription">> = {
+  "/ueber-uns/bewertungen": {
+    seoTitle: "Bewertungen & Erfahrungen mit Sie sucht Sie",
+    seoDescription: "Was Mitglieder über Sie sucht Sie sagen: Erfahrungen, Trustpilot-Bewertungen und Vergleiche zur Partnersuche für lesbische Frauen.",
+  },
+  "/ueber-uns/social-media": {
+    seoTitle: "Sie sucht Sie auf Instagram, Facebook & YouTube",
+    seoDescription: "Sie sucht Sie auf Instagram, Facebook und YouTube: Liebesgeschichten, Community-Themen und Neuigkeiten. Folge unseren offiziellen Kanälen.",
+  },
+  "/partnersuche/koeln": { seoTitle: "Sie sucht Sie in Köln – Lesbische Frauen treffen" },
+  "/partnersuche/mainz": { seoTitle: "Sie sucht Sie in Mainz – Lesbische Frauen treffen" },
+};
+
+function withSeoOverrides(page: ImportedPage): ImportedPage {
+  const override = SEO_OVERRIDES[page.path];
+  if (override) return { ...page, ...override };
+  // Österreich-Seiten heißen nur „Lesbisch in Wien“: zu kurz für den Titel, mit Nutzen ergänzt.
+  if (page.type === "location" && /^\/oesterreich\/[^/]+$/.test(page.path) && /^Lesbisch in [^:–-]+$/.test(page.title)) {
+    return { ...page, seoTitle: `${page.title}: Frauen kennenlernen` };
+  }
+  return page;
+}
+
 // Seiten-URLs enden auf "/" wie die ICONY-Plattform; der Import-Snapshot bleibt unverändert.
 function withTrailingSlashUrls(page: ImportedPage): ImportedPage {
   return { ...page, canonical: withTrailingSlash(page.canonical), contentHtml: slashInternalLinks(page.contentHtml) };
@@ -52,7 +81,7 @@ function withAbsoluteAssets(page: ImportedPage): ImportedPage {
   };
 }
 
-const pages = (catalog.pages as ImportedPage[]).map((page) => applyTextCorrections(page, PAGE_CORRECTIONS) as ImportedPage).map(withPlatformOwnership).map(withAboutPath).map(withTrailingSlashUrls).map(withAbsoluteAssets).map((page) => withCityPhoto(page, staticAsset) as ImportedPage).map((page) => withImageAlts(page, page.h1 || page.title) as ImportedPage);
+const pages = (catalog.pages as ImportedPage[]).map((page) => applyTextCorrections(page, PAGE_CORRECTIONS) as ImportedPage).map(withPlatformOwnership).map(withAboutPath).map(withSeoOverrides).map(withTrailingSlashUrls).map(withAbsoluteAssets).map((page) => withCityPhoto(page, staticAsset) as ImportedPage).map((page) => withImageAlts(page, page.h1 || page.title) as ImportedPage);
 const pageMap = new Map(pages.map((page) => [page.path, page]));
 
 export const publicPages = pages.filter((page) => page.type !== "platform" && page.type !== "magazine");

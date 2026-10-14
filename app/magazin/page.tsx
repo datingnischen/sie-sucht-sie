@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import Link from "next/link";
+import Link from "@/components/link";
 import { MagazineBreadcrumbs } from "@/components/magazine-breadcrumbs";
 import { ArrowIcon, BookIcon, ClockIcon, GlassIcon, HeartFilledIcon, HeartIcon, PhoneIcon, PinIcon, RainbowIcon, SparkIcon, TvIcon, VenusPairIcon } from "@/components/icons";
 import { MagazineCategoryIcon } from "@/components/magazine/category-icon";
@@ -10,7 +10,7 @@ import { getMagazineEntry, magazinePages, magazinePosts } from "@/lib/magazine";
 import { registrationUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Magazin für lesbische und bisexuelle Frauen – Dating, Liebe & Szene",
+  title: "Magazin für lesbische und bisexuelle Frauen",
   description: "Artikel über lesbisches Dating, Beziehungen, Coming-out, Szene-Treffpunkte und das Leben als Frau, die Frauen liebt.",
   alternates: { canonical: "https://www.sie-sucht-sie.de/magazin/" },
   openGraph: {
