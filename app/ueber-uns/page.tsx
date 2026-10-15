@@ -146,10 +146,10 @@ export default function AboutPage() {
             <li><strong>{magazinePosts.length}</strong> Artikel</li>
             <li><strong>{magazineCategories.length}</strong> Rubriken</li>
           </ul>
-          {author && authorText ? <Link className="ab-author" href={`/magazin/author/${author.slug}`}>
+          {author && authorText ? <div className="ab-author has-card-link">
             <span className="ab-author-icon" aria-hidden="true"><BookIcon /></span>
-            <span><small>Aus der Redaktion</small><strong>{author.name}</strong><span>{authorText}</span></span>
-          </Link> : null}
+            <span><small>Aus der Redaktion</small><strong><Link className="card-link" href={`/magazin/author/${author.slug}`}>{author.name}</Link></strong><span>{authorText}</span></span>
+          </div> : null}
           <Link className="ab-link" href="/magazin">Zum Magazin <ArrowIcon /></Link>
         </div>
       </div>

@@ -49,3 +49,16 @@
 @media(max-width:720px){.header-inner{gap:12px}.header-actions{gap:8px}.header-search{width:38px;height:38px}.site-search-row{flex-direction:column}.site-search-row .button{width:100%}.site-search-result{padding:18px}.site-search-empty{padding:22px 18px}}
 @media(prefers-reduced-motion:reduce){.site-search-result{transition:none}.site-search-result:hover{transform:none}}
 @media(max-width:420px){.brand{min-width:0;flex:0 1 auto}.brand img{width:min(170px,100%)}.header-search{width:36px;height:36px}}
+
+/* Karten mit nur einem Link (Titel): kurzer, eindeutiger Linktext; die ganze Karte bleibt über ::after klickbar. */
+.has-card-link { position: relative; }
+.has-card-link .card-link { color: inherit; text-decoration: none; }
+.has-card-link .card-link::after { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: inherit; }
+.has-card-link .card-link:focus-visible { outline: none; }
+.has-card-link:focus-within { outline: 2px solid currentColor; outline-offset: 3px; }
+
+/* Hervorhebungen, die limitStrong (lib/html-cleanup.mjs) aus <strong> in <span> umwandelt: gleiche Optik wie strong. */
+.em-strong { font-weight: 700; }
+
+/* Ehemalige strong-Elemente (Seobility „viele Strong-Tags“): Fettschrift kam vom Browser-Standard für strong. */
+.sx-strong, .sc-fact-value { font-weight: 700; }

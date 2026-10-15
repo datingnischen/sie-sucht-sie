@@ -234,7 +234,8 @@
 .home-country-all small, .home-country-all span { color: #fff; }
 .home-country-all em { background: rgba(255, 255, 255, .22); color: #fff; }
 .home-country small { color: var(--berry); font-size: .74rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
-.home-country strong { font-family: var(--display); font-size: 1.7rem; font-weight: 650; }
+.home-country strong, .home-country .sx-strong { font-family: var(--display); font-size: 1.7rem; font-weight: 650; }
+.home-country .sx-strong { color: inherit; }
 .home-country span { color: var(--muted); font-size: .9rem; }
 .home-country em { position: absolute; right: 18px; top: 16px; display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; background: var(--pink-soft); color: var(--magenta); }
 
@@ -298,3 +299,10 @@
   .home-float { animation: none; }
   .home-belong-card img, .home-city img { transition: none; }
 }
+
+/* Karten mit Titel-Link: Der Textblock darf nicht positioniert sein, sonst deckt .card-link::after nur ihn ab.
+   Statt absolut unten liegt er per Flex unten in der Karte (gleiche Abstände). */
+.home-belong-card.has-card-link,
+.home-city.has-card-link { display: flex; align-items: flex-end; }
+.home-belong-card.has-card-link .home-belong-copy { position: static; flex: 1; margin: 0 24px 22px; }
+.home-city.has-card-link .home-city-copy { position: static; flex: 1; margin: 0 20px 18px; }

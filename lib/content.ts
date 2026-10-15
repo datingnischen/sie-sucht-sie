@@ -5,6 +5,8 @@ import { absolutizeAssetUrls, staticAsset } from "./static-asset.mjs";
 import { applyTextCorrections, PAGE_CORRECTIONS } from "./text-corrections.mjs";
 import { withCityPhoto } from "./city-photos.mjs";
 import { withImageAlts } from "./image-alt.mjs";
+import { fixTypos, limitStrong, withoutEmptyHeadings, withoutH1Repeat } from "./html-cleanup.mjs";
+import { withUniquePageLinks } from "./link-targets.mjs";
 
 export type ImportedPage = {
   path: string;
@@ -81,7 +83,9 @@ function withAbsoluteAssets(page: ImportedPage): ImportedPage {
   };
 }
 
-const pages = (catalog.pages as ImportedPage[]).map((page) => applyTextCorrections(page, PAGE_CORRECTIONS) as ImportedPage).map(withPlatformOwnership).map(withAboutPath).map(withSeoOverrides).map(withTrailingSlashUrls).map(withAbsoluteAssets).map((page) => withCityPhoto(page, staticAsset) as ImportedPage).map((page) => withImageAlts(page, page.h1 || page.title) as ImportedPage);
+const pages = (catalog.pages as ImportedPage[]).map((page) => ({ ...page, contentHtml: withUniquePageLinks(page.path, page.contentHtml) })).map((page) => applyTextCorrections(page, PAGE_CORRECTIONS) as ImportedPage).map(withPlatformOwnership).map(withAboutPath).map(withSeoOverrides).map(withTrailingSlashUrls).map(withAbsoluteAssets).map((page) => withCityPhoto(page, staticAsset) as ImportedPage).map((page) => withImageAlts(page, page.h1 || page.title) as ImportedPage)
+  // Seobility: leere Überschriften, H1-Wiederholung im Text, zu viele/leere/doppelte Strong-Tags, Tippfehler.
+  .map((page) => ({ ...page, contentHtml: fixTypos(limitStrong(withoutH1Repeat(withoutEmptyHeadings(page.contentHtml), page.h1))), description: fixTypos(page.description) }));
 const pageMap = new Map(pages.map((page) => [page.path, page]));
 
 export const publicPages = pages.filter((page) => page.type !== "platform" && page.type !== "magazine");

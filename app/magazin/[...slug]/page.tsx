@@ -15,6 +15,7 @@ import {
   getRetiredMagazinePath,
   magazineStaticParams,
   relatedMagazineEntries,
+  magazineHeading,
 } from "@/lib/magazine";
 import { PORTAL_RANKING_CATEGORY } from "@/lib/portal-ranking";
 import { registrationUrl, SITE_URL } from "@/lib/site";
@@ -103,7 +104,7 @@ export default async function MagazineDetailPage({ params }: Props) {
             {category
               ? <Link className="mz-badge mz-badge-link" href={`/magazin/kategorie/${category.slug}`}><span className="mz-badge-icon" aria-hidden="true">{badgeIcon}</span>{badge}</Link>
               : <span className="mz-badge"><span className="mz-badge-icon" aria-hidden="true">{badgeIcon}</span>{badge}</span>}
-            <h1>{entry.title}</h1>
+            <h1>{magazineHeading(entry)}</h1>
             <p className="mz-hero-lead mz-article-deck">{entry.description}</p>
             <div className="mz-byline">
               {author && (
@@ -149,7 +150,7 @@ export default async function MagazineDetailPage({ params }: Props) {
                 {author.role && <p className="mz-author-box-role">{author.role}</p>}
                 {author.bioLead && <p>{author.bioLead}</p>}
                 <div className="mz-author-box-links">
-                  <Link className="text-link" href={`/magazin/author/${author.slug}`}>Alle Beiträge <ArrowIcon /></Link>
+                  <Link className="text-link" href={`/magazin/author/${author.slug}`}>Alle Beiträge von {author.name} <ArrowIcon /></Link>
                   {author.bioEntry && <Link className="text-link" href={author.bioEntry.path}>Mehr über {author.slug === "redaktion" ? "unsere Redaktion" : author.name.split(" ")[0]} <ArrowIcon /></Link>}
                 </div>
               </div>

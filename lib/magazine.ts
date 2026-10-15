@@ -2,6 +2,8 @@ import catalog from "../data/magazine.json" with { type: "json" };
 import { absolutizeAssetUrls, staticAsset } from "./static-asset.mjs";
 import { applyTextCorrections, MAGAZINE_CORRECTIONS } from "./text-corrections.mjs";
 import { withImageAlts } from "./image-alt.mjs";
+import { fixTypos, limitStrong, withoutEmptyHeadings } from "./html-cleanup.mjs";
+import { withUniqueEntryLinks } from "./link-targets.mjs";
 import { slashInternalLinks, withTrailingSlash } from "./site-contract.mjs";
 
 export type MagazineEntry = {
@@ -98,7 +100,19 @@ function withSeoTitle(entry: MagazineEntry): MagazineEntry {
   return seoTitle ? { ...entry, seoTitle } : entry;
 }
 
-export const magazineEntries = (catalog.entries as MagazineEntry[]).map((entry) => applyTextCorrections(entry, MAGAZINE_CORRECTIONS) as MagazineEntry).map(withCategoryCorrections).map(withSeoTitle).map(withAbsoluteAssets).map((entry) => withImageAlts(entry, entry.title) as MagazineEntry);
+// Zu kurze H1 (Seobility, unter ca. 20 Zeichen); Titel, Karten und Linktexte behalten den Originaltitel.
+const H1_OVERRIDES: Record<string, string> = {
+  glossar: "Glossar: Begriffe von A bis Z",
+  alicia: "Alicia Schlienz – Autorin im Magazin",
+  redaktion: "Unsere Redaktion bei Sie-sucht-Sie",
+};
+export function magazineHeading(entry: Pick<MagazineEntry, "slug" | "title">) {
+  return H1_OVERRIDES[entry.slug] ?? entry.title;
+}
+
+export const magazineEntries = (catalog.entries as MagazineEntry[]).map((entry) => ({ ...entry, contentHtml: withUniqueEntryLinks(entry.slug, entry.contentHtml) })).map((entry) => applyTextCorrections(entry, MAGAZINE_CORRECTIONS) as MagazineEntry).map(withCategoryCorrections).map(withSeoTitle).map(withAbsoluteAssets).map((entry) => withImageAlts(entry, entry.title) as MagazineEntry)
+  // Seobility: leere Überschriften, zu viele/leere/doppelte Strong-Tags, Tippfehler.
+  .map((entry) => ({ ...entry, contentHtml: fixTypos(limitStrong(withoutEmptyHeadings(entry.contentHtml))) }));
 export const magazineAttachments = (catalog.attachments as MagazineAttachment[]).map((attachment) =>
   attachment.targetType === "asset"
     ? { ...attachment, target: staticAsset(attachment.target) }

@@ -14,9 +14,9 @@
 .mz-main h2,
 .mz-main h3,
 .mz-feature strong,
-.mz-topic strong,
+.mz-topic strong, .mz-topic .sx-strong,
 .mz-tile strong,
-.mz-city strong,
+.mz-city strong, .mz-city .sx-strong,
 .mz-scene-hub strong,
 .mz-knowledge-list strong,
 .mz-stats dd {
@@ -705,7 +705,7 @@
   height: 22px;
 }
 
-.mz-topic strong {
+.mz-topic strong, .mz-topic .sx-strong {
   display: block;
   font-size: 1rem;
   font-weight: 650;
@@ -734,7 +734,7 @@
   color: #fff !important;
 }
 
-.mz-topic-index strong {
+.mz-topic-index strong, .mz-topic-index .sx-strong {
   font-size: 1.2rem;
 }
 
@@ -995,7 +995,7 @@
   height: 14px;
 }
 
-.mz-city strong {
+.mz-city strong, .mz-city .sx-strong {
   font-size: 1.45rem;
   font-weight: 650;
   line-height: 1.1;
@@ -1212,7 +1212,7 @@
   list-style: none;
 }
 
-.mz-knowledge-list a {
+.mz-knowledge-list .mz-knowledge-row {
   display: flex;
   align-items: center;
   gap: 16px;
@@ -1223,8 +1223,8 @@
   transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
 }
 
-.mz-knowledge-list a:hover,
-.mz-knowledge-list a:focus-visible {
+.mz-knowledge-list .mz-knowledge-row:hover,
+.mz-knowledge-list .mz-knowledge-row:focus-visible {
   transform: translateX(4px);
   border-color: #f3bfd0;
   box-shadow: 0 12px 26px rgba(59, 18, 64, .08);
@@ -1241,7 +1241,7 @@
   width: 44%;
 }
 
-.mz-knowledge-list a > span:nth-child(2) {
+.mz-knowledge-list .mz-knowledge-row > span:nth-child(2) {
   display: grid;
   flex: 1;
   gap: 2px;
@@ -1259,7 +1259,7 @@
   font-size: .82rem;
 }
 
-.mz-knowledge-list a > svg {
+.mz-knowledge-list .mz-knowledge-row > svg {
   flex: none;
   width: 20px;
   height: 20px;
@@ -2307,7 +2307,7 @@
     border-radius: 12px;
   }
 
-  .mz-topic strong {
+  .mz-topic strong, .mz-topic .sx-strong {
     font-size: .92rem;
   }
 
@@ -2358,7 +2358,7 @@
     gap: 26px 16px;
   }
 
-  .mz-city strong {
+  .mz-city strong, .mz-city .sx-strong {
     font-size: 1.2rem;
   }
 
@@ -2447,7 +2447,7 @@
   .mz-media img,
   .mz-city-arch,
   .mz-scene-hub,
-  .mz-knowledge-list a,
+  .mz-knowledge-list .mz-knowledge-row,
   .mz-radar-card,
   .mz-card-go svg,
   .mz-tile-arrow {
@@ -2458,7 +2458,7 @@
   .mz-tile:hover,
   .mz-card-link:hover,
   .mz-city:hover .mz-city-arch,
-  .mz-knowledge-list a:hover {
+  .mz-knowledge-list .mz-knowledge-row:hover {
     transform: none;
   }
 
@@ -2552,3 +2552,12 @@ details.magazine-sources .magazine-sources__body a {
     transition: none;
   }
 }
+
+/* Themen-Kacheln mit Titel-Link: Klickfläche (.card-link::after) muss die ganze Kachel abdecken. Dafür ist der
+   Textblock statisch; Bild und Verlauf liegen mit negativem z-index darunter (die Kachel ist durch transform ein
+   eigener Stapelkontext, ihr Hintergrund bleibt dahinter). */
+.mz-tile.has-card-link img,
+.mz-tile.has-card-link::after { z-index: -1; }
+.mz-tile.has-card-link .mz-tile-copy { position: static; }
+.mz-tile.has-card-link .mz-tile-arrow { pointer-events: none; }
+.mz-tile.has-card-link:focus-within { transform: rotate(0deg) translateY(-4px); box-shadow: 0 26px 48px rgba(20, 40, 75, .26); }

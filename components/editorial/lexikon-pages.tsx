@@ -64,15 +64,15 @@ export function LexikonHub({ page, path, image, contentHtml, breadcrumbs }: Impo
           const listed = index.items.get(term.path);
           const firstOfLetter = termIndex === 0 || terms[termIndex - 1].letter !== term.letter;
           return <li className="lx-dict-item" id={firstOfLetter ? `buchstabe-${term.letter.toLowerCase()}` : undefined} key={term.path}>
-            <Link className="lx-dict-entry" href={term.path}>
+            <div className="lx-dict-entry has-card-link">
               <span className="lx-dict-letter" aria-hidden="true">{term.letter}</span>
               <span className="lx-dict-body">
-                <span className="lx-dict-word">{term.term}</span>
+                <span className="lx-dict-word"><Link className="card-link" href={term.path}>{term.term}</Link></span>
                 <span className="lx-dict-meta"><ClockIcon /> {term.minutes} Min. · {chaptersLabel(term.chapters)}</span>
                 <span className="lx-dict-text">{listed?.text || term.description}</span>
-                <span className="lx-dict-more">{listed?.label || term.h1} <ArrowIcon /></span>
+                <span className="lx-dict-more" aria-hidden="true">{listed?.label || term.h1} <ArrowIcon /></span>
               </span>
-            </Link>
+            </div>
           </li>;
         })}
       </ol>
@@ -91,19 +91,19 @@ export function LexikonHub({ page, path, image, contentHtml, breadcrumbs }: Impo
           <p>Queer, bi, pan oder demi? Im Magazin erklärt die Redaktion weitere Begriffe rund um Identität, Liebe und Community.</p>
         </div>
         <div className="lx-bridge-grid">
-          {bridge.glossary ? <Link className="lx-glossary-card" href={bridge.glossary.path}>
+          {bridge.glossary ? <div className="lx-glossary-card has-card-link">
             <span className="lx-glossary-letters" aria-hidden="true">{bridge.glossary.letters.map((letter) => <i key={letter}>{letter}</i>)}</span>
             <span className="lx-glossary-body">
               <small>Magazin · {bridge.glossary.title}</small>
-              <strong>{bridge.glossary.count} Begriffe von A bis Z</strong>
+              <strong><Link className="card-link" href={bridge.glossary.path}>{bridge.glossary.count} Begriffe von A bis Z</Link></strong>
               <span>Vom Coming-out bis zur Lesbenflagge: das große Glossar im Magazin.</span>
               <em>Glossar öffnen <ArrowIcon /></em>
             </span>
-          </Link> : null}
-          {bridge.featured.map((entry) => <Link className="lx-mag-card" href={entry.path} key={entry.path}>
+          </div> : null}
+          {bridge.featured.map((entry) => <div className="lx-mag-card has-card-link" key={entry.path}>
             <span className="lx-mag-media">{entry.featuredImage ? <img src={entry.featuredImage} alt={`Titelbild: ${entry.title}`} loading="lazy" decoding="async" width={400} height={260} /> : <SparkIcon />}</span>
-            <span className="lx-mag-body"><small>Begriff im Magazin</small><strong>{entry.title}</strong></span>
-          </Link>)}
+            <span className="lx-mag-body"><small>Begriff im Magazin</small><strong><Link className="card-link" href={entry.path}>{entry.title}</Link></strong></span>
+          </div>)}
         </div>
         {bridge.more.length ? <div className="lx-chips-row">
           <span>Auch erklärt:</span>
@@ -214,10 +214,10 @@ export function LexikonEntry({ page, path, image, contentHtml, breadcrumbs }: Im
         <Link className="button button-outline" href="/magazin/glossar">Zum Glossar</Link>
       </div>
       <div className="lx-deeper-grid">
-        {magazine.map((entry) => <Link className="lx-mag-card" href={entry.path} key={entry.path}>
+        {magazine.map((entry) => <div className="lx-mag-card has-card-link" key={entry.path}>
           <span className="lx-mag-media">{entry.featuredImage ? <img src={entry.featuredImage} alt={`Titelbild: ${entry.title}`} loading="lazy" decoding="async" width={400} height={260} /> : <SparkIcon />}</span>
-          <span className="lx-mag-body"><small>{entry.categories[0]?.name || "Magazin"}</small><strong>{entry.title}</strong></span>
-        </Link>)}
+          <span className="lx-mag-body"><small>{entry.categories[0]?.name || "Magazin"}</small><strong><Link className="card-link" href={entry.path}>{entry.title}</Link></strong></span>
+        </div>)}
       </div>
     </section> : null}
   </main>;

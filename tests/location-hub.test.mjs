@@ -117,7 +117,9 @@ test("the city finder keeps every city link server-rendered and filters only in 
   const finder = await readFile(new URL("../components/location/city-finder.tsx", import.meta.url), "utf8");
   assert.match(finder, /^"use client";/);
   assert.match(finder, /if \(!q\) return regions;/);
-  assert.match(finder, /<Link className="sh-chip" href=\{city\.path\}/);
+  // Chip verlinkt nur den Stadtnamen (Seobility „Linktext zu lang“), die Fläche bleibt über .card-link::after klickbar.
+  assert.match(finder, /<div className="sh-chip has-card-link"/);
+  assert.match(finder, /<Link className="card-link" href=\{city\.path\}>\{city\.name\}<\/Link>/);
   const hubCss = await readFile(new URL("../components/location/sc-hub.css", import.meta.url), "utf8");
   assert.match(hubCss, /@media \(prefers-reduced-motion: reduce\)[\s\S]*\.sh-region \{ animation: none; \}/);
 });

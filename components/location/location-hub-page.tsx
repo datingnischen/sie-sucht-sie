@@ -89,7 +89,7 @@ export function LocationHubPage({ page, path, image, contentHtml, breadcrumbs, r
               <CountryShape root={entry} className="sh-country-shape" />
               <span className="sh-country-copy">
                 <small>Sie sucht Sie {other.inName.replace(/\s*\S+$/, "")}</small>
-                <strong>{other.name}</strong>
+                <span className="sx-strong">{other.name}</span>
                 <span>{count} Stadtseiten · {featured.join(", ")} …</span>
                 <em>Städte ansehen <ArrowIcon /></em>
               </span>
@@ -112,9 +112,9 @@ export function LocationHubPage({ page, path, image, contentHtml, breadcrumbs, r
             <h1>{emphasize(page.h1, HERO_ACCENT[root])}</h1>
             <p className="sc-lead">{page.description}</p>
             <ul className="sh-stats">
-              <li><strong>{cityCount}</strong><span>Städte mit Queer-Guide</span></li>
-              <li><strong>{regions.length}</strong><span>{country.regionLabelPlural}</span></li>
-              <li><strong><HeartFilledIcon /></strong><span>kostenlos anmelden</span></li>
+              <li><span className="sx-strong">{cityCount}</span><span>Städte mit Queer-Guide</span></li>
+              <li><span className="sx-strong">{regions.length}</span><span>{country.regionLabelPlural}</span></li>
+              <li><span className="sx-strong"><HeartFilledIcon /></span><span>kostenlos anmelden</span></li>
             </ul>
             <div className="sc-actions">
               <a className="button button-green" href={signupUrl}><HeartFilledIcon />Kostenlos anmelden</a>
@@ -206,15 +206,15 @@ export function LocationHubPage({ page, path, image, contentHtml, breadcrumbs, r
 
       {topTen ? (
         <section className="sc-wrap sc-section" aria-labelledby="sh-mag-title">
-          <Link className="sh-topten" href={topTen.path}>
+          <div className="sh-topten has-card-link">
             <span className="sh-topten-media">{topTen.featuredImage ? <img src={topTen.featuredImage} alt={`Titelbild: ${topTen.title}`} loading="lazy" decoding="async" /> : <VenusPairIcon />}</span>
             <span className="sh-topten-copy">
               <small className="kicker">Aus dem Magazin</small>
-              <strong id="sh-mag-title">{topTen.title}</strong>
+              <strong id="sh-mag-title"><Link className="card-link" href={topTen.path}>{topTen.title}</Link></strong>
               <span>{topTen.description.length > 180 ? `${topTen.description.slice(0, 177).replace(/\s+\S*$/, "")} …` : topTen.description}</span>
               <em>Ranking lesen <ArrowIcon /></em>
             </span>
-          </Link>
+          </div>
         </section>
       ) : null}
 

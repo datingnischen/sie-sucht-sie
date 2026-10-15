@@ -112,10 +112,10 @@ export function LocationCityPage({ page, path, contentHtml, breadcrumbs, root }:
 
       <div className="sc-wrap">
         <ul className="sc-facts">
-          <li><PinIcon /><span><small>Suchort</small><strong>{cityName}, {regionName}</strong></span></li>
-          {nearby[0] ? <li><VenusPairIcon /><span><small>Nächste Stadtseite</small><strong>{nearby[0].name} · {nearby[0].km} km</strong></span></li> : null}
-          <li><ClockIcon /><span><small>Lesezeit Guide</small><strong>ca. {guide.readingMinutes} {guide.readingMinutes === 1 ? "Minute" : "Minuten"}</strong></span></li>
-          <li><HeartIcon /><span><small>Anmeldung</small><strong>kostenlos</strong></span></li>
+          <li><PinIcon /><span><small>Suchort</small><span className="sc-fact-value">{cityName}, {regionName}</span></span></li>
+          {nearby[0] ? <li><VenusPairIcon /><span><small>Nächste Stadtseite</small><span className="sc-fact-value">{nearby[0].name} · {nearby[0].km} km</span></span></li> : null}
+          <li><ClockIcon /><span><small>Lesezeit Guide</small><span className="sc-fact-value">ca. {guide.readingMinutes} {guide.readingMinutes === 1 ? "Minute" : "Minuten"}</span></span></li>
+          <li><HeartIcon /><span><small>Anmeldung</small><span className="sc-fact-value">kostenlos</span></span></li>
         </ul>
       </div>
 
@@ -195,7 +195,7 @@ export function LocationCityPage({ page, path, contentHtml, breadcrumbs, root }:
               <li key={entry.path}>
                 <Link className="sc-near-row" href={entry.path}>
                   {entry.photo ? <img src={entry.photo.src} alt={`Stadtansicht von ${entry.name}`} loading="lazy" decoding="async" /> : <span className="sc-near-ph" aria-hidden="true"><VenusPairIcon /></span>}
-                  <span className="sc-near-name"><small>Frauen in {entry.country === country.name ? entry.region : entry.country}</small><strong>{entry.name}</strong></span>
+                  <span className="sc-near-name"><small>Frauen in {entry.country === country.name ? entry.region : entry.country}</small><span className="sc-near-city">{entry.name}</span></span>
                   <span className="sc-near-bar" aria-hidden="true"><i style={{ width: `${Math.max(14, (entry.km / maxKm) * 100)}%` }} /></span>
                   <span className="sc-near-km">{entry.km} km</span>
                 </Link>
@@ -213,15 +213,15 @@ export function LocationCityPage({ page, path, contentHtml, breadcrumbs, root }:
           </div>
           <div className={`sc-mag-grid${magazine.length === 1 ? " sc-mag-grid-single" : ""}`}>
             {magazine.map((entry, index) => (
-              <Link key={entry.path} className="sc-mag-card" href={entry.path} style={{ "--tilt": `${index % 2 ? 1 : -1}deg` } as CSSProperties}>
+              <div key={entry.path} className="sc-mag-card has-card-link" style={{ "--tilt": `${index % 2 ? 1 : -1}deg` } as CSSProperties}>
                 <span className="sc-mag-media">{entry.featuredImage ? <img src={entry.featuredImage} alt={`Titelbild: ${entry.title}`} loading="lazy" decoding="async" /> : <VenusPairIcon />}</span>
                 <span className="sc-mag-body">
                   <small>Magazin</small>
-                  <strong>{entry.title}</strong>
+                  <strong><Link className="card-link" href={entry.path}>{entry.title}</Link></strong>
                   <span>{teaser(entry.description)}</span>
                   <em>Artikel lesen <ArrowIcon /></em>
                 </span>
-              </Link>
+              </div>
             ))}
           </div>
         </section>

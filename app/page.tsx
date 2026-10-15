@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 const trust = [
   [ShieldIcon, "Sicher kennenlernen", "Server in Deutschland und sorgfältige Profilprüfung schaffen einen geschützten Einstieg.", platform.safety],
   [CheckIcon, "Redaktionelle Kontrolle", "Unser Supportteam prüft neue Profile und geht konsequent gegen auffällige Accounts vor.", platform.editorialControl],
-  [HeartIcon, "Kostenlos starten", "Registrierung, Profil und viele Kontaktmöglichkeiten stehen bereits in der Basis-Mitgliedschaft offen.", platform.basicMembership],
+  [HeartIcon, "Kostenlose Basis-Mitgliedschaft", "Registrierung, Profil und viele Kontaktmöglichkeiten stehen bereits in der Basis-Mitgliedschaft offen.", platform.basicMembership],
 ] as const;
 
 // „Du bist hier richtig“: jede Lebenslage führt zu einem passenden Magazinartikel.
@@ -86,10 +86,10 @@ export default function HomePage() {
     </section>
 
     <section className="wrap home-trust" aria-label="Warum Sie-sucht-Sie.de">
-      {trust.map(([Icon, title, text, href]) => <a className="home-trust-card" href={href} key={title}>
+      {trust.map(([Icon, title, text, href]) => <div className="home-trust-card has-card-link" key={title}>
         <span className="home-trust-icon"><Icon /></span>
-        <span><strong>{title}</strong><span>{text}</span><em>Mehr erfahren <ArrowIcon /></em></span>
-      </a>)}
+        <span><strong><a className="card-link" href={href}>{title}</a></strong><span>{text}</span><em aria-hidden="true">Mehr erfahren <ArrowIcon /></em></span>
+      </div>)}
     </section>
 
     {stories.length ? <section className="wrap home-section" aria-labelledby="home-belonging">
@@ -99,11 +99,11 @@ export default function HomePage() {
         <p>Keine Schublade, kein Druck: Hier treffen sich Frauen, die Frauen lieben, in jeder Lebensphase. Unser Magazin begleitet Dich dabei.</p>
       </div>
       <div className="home-belonging">
-        {stories.map((story, index) => <Link className={`home-belong-card home-belong-${index}`} href={story.path} key={story.path}>
+        {stories.map((story, index) => <div className={`home-belong-card home-belong-${index} has-card-link`} key={story.path}>
           {story.entry?.featuredImage ? <img src={story.entry.featuredImage} alt={`Magazinartikel: ${story.entry.title}`} loading="lazy" /> : null}
           <span className="home-belong-shade" aria-hidden="true" />
-          <span className="home-belong-copy"><strong>{story.title}</strong><span>{story.text}</span><em>Weiterlesen <ArrowIcon /></em></span>
-        </Link>)}
+          <span className="home-belong-copy"><strong><Link className="card-link" href={story.path}>{story.title}</Link></strong><span>{story.text}</span><em>Weiterlesen <ArrowIcon /></em></span>
+        </div>)}
       </div>
     </section> : null}
 
@@ -124,15 +124,15 @@ export default function HomePage() {
         <Link className="button button-outline" href="/partnersuche">Alle Städte ansehen</Link>
       </div>
       <div className="home-cities">
-        {cities.map((city, index) => <Link className={`home-city${index === 0 ? " home-city-lead" : ""}`} href={city.path} key={city.path}>
+        {cities.map((city, index) => <div className={`home-city has-card-link${index === 0 ? " home-city-lead" : ""}`} key={city.path}>
           {city.image ? <img src={city.image.src} alt={`Stadtansicht von ${city.name}`} loading="lazy" /> : null}
           <span className="home-city-shade" aria-hidden="true" />
-          <span className="home-city-copy"><small><PinIcon /> Sie sucht Sie in</small><strong>{city.name}</strong><span>{city.teaser}</span></span>
-        </Link>)}
+          <span className="home-city-copy"><small><PinIcon /> Sie sucht Sie in</small><strong><Link className="card-link" href={city.path}>{city.name}</Link></strong><span>{city.teaser}</span></span>
+        </div>)}
         {countries.map(([name, href, text]) => <Link className="home-country" href={href} key={href}>
-          <small>Auch in</small><strong>{name}</strong><span>{text}</span><em><ArrowIcon /></em>
+          <small>Auch in</small><span className="sx-strong">{name}</span><span>{text}</span><em><ArrowIcon /></em>
         </Link>)}
-        <Link className="home-country home-country-all" href="/partnersuche"><small>Alle Regionen</small><strong>{cityCount} Städte</strong><span>Deutschland, Österreich & Schweiz</span><em><ArrowIcon /></em></Link>
+        <Link className="home-country home-country-all" href="/partnersuche"><small>Alle Regionen</small><span className="sx-strong">{cityCount} Städte</span><span>Deutschland, Österreich & Schweiz</span><em><ArrowIcon /></em></Link>
       </div>
     </section>
 
@@ -142,10 +142,10 @@ export default function HomePage() {
         <Link className="button button-outline" href="/magazin">Zum Magazin</Link>
       </div>
       <div className="home-posts">
-        {latest.map((post) => <Link className="home-post" href={post.path} key={post.id}>
+        {latest.map((post) => <div className="home-post has-card-link" key={post.id}>
           <span className="home-post-media">{post.featuredImage ? <img src={post.featuredImage} alt={`Titelbild: ${post.title}`} loading="lazy" /> : <BookIcon />}</span>
-          <span className="home-post-copy"><small>{post.categories[0]?.name || "Magazin"}</small><strong>{post.title}</strong><time dateTime={post.modified || post.date}>Aktualisiert am {dateLabel(post.modified || post.date)}</time></span>
-        </Link>)}
+          <span className="home-post-copy"><small>{post.categories[0]?.name || "Magazin"}</small><strong><Link className="card-link" href={post.path}>{post.title}</Link></strong><time dateTime={post.modified || post.date}>Aktualisiert am {dateLabel(post.modified || post.date)}</time></span>
+        </div>)}
       </div>
     </section>
 
