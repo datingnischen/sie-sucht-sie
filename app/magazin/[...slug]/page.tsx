@@ -82,7 +82,7 @@ export default async function MagazineDetailPage({ params }: Props) {
     datePublished: entry.date,
     dateModified: entry.modified,
     image: entry.featuredImage || undefined,
-    author: entry.author ? { "@type": "Person", name: entry.author.name } : undefined,
+    author: entry.author ? { "@type": entry.author.slug === "redaktion" ? "Organization" : "Person", name: entry.author.name, url: `https://www.sie-sucht-sie.de/magazin/author/${entry.author.slug}/` } : undefined,
     isPartOf: { "@id": `${SITE_URL}/#website` },
   };
   const category = entry.categories[0] ?? null;
