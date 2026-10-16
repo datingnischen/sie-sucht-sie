@@ -93,10 +93,52 @@ const SEO_TITLES: Record<string, string> = {
   glossar: "Lesben-Glossar: Begriffe von A bis Z",
   alicia: "Alicia Schlienz: Dating-Expertin für LGBT-Themen",
   "zwei-muetter-na-und": "Zwei Mütter! Na und? Leben in einer Regenbogenfamilie",
+  // Semrush „identische H1- und Title-Tags“: Titel, die für den Marken-Zusatz zu lang sind, eigens formuliert.
+  "8-gruende-warum-frauen-die-besseren-liebhaber-sind": "Frauen als Liebhaberinnen: 8 Gründe, warum sie besser sind",
+  androgyn: "Androgyn: Bedeutung, Merkmale & androgyner Körperbau",
+  "bin-ich-lesbisch": "Bin ich lesbisch? Anzeichen, Selbsttest & Antworten",
+  "buchvorstellung-popcorn-love-das-glueck-ist-so-nah": "„Popcorn Love – Das Glück ist so nah“: Buchvorstellung",
+  "coming-out": "Coming-out erleichtern: Tipps für Deinen Weg",
+  csd: "CSD – Christopher Street Day: proud to be together",
+  demisexualitaet: "Demisexuell: Definition & Bedeutung der Demisexualität",
+  "die-ex-zurueckgewinnen": "Die Ex zurückgewinnen: Fünf Strategien, die helfen",
+  "go-holidate-reiseideen-fuer-lesbische-frauen": "Reiseideen für lesbische Frauen: GO HOLIDATE",
+  "homophobe-menschen-sind-oft-selbst-homosexuell": "Homophobie: Sind Homophobe oft selbst homosexuell?",
+  intersexuell: "Intersexualität: Bedeutung, Ursachen und Merkmale",
+  "keanu-pioch-unterstuetzung": "Keanu Pioch: Junger Filmemacher braucht Unterstützung",
+  "lesben-sex": "Lesben Sex: Stellungen, Vorurteile und Tipps",
+  lesbenflagge: "Lesbenflagge: Farben, Bedeutung & Regenbogenfahne",
+  "lesbenleben-in-aegypten": "Lesbisch in Ägypten: Leben zwischen Tabus und Tapferkeit",
+  lesbentreff: "Lesbentreff: Tipps, wie Du Lesben kennenlernst",
+  "lesbian-day": "International Lesbian Day: Ein Tag zum Feiern",
+  "lesbian-visibility-day": "Lesbian Visibility Day: Mehr Sichtbarkeit im Alltag",
+  lesbisch: "Lesbisch: Bedeutung, Lesbenliebe & kultureller Hintergrund",
+  lgbt: "LGBT: Bedeutung von lesbisch, schwul, bi und trans",
+  "love-story-sarah-findet-traumfrau-ueber-sie-sucht-sie": "Love-Story: Wie Sarah bei Sie sucht Sie ihre Traumfrau fand",
+  "maskulin-feminin": "Maskulin, feminin, neutrum: Bedeutung der Begriffe",
+  "outing-und-coming-out-was-ist-hinterher-versteckt": "Outing vs. Coming-out: Das sind die Unterschiede",
+  pansexualitaet: "Pansexualität: Definition, Bedeutung & Pride-Flagge",
+  pinkcupid: "Pink Cupid: Die Singlebörse für lesbische Frauen",
+  "scissoring-sexstellung": "Scissoring: So geht die Lesben-Sexstellung",
+  "sie-sucht-sie-ueber-50": "Lesben ab 50: Partnersuche und Singlebörse für Frauen",
+  sookee: "Sookee: Künstlerin aus der Queerszene",
+  venus7: "Venus7.de: Plattform für Bi-Frauen, Paare und Lesben",
+  "temptation-island-vip-2026-erstes-queeres-paar": "Temptation Island VIP 2026: Erstes queeres Paar",
 };
 
+// Sonst trägt der Seitentitel die Marke, damit er sich von der H1 (Artikeltitel) unterscheidet.
+const BRAND_SUFFIX = " | Sie sucht Sie";
+const MAX_TITLE_LENGTH = 60;
+
+export function magazineSeoTitle(entry: Pick<MagazineEntry, "slug" | "title">) {
+  const custom = SEO_TITLES[entry.slug];
+  if (custom) return custom;
+  const branded = `${entry.title}${BRAND_SUFFIX}`;
+  return branded.length <= MAX_TITLE_LENGTH && !/sie sucht sie/i.test(entry.title) ? branded : undefined;
+}
+
 function withSeoTitle(entry: MagazineEntry): MagazineEntry {
-  const seoTitle = SEO_TITLES[entry.slug];
+  const seoTitle = magazineSeoTitle(entry);
   return seoTitle ? { ...entry, seoTitle } : entry;
 }
 

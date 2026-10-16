@@ -149,3 +149,12 @@ test("pages show no date; articles show their update date", async () => {
   for (const source of [landing, archive]) assert.match(source, /<MagazineCard /);
   assert.ok(entries.filter((entry) => entry.type === "post").every((entry) => entry.modified || entry.date));
 });
+
+test("magazine title tags differ from the visible H1 and stay within 60 characters", async () => {
+  const { magazineEntries, magazineHeading } = await import("../lib/magazine.ts");
+  for (const entry of magazineEntries) {
+    const title = entry.seoTitle ?? entry.title;
+    assert.notEqual(title, magazineHeading(entry), `${entry.path}: <title> equals H1`);
+    assert.ok(title.length <= 60, `${entry.path}: title has ${title.length} characters`);
+  }
+});

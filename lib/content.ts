@@ -57,6 +57,8 @@ const SEO_OVERRIDES: Record<string, Pick<ImportedPage, "seoTitle" | "seoDescript
   },
   "/partnersuche/koeln": { seoTitle: "Sie sucht Sie in Köln – Lesbische Frauen treffen" },
   "/partnersuche/mainz": { seoTitle: "Sie sucht Sie in Mainz – Lesbische Frauen treffen" },
+  // Title und H1 waren identisch (Semrush).
+  "/schweiz": { seoTitle: "Lesbische Singles in der Schweiz: Tipps & Partnersuche" },
 };
 
 function withSeoOverrides(page: ImportedPage): ImportedPage {
