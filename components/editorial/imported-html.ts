@@ -4,6 +4,8 @@
  * und leere Überschriften; danach wird an <h2> in Kapitel zerlegt.
  */
 
+import { splitLongParagraphs } from "../../lib/long-paragraphs.ts";
+
 const BLANK = String.raw`(?:\s|&nbsp;| |<br\s*\/?>)*`;
 const BLOCK = "p|h[1-6]|ul|ol|blockquote|figure|table|hr|small";
 
@@ -38,7 +40,8 @@ export function cleanImportedHtml(html = "") {
     .replace(/\s{2,}/g, " ");
   // Lose Textknoten zwischen Blöcken (z. B. im Regenbogenfahnen-Eintrag) bekommen einen Absatz.
   out = out.replace(new RegExp(`(</(?:${BLOCK})>|<hr\\s*/?>)([^<]*[^\\s<][^<]*?)(?=<(?:${BLOCK})\\b)`, "gi"), (_, close: string, text: string) => `${close}<p>${text.trim()}</p>`);
-  return out.trim();
+  // Die so entstandenen Absätze können zu lang sein (Semrush), darum erst danach teilen.
+  return splitLongParagraphs(out.trim());
 }
 
 /** Holt die Bildquellen-Zeile heraus, damit sie als Nachweis am Ende steht (Wortlaut bleibt). */

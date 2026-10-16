@@ -3,6 +3,7 @@ import { absolutizeAssetUrls, staticAsset } from "./static-asset.mjs";
 import { applyTextCorrections, MAGAZINE_CORRECTIONS } from "./text-corrections.mjs";
 import { withImageAlts } from "./image-alt.mjs";
 import { fixTypos, limitStrong, withoutEmptyHeadings } from "./html-cleanup.mjs";
+import { splitLongParagraphs } from "./long-paragraphs.ts";
 import { withUniqueEntryLinks } from "./link-targets.mjs";
 import { slashInternalLinks, withTrailingSlash } from "./site-contract.mjs";
 
@@ -153,8 +154,8 @@ export function magazineHeading(entry: Pick<MagazineEntry, "slug" | "title">) {
 }
 
 export const magazineEntries = (catalog.entries as MagazineEntry[]).map((entry) => ({ ...entry, contentHtml: withUniqueEntryLinks(entry.slug, entry.contentHtml) })).map((entry) => applyTextCorrections(entry, MAGAZINE_CORRECTIONS) as MagazineEntry).map(withCategoryCorrections).map(withSeoTitle).map(withAbsoluteAssets).map((entry) => withImageAlts(entry, entry.title) as MagazineEntry)
-  // Seobility: leere Überschriften, zu viele/leere/doppelte Strong-Tags, Tippfehler.
-  .map((entry) => ({ ...entry, contentHtml: fixTypos(limitStrong(withoutEmptyHeadings(entry.contentHtml))) }));
+  // Seobility: leere Überschriften, zu viele/leere/doppelte Strong-Tags, Tippfehler; Semrush: zu lange Absätze.
+  .map((entry) => ({ ...entry, contentHtml: splitLongParagraphs(fixTypos(limitStrong(withoutEmptyHeadings(entry.contentHtml)))) }));
 export const magazineAttachments = (catalog.attachments as MagazineAttachment[]).map((attachment) =>
   attachment.targetType === "asset"
     ? { ...attachment, target: staticAsset(attachment.target) }
