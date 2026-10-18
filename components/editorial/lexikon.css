@@ -472,6 +472,18 @@
   transform: rotate(-45deg);
 }
 .lx-prose small { font-size: .8rem; color: #9a8a9c; }
+/* Audio-Kurzfassung (ElevenLabs) über dem Einstieg. */
+.lx-audio {
+  margin: 0 0 28px;
+  padding: 16px 18px;
+  border-radius: 20px;
+  background: linear-gradient(120deg, #fff1ea, #fce7f1);
+  border: 1px solid #f3cbd8;
+}
+.lx-audio figcaption { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; margin-bottom: 10px; }
+.lx-audio figcaption strong { font-family: var(--display); color: var(--ink); font-size: 1.05rem; }
+.lx-audio figcaption span { font-size: .9rem; color: #7d6a80; }
+.lx-audio audio { display: block; width: 100%; }
 .lx-intro { font-size: 1.14rem; color: #3b2b3f; }
 .lx-intro > p:first-child::first-letter {
   float: left;

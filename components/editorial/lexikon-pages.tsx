@@ -1,5 +1,7 @@
 import Link from "@/components/link";
 import { registrationUrl } from "@/lib/site";
+import { audioDurationLabel, audioSummaryFor } from "@/lib/audio-summaries.mjs";
+import { staticAsset } from "@/lib/static-asset.mjs";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { ArrowIcon, BookIcon, ClockIcon, HeartFilledIcon, SparkIcon, VenusPairIcon } from "@/components/icons";
 import type { ImportedView } from "@/components/imported-view";
@@ -135,6 +137,7 @@ export function LexikonEntry({ page, path, image, contentHtml, breadcrumbs }: Im
   const { intro, sections } = splitSections(cleaned);
   const magazine = magazineLinksFor(current.slug);
   const registration = registrationUrl(path);
+  const audio = audioSummaryFor(path);
 
   return <main className="lx-page">
     <header className="lx-hero lx-hero-entry">
@@ -171,6 +174,10 @@ export function LexikonEntry({ page, path, image, contentHtml, breadcrumbs }: Im
 
     <div className="wrap lx-entry-layout">
       <article className="lx-article">
+        {audio ? <figure className="lx-audio">
+          <figcaption><strong>Kurz erklärt zum Anhören</strong> <span>Die wichtigsten Punkte in {audioDurationLabel(audio.seconds)} Min.</span></figcaption>
+          <audio controls preload="none" src={staticAsset(audio.src)}>Dein Browser unterstützt das Audio-Element nicht.</audio>
+        </figure> : null}
         {intro ? <div className="rich-content lx-prose lx-intro" dangerouslySetInnerHTML={{ __html: intro }} /> : null}
         {sections.map((section, sectionIndex) => <section className="lx-chapter" id={section.id} key={section.id} aria-labelledby={`${section.id}-title`}>
           <header className="lx-chapter-head">

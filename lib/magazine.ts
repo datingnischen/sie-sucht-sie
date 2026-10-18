@@ -1,5 +1,6 @@
 import catalog from "../data/magazine.json" with { type: "json" };
 import { absolutizeAssetUrls, staticAsset } from "./static-asset.mjs";
+import { withAudioSummary } from "./audio-summaries.mjs";
 import { applyTextCorrections, MAGAZINE_CORRECTIONS } from "./text-corrections.mjs";
 import { withImageAlts } from "./image-alt.mjs";
 import { fixTypos, limitStrong, withoutEmptyHeadings } from "./html-cleanup.mjs";
@@ -153,7 +154,7 @@ export function magazineHeading(entry: Pick<MagazineEntry, "slug" | "title">) {
   return H1_OVERRIDES[entry.slug] ?? entry.title;
 }
 
-export const magazineEntries = (catalog.entries as MagazineEntry[]).map((entry) => ({ ...entry, contentHtml: withUniqueEntryLinks(entry.slug, entry.contentHtml) })).map((entry) => applyTextCorrections(entry, MAGAZINE_CORRECTIONS) as MagazineEntry).map(withCategoryCorrections).map(withSeoTitle).map(withAbsoluteAssets).map((entry) => withImageAlts(entry, entry.title) as MagazineEntry)
+export const magazineEntries = (catalog.entries as MagazineEntry[]).map((entry) => ({ ...entry, contentHtml: withUniqueEntryLinks(entry.slug, entry.contentHtml) })).map((entry) => applyTextCorrections(entry, MAGAZINE_CORRECTIONS) as MagazineEntry).map(withCategoryCorrections).map(withSeoTitle).map((entry) => ({ ...entry, contentHtml: withAudioSummary(entry.path, entry.contentHtml) })).map(withAbsoluteAssets).map((entry) => withImageAlts(entry, entry.title) as MagazineEntry)
   // Seobility: leere Überschriften, zu viele/leere/doppelte Strong-Tags, Tippfehler; Semrush: zu lange Absätze.
   .map((entry) => ({ ...entry, contentHtml: splitLongParagraphs(fixTypos(limitStrong(withoutEmptyHeadings(entry.contentHtml)))) }));
 export const magazineAttachments = (catalog.attachments as MagazineAttachment[]).map((attachment) =>
