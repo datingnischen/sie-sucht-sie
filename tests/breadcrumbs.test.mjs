@@ -3,17 +3,17 @@ import assert from "node:assert/strict";
 import { buildBreadcrumbs, buildBreadcrumbSchema } from "../lib/breadcrumbs.mjs";
 import { buildPageEntityGraph } from "../lib/page-entities.mjs";
 
-test("Austrian city pages expose a linked Start / Österreich / Wien hierarchy", () => {
+test("Austrian city pages expose a linked Startseite / Österreich / Wien hierarchy", () => {
   assert.deepEqual(buildBreadcrumbs("/oesterreich/wien"), [
-    { name: "Start", path: "/" },
+    { name: "Startseite", path: "/" },
     { name: "Österreich", path: "/oesterreich" },
     { name: "Wien", path: "/oesterreich/wien" },
   ]);
 });
 
 test("regional breadcrumb names preserve German spelling", () => {
-  assert.deepEqual(buildBreadcrumbs("/schweiz/st-gallen").map((item) => item.name), ["Start", "Schweiz", "St. Gallen"]);
-  assert.deepEqual(buildBreadcrumbs("/partnersuche/muenchen").map((item) => item.name), ["Start", "Partnersuche", "München"]);
+  assert.deepEqual(buildBreadcrumbs("/schweiz/st-gallen").map((item) => item.name), ["Startseite", "Schweiz", "St. Gallen"]);
+  assert.deepEqual(buildBreadcrumbs("/partnersuche/muenchen").map((item) => item.name), ["Startseite", "Partnersuche", "München"]);
 });
 
 test("breadcrumb presentation is semantic, keyboard visible and mobile safe", async () => {
@@ -26,8 +26,8 @@ test("breadcrumb presentation is semantic, keyboard visible and mobile safe", as
 });
 
 test("top-level editorial breadcrumbs use catalog labels instead of implementation slugs", () => {
-  assert.deepEqual(buildBreadcrumbs("/faq", "Häufige Fragen").map((item) => item.name), ["Start", "Häufige Fragen"]);
-  assert.deepEqual(buildBreadcrumbs("/fragenflirt.html", "Fragenflirt").map((item) => item.name), ["Start", "Fragenflirt"]);
+  assert.deepEqual(buildBreadcrumbs("/faq", "Häufige Fragen").map((item) => item.name), ["Startseite", "Häufige Fragen"]);
+  assert.deepEqual(buildBreadcrumbs("/fragenflirt.html", "Fragenflirt").map((item) => item.name), ["Startseite", "Fragenflirt"]);
   assert.equal(buildBreadcrumbSchema("/sicherheit-und-datenschutz.html", "Sicherheit und Datenschutz").itemListElement.at(-1).name, "Sicherheit und Datenschutz");
 });
 
@@ -36,7 +36,7 @@ test("breadcrumb structured data uses canonical absolute item URLs", () => {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Start", item: "https://www.sie-sucht-sie.de/" },
+      { "@type": "ListItem", position: 1, name: "Startseite", item: "https://www.sie-sucht-sie.de/" },
       { "@type": "ListItem", position: 2, name: "Österreich", item: "https://www.sie-sucht-sie.de/oesterreich/" },
       { "@type": "ListItem", position: 3, name: "Wien", item: "https://www.sie-sucht-sie.de/oesterreich/wien/" },
     ],

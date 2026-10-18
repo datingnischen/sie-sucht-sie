@@ -33,7 +33,7 @@ test("moved pages keep canonicals on the live brand domain and imported links fo
 });
 
 test("about breadcrumbs name the parent area", () => {
-  assert.deepEqual(buildBreadcrumbs("/ueber-uns/bewertungen", "Bewertungen").map((item) => item.name), ["Start", "Über uns", "Bewertungen"]);
+  assert.deepEqual(buildBreadcrumbs("/ueber-uns/bewertungen", "Bewertungen").map((item) => item.name), ["Startseite", "Über uns", "Bewertungen"]);
   assert.deepEqual(buildBreadcrumbs("/ueber-uns/social-media", "Social Media").map((item) => item.path), ["/", "/ueber-uns", "/ueber-uns/social-media"]);
 });
 
