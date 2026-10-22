@@ -25,7 +25,8 @@ test("every spoken text has an audio entry and stays short", () => {
   for (const [path, { text }] of Object.entries(texts)) {
     assert.ok(summaries[path], `${path} hat noch kein Audio`);
     const words = text.split(/\s+/).length;
-    assert.ok(words >= 60 && words <= 170, `${path}: ${words} Wörter`);
+    // Sehr kurze Meldungen (alte Veranstaltungshinweise) bekommen bewusst knappere Texte ab 50 Wörtern.
+    assert.ok(words >= 50 && words <= 170, `${path}: ${words} Wörter`);
   }
 });
 

@@ -39,6 +39,14 @@
     "src": "/magazine/media/lexikon-singleboersen-und-fremdgehen-audio-zusammenfassung.mp3",
     "seconds": 48
   },
+  "/magazin/24-02-17-der-tribas-club-in-frankfurt": {
+    "src": "/magazine/media/24-02-17-der-tribas-club-in-frankfurt-audio-zusammenfassung.mp3",
+    "seconds": 33
+  },
+  "/magazin/8-gruende-warum-frauen-die-besseren-liebhaber-sind": {
+    "src": "/magazine/media/8-gruende-warum-frauen-die-besseren-liebhaber-sind-audio-zusammenfassung.mp3",
+    "seconds": 49
+  },
   "/magazin/androgyn": {
     "src": "/magazine/media/androgyn-audio-zusammenfassung.mp3",
     "seconds": 55
@@ -47,17 +55,65 @@
     "src": "/magazine/media/asexualitaet-audio-zusammenfassung.mp3",
     "seconds": 56
   },
+  "/magazin/beziehungsprobleme-loesen": {
+    "src": "/magazine/media/beziehungsprobleme-loesen-audio-zusammenfassung.mp3",
+    "seconds": 60
+  },
+  "/magazin/bin-ich-lesbisch": {
+    "src": "/magazine/media/bin-ich-lesbisch-audio-zusammenfassung.mp3",
+    "seconds": 46
+  },
   "/magazin/bisexuell-darum-ist-jede-frau-etwas-bi": {
     "src": "/magazine/media/bisexuell-darum-ist-jede-frau-etwas-bi-audio-zusammenfassung.mp3",
     "seconds": 50
+  },
+  "/magazin/buchprojekt-karlas-mama": {
+    "src": "/magazine/media/buchprojekt-karlas-mama-audio-zusammenfassung.mp3",
+    "seconds": 39
+  },
+  "/magazin/buchvorstellung-die-dritte": {
+    "src": "/magazine/media/buchvorstellung-die-dritte-audio-zusammenfassung.mp3",
+    "seconds": 35
+  },
+  "/magazin/buchvorstellung-popcorn-love-das-glueck-ist-so-nah": {
+    "src": "/magazine/media/buchvorstellung-popcorn-love-das-glueck-ist-so-nah-audio-zusammenfassung.mp3",
+    "seconds": 31
+  },
+  "/magazin/buchvorstellung-thoughts-of-a-broken-girl": {
+    "src": "/magazine/media/buchvorstellung-thoughts-of-a-broken-girl-audio-zusammenfassung.mp3",
+    "seconds": 24
   },
   "/magazin/cisgender": {
     "src": "/magazine/media/cisgender-audio-zusammenfassung.mp3",
     "seconds": 54
   },
+  "/magazin/coming-out": {
+    "src": "/magazine/media/coming-out-audio-zusammenfassung.mp3",
+    "seconds": 50
+  },
+  "/magazin/coming-out-day": {
+    "src": "/magazine/media/coming-out-day-audio-zusammenfassung.mp3",
+    "seconds": 55
+  },
+  "/magazin/csd": {
+    "src": "/magazine/media/csd-audio-zusammenfassung.mp3",
+    "seconds": 64
+  },
   "/magazin/demisexualitaet": {
     "src": "/magazine/media/demisexualitaet-audio-zusammenfassung.mp3",
     "seconds": 57
+  },
+  "/magazin/die-ex-zurueckgewinnen": {
+    "src": "/magazine/media/die-ex-zurueckgewinnen-audio-zusammenfassung.mp3",
+    "seconds": 58
+  },
+  "/magazin/eigener-staat-fuer-schwule-und-lesben": {
+    "src": "/magazine/media/eigener-staat-fuer-schwule-und-lesben-audio-zusammenfassung.mp3",
+    "seconds": 32
+  },
+  "/magazin/eisprinzessin-elsa-lesbisch": {
+    "src": "/magazine/media/eisprinzessin-elsa-lesbisch-audio-zusammenfassung.mp3",
+    "seconds": 52
   },
   "/magazin/genderfluid": {
     "src": "/magazine/media/genderfluid-audio-zusammenfassung.mp3",
@@ -67,21 +123,137 @@
     "src": "/magazine/media/geschlechtsidentitaet-audio-zusammenfassung.mp3",
     "seconds": 55
   },
+  "/magazin/girlflirt": {
+    "src": "/magazine/media/girlflirt-audio-zusammenfassung.mp3",
+    "seconds": 64
+  },
+  "/magazin/go-holidate-reiseideen-fuer-lesbische-frauen": {
+    "src": "/magazine/media/go-holidate-reiseideen-fuer-lesbische-frauen-audio-zusammenfassung.mp3",
+    "seconds": 39
+  },
+  "/magazin/homophobe-menschen-sind-oft-selbst-homosexuell": {
+    "src": "/magazine/media/homophobe-menschen-sind-oft-selbst-homosexuell-audio-zusammenfassung.mp3",
+    "seconds": 32
+  },
+  "/magazin/ich-habe-liebeskummer": {
+    "src": "/magazine/media/ich-habe-liebeskummer-audio-zusammenfassung.mp3",
+    "seconds": 53
+  },
+  "/magazin/idahobit": {
+    "src": "/magazine/media/idahobit-audio-zusammenfassung.mp3",
+    "seconds": 69
+  },
   "/magazin/intersexuell": {
     "src": "/magazine/media/intersexuell-audio-zusammenfassung.mp3",
+    "seconds": 55
+  },
+  "/magazin/keanu-pioch-unterstuetzung": {
+    "src": "/magazine/media/keanu-pioch-unterstuetzung-audio-zusammenfassung.mp3",
+    "seconds": 32
+  },
+  "/magazin/lange-fingernaegel": {
+    "src": "/magazine/media/lange-fingernaegel-audio-zusammenfassung.mp3",
+    "seconds": 29
+  },
+  "/magazin/lecktuch": {
+    "src": "/magazine/media/lecktuch-audio-zusammenfassung.mp3",
+    "seconds": 65
+  },
+  "/magazin/leons-leben-als-transgender": {
+    "src": "/magazine/media/leons-leben-als-transgender-audio-zusammenfassung.mp3",
+    "seconds": 49
+  },
+  "/magazin/lesarion": {
+    "src": "/magazine/media/lesarion-audio-zusammenfassung.mp3",
+    "seconds": 61
+  },
+  "/magazin/lesben-erkennen": {
+    "src": "/magazine/media/lesben-erkennen-audio-zusammenfassung.mp3",
+    "seconds": 55
+  },
+  "/magazin/lesben-massage": {
+    "src": "/magazine/media/lesben-massage-audio-zusammenfassung.mp3",
+    "seconds": 57
+  },
+  "/magazin/lesben-sex": {
+    "src": "/magazine/media/lesben-sex-audio-zusammenfassung.mp3",
     "seconds": 55
   },
   "/magazin/lesbenflagge": {
     "src": "/magazine/media/lesbenflagge-audio-zusammenfassung.mp3",
     "seconds": 57
   },
+  "/magazin/lesbenleben-in-aegypten": {
+    "src": "/magazine/media/lesbenleben-in-aegypten-audio-zusammenfassung.mp3",
+    "seconds": 65
+  },
+  "/magazin/lesbenschaft": {
+    "src": "/magazine/media/lesbenschaft-audio-zusammenfassung.mp3",
+    "seconds": 62
+  },
+  "/magazin/lesbentreff": {
+    "src": "/magazine/media/lesbentreff-audio-zusammenfassung.mp3",
+    "seconds": 57
+  },
+  "/magazin/lesbian-day": {
+    "src": "/magazine/media/lesbian-day-audio-zusammenfassung.mp3",
+    "seconds": 59
+  },
+  "/magazin/lesbian-visibility-day": {
+    "src": "/magazine/media/lesbian-visibility-day-audio-zusammenfassung.mp3",
+    "seconds": 56
+  },
+  "/magazin/lesbido": {
+    "src": "/magazine/media/lesbido-audio-zusammenfassung.mp3",
+    "seconds": 62
+  },
   "/magazin/lesbisch": {
     "src": "/magazine/media/lesbisch-audio-zusammenfassung.mp3",
     "seconds": 61
   },
+  "/magazin/lesbisch-ab-40": {
+    "src": "/magazine/media/lesbisch-ab-40-audio-zusammenfassung.mp3",
+    "seconds": 33
+  },
+  "/magazin/lesbische-beziehung": {
+    "src": "/magazine/media/lesbische-beziehung-audio-zusammenfassung.mp3",
+    "seconds": 56
+  },
+  "/magazin/lesbische-serien": {
+    "src": "/magazine/media/lesbische-serien-audio-zusammenfassung.mp3",
+    "seconds": 56
+  },
+  "/magazin/lesbische-tage": {
+    "src": "/magazine/media/lesbische-tage-audio-zusammenfassung.mp3",
+    "seconds": 62
+  },
+  "/magazin/leseprobe-dinner-for-one-or-two": {
+    "src": "/magazine/media/leseprobe-dinner-for-one-or-two-audio-zusammenfassung.mp3",
+    "seconds": 23
+  },
   "/magazin/lgbt": {
     "src": "/magazine/media/lgbt-audio-zusammenfassung.mp3",
     "seconds": 61
+  },
+  "/magazin/love-story-sarah-findet-traumfrau-ueber-sie-sucht-sie": {
+    "src": "/magazine/media/love-story-sarah-findet-traumfrau-ueber-sie-sucht-sie-audio-zusammenfassung.mp3",
+    "seconds": 36
+  },
+  "/magazin/maskulin-feminin": {
+    "src": "/magazine/media/maskulin-feminin-audio-zusammenfassung.mp3",
+    "seconds": 56
+  },
+  "/magazin/mones-coming-out": {
+    "src": "/magazine/media/mones-coming-out-audio-zusammenfassung.mp3",
+    "seconds": 50
+  },
+  "/magazin/offene-beziehungen-frauen": {
+    "src": "/magazine/media/offene-beziehungen-frauen-audio-zusammenfassung.mp3",
+    "seconds": 65
+  },
+  "/magazin/ohne-slip-slipless": {
+    "src": "/magazine/media/ohne-slip-slipless-audio-zusammenfassung.mp3",
+    "seconds": 62
   },
   "/magazin/outing-und-coming-out-was-ist-hinterher-versteckt": {
     "src": "/magazine/media/outing-und-coming-out-audio-zusammenfassung.mp3",
@@ -91,8 +263,104 @@
     "src": "/magazine/media/pansexualitaet-audio-zusammenfassung.mp3",
     "seconds": 57
   },
+  "/magazin/partnersuche-auf-dating-plattformen": {
+    "src": "/magazine/media/partnersuche-auf-dating-plattformen-audio-zusammenfassung.mp3",
+    "seconds": 52
+  },
+  "/magazin/perfekte-profilbild": {
+    "src": "/magazine/media/perfekte-profilbild-audio-zusammenfassung.mp3",
+    "seconds": 52
+  },
+  "/magazin/pink-lake-festival-2017-am-woerthersee": {
+    "src": "/magazine/media/pink-lake-festival-2017-am-woerthersee-audio-zusammenfassung.mp3",
+    "seconds": 24
+  },
+  "/magazin/pinkcupid": {
+    "src": "/magazine/media/pinkcupid-audio-zusammenfassung.mp3",
+    "seconds": 61
+  },
+  "/magazin/princess-charming-2020-staffel-1": {
+    "src": "/magazine/media/princess-charming-2020-staffel-1-audio-zusammenfassung.mp3",
+    "seconds": 53
+  },
+  "/magazin/princess-charming-2021-staffel-2": {
+    "src": "/magazine/media/princess-charming-2021-staffel-2-audio-zusammenfassung.mp3",
+    "seconds": 50
+  },
+  "/magazin/princess-charming-2022-staffel-3": {
+    "src": "/magazine/media/princess-charming-2022-staffel-3-audio-zusammenfassung.mp3",
+    "seconds": 57
+  },
+  "/magazin/princess-charming-2024-staffel-4": {
+    "src": "/magazine/media/princess-charming-2024-staffel-4-audio-zusammenfassung.mp3",
+    "seconds": 58
+  },
+  "/magazin/princess-charming-2025-staffel-5": {
+    "src": "/magazine/media/princess-charming-2025-staffel-5-audio-zusammenfassung.mp3",
+    "seconds": 57
+  },
+  "/magazin/princess-charming-2026-staffel-6": {
+    "src": "/magazine/media/princess-charming-2026-staffel-6-audio-zusammenfassung.mp3",
+    "seconds": 58
+  },
   "/magazin/queer": {
     "src": "/magazine/media/queer-audio-zusammenfassung.mp3",
     "seconds": 57
+  },
+  "/magazin/reiselaender-fuer-lesben": {
+    "src": "/magazine/media/reiselaender-fuer-lesben-audio-zusammenfassung.mp3",
+    "seconds": 65
+  },
+  "/magazin/rosa-geld": {
+    "src": "/magazine/media/rosa-geld-audio-zusammenfassung.mp3",
+    "seconds": 62
+  },
+  "/magazin/scissoring-sexstellung": {
+    "src": "/magazine/media/scissoring-sexstellung-audio-zusammenfassung.mp3",
+    "seconds": 55
+  },
+  "/magazin/sie-sucht-sie-ueber-50": {
+    "src": "/magazine/media/sie-sucht-sie-ueber-50-audio-zusammenfassung.mp3",
+    "seconds": 54
+  },
+  "/magazin/swag-lesbenparty-mai-2017": {
+    "src": "/magazine/media/swag-lesbenparty-mai-2017-audio-zusammenfassung.mp3",
+    "seconds": 32
+  },
+  "/magazin/tag-der-bisexualitaet": {
+    "src": "/magazine/media/tag-der-bisexualitaet-audio-zusammenfassung.mp3",
+    "seconds": 63
+  },
+  "/magazin/temptation-island-vip-2026-erstes-queeres-paar": {
+    "src": "/magazine/media/temptation-island-vip-2026-erstes-queeres-paar-audio-zusammenfassung.mp3",
+    "seconds": 59
+  },
+  "/magazin/top-10-staedte-deutschland": {
+    "src": "/magazine/media/top-10-staedte-deutschland-audio-zusammenfassung.mp3",
+    "seconds": 61
+  },
+  "/magazin/top-10-staedte-oesterreich": {
+    "src": "/magazine/media/top-10-staedte-oesterreich-audio-zusammenfassung.mp3",
+    "seconds": 61
+  },
+  "/magazin/top-10-staedte-schweiz": {
+    "src": "/magazine/media/top-10-staedte-schweiz-audio-zusammenfassung.mp3",
+    "seconds": 61
+  },
+  "/magazin/venus7": {
+    "src": "/magazine/media/venus7-audio-zusammenfassung.mp3",
+    "seconds": 57
+  },
+  "/magazin/welche-sexualitaeten-gibt-es": {
+    "src": "/magazine/media/welche-sexualitaeten-gibt-es-audio-zusammenfassung.mp3",
+    "seconds": 58
+  },
+  "/magazin/womansummerland-2017": {
+    "src": "/magazine/media/womansummerland-2017-audio-zusammenfassung.mp3",
+    "seconds": 31
+  },
+  "/magazin/zwei-muetter-na-und": {
+    "src": "/magazine/media/zwei-muetter-na-und-audio-zusammenfassung.mp3",
+    "seconds": 49
   }
 }
