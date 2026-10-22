@@ -55,3 +55,27 @@ test("titles, headings and descriptions address visitors informally", () => {
     for (const field of ["title", "description", "h1"]) assert.doesNotMatch(fixed[field] ?? "", formal, `${page.path} ${field}`);
   }
 });
+
+test("fact-checked magazine entries no longer contain the reported errors (2026-10-22)", () => {
+  const fixed = (slug) => corrected(entries, MAGAZINE_CORRECTIONS, `/magazin/${slug}`);
+  assert.doesNotMatch(fixed("welche-sexualitaeten-gibt-es").contentHtml, /<li>Transsexualität<\/li>|Pädosexualität|spezielle sexuelle Ausrichtung/);
+  assert.doesNotMatch(fixed("lesben-sex").contentHtml, /80 Prozent|später heterosexuell/);
+  assert.doesNotMatch(fixed("lesben-erkennen").contentHtml, /Stimmfarbe wird teilweise/);
+  assert.doesNotMatch(fixed("lecktuch").contentHtml, /78 Millionen|Latex freie Tücher gibt es bisher|nur aus Latex gibt/);
+  assert.doesNotMatch(fixed("girlflirt").contentHtml, /komplett kostenlos|wirklich kostenlos|jede Nutzerin verifizieren muss/);
+  assert.doesNotMatch(fixed("lesbenschaft").contentHtml, /13,90|überwiegend junge/);
+  assert.doesNotMatch(fixed("bin-ich-lesbisch").contentHtml, /90 Prozent|zehn Prozent/);
+  assert.doesNotMatch(fixed("idahobit").contentHtml, /seit 2018/);
+  assert.doesNotMatch(fixed("lesbian-day").contentHtml, /Awareness Day/);
+  assert.doesNotMatch(fixed("csd").contentHtml, /Inspiriert wurde die Fahne|anlässlich der Beerdigung/);
+  assert.doesNotMatch(fixed("princess-charming-2020-staffel-1").contentHtml, /Irina – Gewinnerin|15 Teilnehmer/);
+  assert.match(fixed("princess-charming-2020-staffel-1").title, /2021/);
+  assert.match(fixed("princess-charming-2022-staffel-3").title, /2023/);
+  assert.match(fixed("princess-charming-2024-staffel-4").contentHtml, /Lucia \(28\)/);
+  assert.doesNotMatch(fixed("princess-charming-2026-staffel-6").contentHtml, /Casting-Phase/);
+});
+
+test("corrections still match after the link-target rewrite used at build time", async () => {
+  const { withUniqueEntryLinks } = await import("../lib/link-targets.mjs");
+  for (const entry of entries) applyTextCorrections({ ...entry, contentHtml: withUniqueEntryLinks(entry.slug, entry.contentHtml) }, MAGAZINE_CORRECTIONS);
+});
