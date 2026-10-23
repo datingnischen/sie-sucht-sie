@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { buildShareData, evaluateAnswers, options, questions } from "@/lib/orientation-selftest.mjs";
+import { buildShareData, evaluateAnswers, questions } from "@/lib/orientation-selftest.mjs";
 import { createResultCardFile, resultCards } from "@/lib/result-card.mjs";
 import "./orientation-selftest.css";
+
+type AssessmentFacet = { title: string; label: string; womenAnswer: string; otherAnswer: string; text: string; hint: string };
 
 export function OrientationSelftest() {
   const [started, setStarted] = useState(false);
@@ -96,7 +98,24 @@ export function OrientationSelftest() {
         <div className="feeling-card-bottom"><span>Und was sagt Dein Gefühl?</span><small>Mach den Selbsttest auf sie-sucht-sie.de</small></div>
         <p className="feeling-card-note">Eine Momentaufnahme. Du bestimmst Dein Label.</p>
       </div>
-      <div className="orientation-test-share">
+      <a className="assessment-share-jump" href="#selbsttest-teilen">Deine Karte direkt speichern &amp; teilen <span aria-hidden="true">↓</span></a>
+      <div className="feeling-card-interpretation">
+        <p className="orientation-test-kicker">Mehr als ein kurzer Satz</p>
+        <h4 className="assessment-heading">Deine persönliche Einschätzung</h4>
+        <p className="assessment-lead">{result.text}</p>
+        <div className="assessment-facets">
+          {result.facets.map((facet: AssessmentFacet, index: number) => <section className={`assessment-facet assessment-facet-${index}`} key={facet.label} aria-labelledby={`facet-${index}`}>
+            <div className="assessment-facet-header"><span className="assessment-facet-number" aria-hidden="true">0{index + 1}</span><div><p className="assessment-facet-label">{facet.label}</p><h5 id={`facet-${index}`}>{facet.title}</h5></div></div>
+            <p>{facet.text}</p>
+            <div className="assessment-answer-pair"><span><small>Bei Frauen</small>{questions[index].options.find(option => option.value === facet.womenAnswer)?.label}</span><span><small>Bei anderen Geschlechtern</small>{questions[index + 3].options.find(option => option.value === facet.otherAnswer)?.label}</span></div>
+            <p className="assessment-facet-hint">{facet.hint}</p>
+          </section>)}
+        </div>
+        <section className="assessment-context"><p className="orientation-test-kicker">Das größere Bild</p><h5>Was Dein Muster bedeuten kann</h5><p>{result.context}</p></section>
+        <section className="assessment-next"><span aria-hidden="true">↗</span><div><h5>Ein nächster Schritt, der zu Dir passt</h5><p>{result.nextStep}</p></div></section>
+        <blockquote className="assessment-reflection"><small>Eine Frage nur für Dich</small>{result.prompt}</blockquote>
+      </div>
+      <div className="orientation-test-share" id="selbsttest-teilen">
         <h4>Deine Karte. Deine Story.</h4>
         <p>Speichere Deine Karte als Bild oder lade jemanden zum Test ein.</p>
         <button type="button" className="button button-pink feeling-card-download" disabled={exporting} onClick={downloadCard}>{exporting ? "Einen Moment …" : "↓ Meine Karte als Bild speichern"}</button>
@@ -106,22 +125,21 @@ export function OrientationSelftest() {
         <details className="orientation-test-share-preview"><summary>Vorschau des Teilentexts</summary><label className="orientation-test-preview-label" htmlFor="selftest-share-preview">Diesen Text gibst Du weiter:</label><textarea id="selftest-share-preview" readOnly value={shareText} rows={5} /></details>
         <p role="status">{status}</p>
       </div>
-      <div className="feeling-card-interpretation"><p className="orientation-test-kicker">Ein bisschen mehr über Dein Ergebnis</p><h4>{result.title}</h4><p>{result.text}</p><blockquote>{result.prompt}</blockquote><p>{result.needsTime ? "Gib Dir Zeit. Du musst Dich heute weder festlegen noch jemandem etwas erzählen." : "Du entscheidest selbst, welche Worte sich für Dich richtig anfühlen."}</p></div>
-      <details className="orientation-test-method"><summary>Wie entsteht diese Einordnung?</summary><p>Die ersten drei Fragen betreffen Frauen, die nächsten drei andere Geschlechter. „Ja“ und „Manchmal“ zählen jeweils als beschriebene Anziehung oder Beziehungswunsch. Mindestens zwei solche Antworten pro Gruppe führen zur Einordnung „mehrere Geschlechter“. Eine einseitige Einordnung erscheint nur, wenn die andere Gruppe vollständig mit „Nein“ beantwortet ist. Sechs Nein-Antworten ergeben „wenig Anziehung“. Alle übrigen Kombinationen bleiben offen. Die letzten beiden Fragen dienen der Reflexion. Diese redaktionellen Regeln sind keine psychologische Messung.</p></details>
+      <details className="orientation-test-method"><summary>Wie entsteht diese Einordnung?</summary><p>Die ersten drei Fragen betreffen Frauen, die nächsten drei andere Geschlechter. Die Antworttexte passen jeweils zur Frage. Ihre Bedeutung bleibt vergleichbar: beschriebene Anziehung oder Wünsche, gelegentliche oder vorstellbare Gefühle, eher keine solchen Gefühle oder noch Unsicherheit. Mindestens zwei bejahende oder teilweise bejahende Antworten pro Gruppe führen zur Einordnung „mehrere Geschlechter“. Eine einseitige Einordnung erscheint nur, wenn die andere Gruppe vollständig verneint ist. Sechs verneinende Antworten ergeben „wenig Anziehung“. Alle übrigen Kombinationen bleiben offen. Die drei Facetten greifen Deine einzelnen Antworten auf; die letzten beiden Fragen passen Deinen nächsten Schritt an. Diese redaktionellen Regeln sind keine psychologische Messung.</p></details>
       <div className="orientation-test-actions"><button className="orientation-test-text-button" type="button" onClick={() => { setFinished(false); setIncludeResult(false); setStatus(""); }}>Antworten ansehen und ändern</button><button className="orientation-test-text-button" type="button" onClick={reset}>Antworten löschen &amp; neu starten</button></div>
     </div> : <form onSubmit={event => {
       event.preventDefault();
       if (!answers[step]) return;
       if (step === questions.length - 1) setFinished(true); else setStep(step + 1);
     }}>
-      <p className="orientation-test-progress-label">Frage {step + 1} von {questions.length}</p>
+      <div className="orientation-question-topline"><p className="orientation-test-progress-label">Frage {step + 1} von {questions.length}</p><span>{questions[step].topic}</span></div>
       <progress aria-label="Fortschritt im Selbsttest" value={step} max={questions.length} />
       <h3 ref={focusTarget} tabIndex={-1}>{questions[step].text}</h3>
       <p id="selftest-hint">{questions[step].hint}</p>
       <fieldset aria-describedby="selftest-hint"><legend className="orientation-test-legend">Welche Antwort passt gerade zu Dir?</legend>
-        {options.map(option => <label className="orientation-test-option" key={option.value}>
+        {questions[step].options.map((option, index) => <label className="orientation-test-option" key={option.value}>
           <input type="radio" name={`selftest-${step}`} value={option.value} checked={answers[step] === option.value} onChange={() => setAnswers(previous => { const next = [...previous]; next[step] = option.value; return next; })} required />
-          <span>{option.label}</span>
+          <span className="orientation-option-copy"><strong>{option.label}</strong><small>{option.detail}</small></span><span className="orientation-option-letter" aria-hidden="true">{String.fromCharCode(65 + index)}</span>
         </label>)}
       </fieldset>
       <div className="orientation-test-actions"><button type="button" className="button button-outline" disabled={step === 0} onClick={() => setStep(step - 1)}>Zurück</button><button className="button button-pink" type="submit" disabled={!answers[step]}>{step === questions.length - 1 ? "Meine Einordnung ansehen" : "Weiter"}</button></div>

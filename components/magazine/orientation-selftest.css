@@ -59,3 +59,40 @@
   .orientation-test .feeling-card h3 { font-size: clamp(2rem, 8.4vw, 3rem); }
   .orientation-test .feeling-card-caption { font-size: 1rem; }
 }
+
+.orientation-question-topline { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin: 26px 0 12px; }
+.orientation-question-topline .orientation-test-progress-label { margin: 0; }
+.orientation-question-topline > span { padding: 6px 12px; border-radius: 30px; background: #f7e4ee; color: #8f2858; font-size: .75rem; font-weight: 700; }
+.orientation-test-option { align-items: flex-start; padding: 18px; gap: 14px; transition: border-color .15s, background-color .15s; }
+.orientation-test-option:hover { background: #fff3f8; border-color: #c06b94; }
+.orientation-test-option input { margin-top: 3px; }
+.orientation-option-copy { flex: 1; min-width: 0; display: grid; gap: 5px; }
+.orientation-option-copy strong { font-weight: 700; font-size: 1rem; line-height: 1.4; }
+.orientation-option-copy small { font-size: .85rem; color: #776170; line-height: 1.5; }
+.orientation-option-letter { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 6px; background: #f4edf1; color: #987f91; font-size: .7rem; flex-shrink: 0; }
+.orientation-test-option:has(input:checked) .orientation-option-letter { background: #a91659; color: #fff; }
+.orientation-test .assessment-heading { margin: 8px 0 18px; font-size: clamp(1.7rem, 3vw, 2.3rem); line-height: 1.2; }
+.orientation-test .assessment-lead { color: #5d4058; font-size: 1.05rem; line-height: 1.8; }
+.assessment-facets { display: grid; gap: 22px; margin-top: 28px; }
+.assessment-share-jump { display: flex; justify-content: space-between; gap: 15px; padding: 18px clamp(24px, 4vw, 40px); background: #fff; color: #9f265f; font-size: .9rem; font-weight: 700; text-decoration: none !important; }
+#selbsttest-teilen { scroll-margin-top: 100px; }
+.assessment-facet { padding: clamp(20px, 3vw, 28px); background: #fff; border: 1px solid #e9d4e1; border-radius: 18px; }
+.assessment-facet-header { display: flex; gap: 15px; align-items: center; }
+.assessment-facet-number { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 15px; background: #ffe3ee; color: #b32c66; font-family: Georgia, serif; font-size: 1.3rem; flex-shrink: 0; }
+.assessment-facet-1 .assessment-facet-number { background: #eee5ff; color: #7650aa; }
+.assessment-facet-2 .assessment-facet-number { background: #e2f2eb; color: #36755c; }
+.orientation-test .assessment-facet-label { margin: 0 0 3px; font-size: .7rem; color: #9a627f; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+.orientation-test .assessment-facet h5, .orientation-test .assessment-context h5, .orientation-test .assessment-next h5 { margin: 0; font-family: Georgia, serif; font-size: 1.35rem; line-height: 1.3; }
+.assessment-answer-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 18px 0; }
+.assessment-answer-pair > span { padding: 13px 15px; border-radius: 10px; background: #fbf4f8; font-size: .9rem; font-weight: 600; line-height: 1.5; }
+.assessment-answer-pair small { display: block; margin-bottom: 5px; font-size: .65rem; letter-spacing: .05em; text-transform: uppercase; color: #916c83; }
+.orientation-test .assessment-facet-hint { margin: 16px 0 0; padding-top: 16px; border-top: 1px solid #f0e2eb; color: #796272; font-size: .9rem; }
+.assessment-context { margin: 32px 0; }
+.assessment-context .orientation-test-kicker { margin-bottom: 10px; }
+.assessment-next { display: flex; gap: 18px; padding: 25px; background: #f2eaf8; border-radius: 18px; }
+.assessment-next > span { font-size: 2rem; color: #a64a80; }
+.assessment-next p:last-child { margin-bottom: 0; }
+.orientation-test-result .assessment-reflection { border: 0; padding: 28px 0 0; margin-bottom: 0; color: #8b2959; font-family: Georgia, serif; font-size: 1.4rem; }
+.assessment-reflection small { display: block; margin-bottom: 10px; font: 700 .7rem Arial, sans-serif; text-transform: uppercase; letter-spacing: .08em; color: #94627f; }
+@media (max-width: 600px) { .assessment-answer-pair { grid-template-columns: 1fr; } .assessment-next { padding: 20px; gap: 12px; } .orientation-option-letter { display: none; } }
+@media (prefers-reduced-motion: reduce) { .orientation-test-option { transition: none; } }

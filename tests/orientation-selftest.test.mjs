@@ -32,3 +32,23 @@ test('sharing is neutral by default and never puts answers or results in a URL',
   assert.equal(explicit.url, neutral.url);
   assert.ok(!neutral.url.includes('?'));
 });
+
+test('each question offers contextual answers with the same transparent evaluation meaning', () => {
+  for (const question of questions) {
+    assert.equal(question.options.length, 4);
+    assert.deepEqual(question.options.map(option => option.value), ['yes','sometimes','no','unsure']);
+    assert.ok(question.options.every(option => option.detail.length > 15));
+  }
+  assert.equal(new Set(questions.map(question => question.options[0].label)).size, 8);
+});
+
+test('the assessment reflects different romantic, physical and relationship answers separately', () => {
+  const result = evaluateAnswers(['yes','no','yes','no','unsure','no','yes','sometimes']);
+  assert.equal(result.facets.length, 3);
+  assert.equal(result.facets[0].womenAnswer, 'yes');
+  assert.equal(result.facets[1].womenAnswer, 'no');
+  assert.equal(result.facets[1].otherAnswer, 'unsure');
+  assert.notEqual(result.facets[0].text, result.facets[1].text);
+  assert.ok(result.context.length > 200);
+  assert.ok(result.nextStep.length > 150);
+});
