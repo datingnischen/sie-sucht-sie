@@ -1,0 +1,27 @@
+.orientation-test { margin: 0 0 36px; padding: clamp(22px, 4vw, 40px); border: 1px solid #eccad9; border-radius: 24px; background: linear-gradient(145deg, #fff7fa, #fff); scroll-margin-top: 110px; }
+.orientation-test h2 { font-size: clamp(1.65rem, 3vw, 2.2rem); line-height: 1.2; margin: 8px 0 18px; }
+.orientation-test h3 { font-size: 1.4rem; line-height: 1.4; margin: 20px 0 12px; }
+.orientation-test h4 { font-size: 1.15rem; margin: 20px 0 12px; }
+.orientation-test p, .orientation-test li { font-size: 1rem; line-height: 1.7; }
+.orientation-test a, .orientation-test-text-button { text-decoration: underline; text-underline-offset: 3px; }
+.orientation-test-kicker { color: #a91659; font-size: .8rem !important; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin: 0; }
+.orientation-test-privacy { color: #665267; font-size: .9rem !important; }
+.orientation-test fieldset { padding: 0; border: 0; min-width: 0; margin: 20px 0; }
+.orientation-test-legend { font-weight: 700; margin-bottom: 12px; }
+.orientation-test-option { display: flex; align-items: center; gap: 14px; margin: 10px 0; padding: 16px; border: 1px solid #dacbd5; border-radius: 12px; background: #fff; cursor: pointer; }
+.orientation-test-option:has(input:checked) { border-color: #a91659; background: #ffedf4; }
+.orientation-test input { accent-color: #a91659; flex-shrink: 0; width: 20px; height: 20px; }
+.orientation-test progress { width: 100%; height: 9px; accent-color: #a91659; }
+.orientation-test-progress-label { font-weight: 700; margin: 24px 0 6px; }
+.orientation-test-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+.orientation-test button:disabled { opacity: .55; cursor: not-allowed; }
+.orientation-test-text-button { padding: 8px 0; margin-top: 12px; border: 0; background: transparent; color: #832252; cursor: pointer; font: inherit; text-align: left; }
+.orientation-test :focus-visible { outline: 3px solid #832252; outline-offset: 4px; }
+.orientation-test-result blockquote { border-left: 3px solid #d94082; padding: 12px 18px; margin: 22px 0; font-size: 1.15rem; line-height: 1.6; }
+.orientation-test-method { padding: 14px 0; border-block: 1px solid #eccad9; }
+.orientation-test-method summary { cursor: pointer; font-weight: 700; }
+.orientation-test-share { margin-top: 24px; }
+.orientation-test-consent { display: flex; align-items: flex-start; gap: 12px; line-height: 1.6; }
+.orientation-test-preview-label { display: block; margin: 18px 0 8px; font-weight: 700; }
+.orientation-test textarea { width: 100%; min-height: 150px; resize: vertical; border: 1px solid #dacbd5; border-radius: 10px; padding: 12px; font: inherit; font-size: .9rem; line-height: 1.6; background: #fff; color: #352239; }
+@media (max-width: 600px) { .orientation-test-actions .button { flex: 1 1 100%; } }

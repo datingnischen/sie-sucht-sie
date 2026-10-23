@@ -144,6 +144,7 @@ export function magazineSeoTitle(entry: Pick<MagazineEntry, "slug" | "title">) {
 }
 
 function withSeoTitle(entry: MagazineEntry): MagazineEntry {
+  if (entry.seoTitle) return entry;
   const seoTitle = magazineSeoTitle(entry);
   return seoTitle ? { ...entry, seoTitle } : entry;
 }

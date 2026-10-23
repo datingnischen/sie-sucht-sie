@@ -20,6 +20,7 @@ import {
 import { PORTAL_RANKING_CATEGORY } from "@/lib/portal-ranking";
 import { registrationUrl, SITE_URL } from "@/lib/site";
 import { staticAsset } from "@/lib/static-asset.mjs";
+import { OrientationSelftest } from "@/components/magazine/orientation-selftest";
 
 export const dynamicParams = false;
 
@@ -137,6 +138,7 @@ export default async function MagazineDetailPage({ params }: Props) {
               </ol>
             </nav>
           )}
+          {entry.slug === "bin-ich-lesbisch" && <OrientationSelftest />}
           <div className="rich-content mz-prose" dangerouslySetInnerHTML={{ __html: html }} />
 
           {author && (
