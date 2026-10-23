@@ -10,8 +10,8 @@ import { ArrowIcon, BookIcon, ChatIcon, CheckIcon, HeartFilledIcon, HeartIcon, P
 import "./home.css";
 
 export const metadata: Metadata = {
-  title: "Sie sucht Sie – Frau sucht Frau in Deiner Nähe | Singlebörse",
-  description: "Frau sucht Frau: Lerne kostenlos lesbische und bisexuelle Frauen in Deiner Nähe kennen – sicher, mit Herz und über 20 Jahren Dating-Erfahrung.",
+  title: "Sie sucht Sie: Frauen kennenlernen in Deiner Nähe",
+  description: "Frauen kennenlernen bei Sie-sucht-Sie.de: für lesbische und bisexuelle Frauen. Kostenlos registrieren, Dein Profil gestalten und Kontakte in Deiner Nähe finden.",
   alternates: { canonical: `${SITE_URL}/` },
   openGraph: { images: [staticAsset("/home/hero.webp")] },
 };
@@ -62,7 +62,7 @@ export default function HomePage() {
         <div className="home-hero-copy">
           <span className="home-badge"><VenusPairIcon /> Für lesbische & bisexuelle Frauen</span>
           <h1>Frau sucht Frau: Finde eine Partnerin, die <em>wirklich zu Dir passt.</em></h1>
-          <p className="home-lead">Ob große Liebe, ehrliche Gespräche im <Link href="/lexikon/kostenloser-lesbenchat">Lesbenchat</Link> oder neue Kontakte: Bei Sie-sucht-Sie.de begegnest Du Frauen, die Frauen lieben – direkt in Deiner Nähe.</p>
+          <p className="home-lead">Du möchtest Frauen kennenlernen – für eine Beziehung, einen Flirt oder neue Kontakte? Bei Sie-sucht-Sie.de begegnest Du lesbischen und bisexuellen Frauen. Entdecke Profile aus Deiner Region und finde im <Link href="/lexikon/kostenloser-lesbenchat">Lesbenchat</Link> einen Einstieg ins Gespräch.</p>
           <div className="home-actions">
             <a className="button button-green" href={register}>Kostenlos registrieren</a>
             <Link className="button button-ghost-light" href="/partnersuche">Frauen in Deiner Stadt</Link>
@@ -90,6 +90,20 @@ export default function HomePage() {
         <span className="home-trust-icon"><Icon /></span>
         <span><strong><a className="card-link" href={href}>{title}</a></strong><span>{text}</span><em aria-hidden="true">Mehr erfahren <ArrowIcon /></em></span>
       </div>)}
+    </section>
+
+    <section className="wrap home-section" aria-labelledby="home-kennenlernen">
+      <div className="home-heading">
+        <p className="kicker">Dein Einstieg</p>
+        <h2 id="home-kennenlernen">Frauen kennenlernen: <em>So beginnt Euer Kontakt.</em></h2>
+        <p>Du entscheidest, wen Du kennenlernen möchtest und wie schnell Du Dich öffnen willst. Ein ehrliches Profil und ein persönlicher Gesprächseinstieg helfen Euch, Gemeinsamkeiten zu entdecken.</p>
+      </div>
+      <ol className="home-steps">
+        <li><span className="home-step-number" aria-hidden="true">1</span><h3>Profil anlegen</h3><p>Registriere Dich kostenlos. Erzähle von Deinen Interessen und davon, ob Du eine Partnerin, einen Flirt oder neue Bekanntschaften suchst.</p></li>
+        <li><span className="home-step-number" aria-hidden="true">2</span><h3>Frauen in Deiner Nähe entdecken</h3><p>Starte mit Deiner Region. Über unsere <Link href="/partnersuche">Städteübersicht</Link> findest Du die passenden Einstiege in Deutschland, Österreich und der Schweiz.</p></li>
+        <li><span className="home-step-number" aria-hidden="true">3</span><h3>Persönlich ins Gespräch kommen</h3><p>Greife ein gemeinsames Interesse auf, statt nur „Hallo“ zu schreiben. Wenn Ihr Euch wohlfühlt, könnt Ihr ein erstes Treffen an einem öffentlichen Ort vereinbaren.</p></li>
+      </ol>
+      <p className="home-membership-note">Die Registrierung ist kostenlos. Welche Funktionen die Basis-Mitgliedschaft umfasst und welche Extras kostenpflichtig sind, erfährst Du in den <a href={platform.basicMembership}>Informationen zur kostenlosen Basis-Mitgliedschaft</a>.</p>
     </section>
 
     {stories.length ? <section className="wrap home-section" aria-labelledby="home-belonging">
@@ -146,6 +160,18 @@ export default function HomePage() {
           <span className="home-post-media">{post.featuredImage ? <img src={post.featuredImage} alt={`Titelbild: ${post.title}`} loading="lazy" /> : <BookIcon />}</span>
           <span className="home-post-copy"><small>{post.categories[0]?.name || "Magazin"}</small><strong><Link className="card-link" href={post.path}>{post.title}</Link></strong><time dateTime={post.modified || post.date}>Aktualisiert am {dateLabel(post.modified || post.date)}</time></span>
         </div>)}
+      </div>
+    </section>
+
+    <section className="wrap home-section" aria-labelledby="home-faq">
+      <div className="home-heading"><p className="kicker">Gut zu wissen</p><h2 id="home-faq">Deine Fragen zum <em>Kennenlernen.</em></h2></div>
+      <div className="home-faq">
+        <details><summary>Für wen ist Sie-sucht-Sie.de gedacht?</summary><p>Hier geht es um Frauen, die Frauen kennenlernen möchten: lesbische und bisexuelle Frauen sowie Frauen, die ihre Gefühle noch für sich sortieren. Du kannst offen beschreiben, ob Du eine Beziehung, einen Flirt oder neue Kontakte suchst.</p></details>
+        <details><summary>Kann ich Frauen kostenlos kennenlernen?</summary><p>Du kannst Dich kostenlos registrieren und mit einer Basis-Mitgliedschaft starten. Für den aktuellen Funktionsumfang und mögliche kostenpflichtige Extras schau in die <a href={platform.basicMembership}>Informationen zur Basis-Mitgliedschaft</a>. Kostenlos registrieren bedeutet nicht, dass jede Funktion kostenlos ist.</p></details>
+        <details><summary>Wie finde ich Frauen aus meiner Umgebung?</summary><p>Wähle in unserer <Link href="/partnersuche">Städteübersicht zur Partnersuche</Link> Deine Stadt oder Region. So gelangst Du zum regionalen Einstieg. Auch die Nachbarstädte können interessant sein, wenn Du etwas weiter suchen möchtest.</p></details>
+        <details><summary>Was hilft beim ersten Anschreiben?</summary><p>Nimm Bezug auf ein Interesse oder eine Frage im Profil. Eine kurze, persönliche Nachricht macht den Einstieg leichter. Lass Deinem Gegenüber Zeit und respektiere, wenn kein Interesse besteht. Mehr Ideen findest Du im <Link href="/magazin/lesbentreff">Lesbentreff-Ratgeber</Link>.</p></details>
+        <details><summary>Worauf sollte ich beim Online-Dating achten?</summary><p>Teile Anschrift, Arbeitsplatz und private Kontaktdaten erst, wenn Du Vertrauen gefasst hast. Sende neuen Kontakten kein Geld und wähle für das erste Treffen einen öffentlichen Ort. Lies auch unsere <a href={platform.safety}>Hinweise zu Sicherheit und Datenschutz</a>.</p></details>
+        <details><summary>Wo kann ich Frauen auch vor Ort treffen?</summary><p>Kulturabende, Stammtische und Frauenpartys bieten gemeinsame Anlässe zum Kennenlernen. Unsere <Link href="/magazin/lesbische-szenebars">Übersicht zu Lesbenbars und Partys</Link> hilft Dir bei der Auswahl. Für den Austausch online findest Du außerdem <Link href="/magazin/lesarion">Informationen zur Lesarion-Community</Link>.</p></details>
       </div>
     </section>
 

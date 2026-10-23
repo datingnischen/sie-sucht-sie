@@ -1,6 +1,7 @@
 import catalog from "../data/magazine.json" with { type: "json" };
 import { absolutizeAssetUrls, staticAsset } from "./static-asset.mjs";
 import { withAudioSummary } from "./audio-summaries.mjs";
+import { applySeoUpdate } from "./seo-updates.mjs";
 import { applyTextCorrections, MAGAZINE_CORRECTIONS } from "./text-corrections.mjs";
 import { withImageAlts } from "./image-alt.mjs";
 import { fixTypos, limitStrong, withoutEmptyHeadings } from "./html-cleanup.mjs";
@@ -27,6 +28,7 @@ export type MagazineEntry = {
   categories: { id: number; name: string; slug: string }[];
   tags: { id: number; name: string; slug: string }[];
   contentHtml: string;
+  audioSummaryCurrent?: boolean;
 };
 
 export type MagazineAttachment = {
@@ -118,6 +120,8 @@ const SEO_TITLES: Record<string, string> = {
   lgbt: "LGBT: Bedeutung von lesbisch, schwul, bi und trans",
   "love-story-sarah-findet-traumfrau-ueber-sie-sucht-sie": "Love-Story: Wie Sarah bei Sie sucht Sie ihre Traumfrau fand",
   "maskulin-feminin": "Maskulin, feminin, neutrum: Bedeutung der Begriffe",
+  lesarion: "Lesarion: Kosten, Community und Datenschutz im Überblick",
+  "lesbische-szenebars": "Lesbenbars in Deutschland: Treffpunkte, Clubs & Partys",
   "outing-und-coming-out-was-ist-hinterher-versteckt": "Outing vs. Coming-out: Das sind die Unterschiede",
   pansexualitaet: "Pansexualität: Definition, Bedeutung & Pride-Flagge",
   pinkcupid: "Pink Cupid: Die Singlebörse für lesbische Frauen",
@@ -154,7 +158,7 @@ export function magazineHeading(entry: Pick<MagazineEntry, "slug" | "title">) {
   return H1_OVERRIDES[entry.slug] ?? entry.title;
 }
 
-export const magazineEntries = (catalog.entries as MagazineEntry[]).map((entry) => ({ ...entry, contentHtml: withUniqueEntryLinks(entry.slug, entry.contentHtml) })).map((entry) => applyTextCorrections(entry, MAGAZINE_CORRECTIONS) as MagazineEntry).map(withCategoryCorrections).map(withSeoTitle).map((entry) => ({ ...entry, contentHtml: withAudioSummary(entry.path, entry.contentHtml) })).map(withAbsoluteAssets).map((entry) => withImageAlts(entry, entry.title) as MagazineEntry)
+export const magazineEntries = (catalog.entries as MagazineEntry[]).map((entry) => ({ ...entry, contentHtml: withUniqueEntryLinks(entry.slug, entry.contentHtml) })).map((entry) => applyTextCorrections(entry, MAGAZINE_CORRECTIONS) as MagazineEntry).map(applySeoUpdate).map(withCategoryCorrections).map(withSeoTitle).map((entry) => ({ ...entry, contentHtml: entry.audioSummaryCurrent === false ? entry.contentHtml : withAudioSummary(entry.path, entry.contentHtml) })).map(withAbsoluteAssets).map((entry) => withImageAlts(entry, entry.title) as MagazineEntry)
   // Seobility: leere Überschriften, zu viele/leere/doppelte Strong-Tags, Tippfehler; Semrush: zu lange Absätze.
   .map((entry) => ({ ...entry, contentHtml: splitLongParagraphs(fixTypos(limitStrong(withoutEmptyHeadings(entry.contentHtml)))) }));
 export const magazineAttachments = (catalog.attachments as MagazineAttachment[]).map((attachment) =>

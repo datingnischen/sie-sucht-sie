@@ -265,6 +265,18 @@
 .home-success h2 { margin: 6px 0 14px; font-size: clamp(1.9rem, 3.6vw, 2.8rem); line-height: 1.08; }
 .home-success p:not(.kicker) { margin: 0 0 24px; color: var(--muted); font-size: 1.06rem; }
 
+.home-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; list-style: none; padding: 0; margin: 28px 0 20px; }
+.home-steps li { padding: 28px; border: 1px solid var(--line); border-radius: 24px; background: #fff; }
+.home-step-number { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--ink); color: #fff; font-weight: 700; }
+.home-steps h3 { font-size: 1.25rem; line-height: 1.3; margin: 18px 0 10px; }
+.home-steps p, .home-membership-note, .home-faq p { color: var(--muted); line-height: 1.7; }
+.home-steps a, .home-membership-note a, .home-faq a { text-decoration: underline; text-underline-offset: 3px; }
+.home-faq { max-width: 850px; margin-inline: auto; }
+.home-faq details { border-bottom: 1px solid var(--line); padding: 20px 0; }
+.home-faq summary { cursor: pointer; font-weight: 700; font-size: 1.12rem; }
+.home-faq summary:focus-visible { outline: 2px solid var(--ink); outline-offset: 5px; }
+.home-faq p { margin: 14px 0 0; }
+
 @media (max-width: 1050px) {
   .home-hero-grid { grid-template-columns: 1fr; gap: 64px; }
   .home-hero-media { width: min(100%, 420px); }
@@ -279,6 +291,7 @@
   .home-success { grid-template-columns: 1fr; }
 }
 @media (max-width: 720px) {
+  .home-steps { grid-template-columns: 1fr; }
   .home-hero { padding: 44px 0 96px; }
   .home-actions .button { width: 100%; }
   .home-float-chat { left: -8px; top: 10%; }
