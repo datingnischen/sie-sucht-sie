@@ -90,13 +90,14 @@ export default async function MagazineDetailPage({ params }: Props) {
   const category = entry.categories[0] ?? null;
   const isBio = entry.type === "page" && BIO_PAGE_SLUGS.has(entry.slug);
   const isGuide = entry.type === "page" && isSceneGuide(entry);
+  const isSelftest = entry.slug === "bin-ich-lesbisch";
   const { html, headings } = prepareArticleHtml(entry.contentHtml);
   const minutes = readingMinutes(entry.contentHtml);
   const author = entry.author && !isBio ? { ...entry.author, ...authorProfile(entry.author.slug) } : null;
   const badge = category?.name || (isBio ? "Magazin-Autorin" : isGuide ? "Szene-Guide" : "Magazin-Seite");
   const badgeIcon = category ? <MagazineCategoryIcon slug={category.slug} /> : isGuide ? <PinIcon /> : isBio ? <VenusPairIcon /> : <BookIcon />;
   return (
-    <main className={`mz-main mz-article-main${entry.type === "page" ? " mz-article-page" : ""}`}>
+    <main className={`mz-main mz-article-main${entry.type === "page" ? " mz-article-page" : ""}${isSelftest ? " mz-selftest-page" : ""}`}>
       <section className="mz-hero mz-article-hero">
         <span className="mz-hero-glow" aria-hidden="true" />
         <div className="wrap mz-article-grid">
@@ -105,8 +106,9 @@ export default async function MagazineDetailPage({ params }: Props) {
             {category
               ? <Link className="mz-badge mz-badge-link" href={`/magazin/kategorie/${category.slug}`}><span className="mz-badge-icon" aria-hidden="true">{badgeIcon}</span>{badge}</Link>
               : <span className="mz-badge"><span className="mz-badge-icon" aria-hidden="true">{badgeIcon}</span>{badge}</span>}
-            <h1>{magazineHeading(entry)}</h1>
+            <h1>{isSelftest ? "Bin ich lesbisch oder bi?" : magazineHeading(entry)}</h1>
             <p className="mz-hero-lead mz-article-deck">{entry.description}</p>
+            {isSelftest && <div className="selftest-hero-actions"><a className="button button-pink" href="#selbsttest">Jetzt den Selbsttest machen <ArrowIcon /></a><p>8 Fragen · etwa 3 Minuten · ohne Anmeldung</p></div>}
             <div className="mz-byline">
               {author && (
                 <span className="mz-byline-author">
@@ -120,16 +122,22 @@ export default async function MagazineDetailPage({ params }: Props) {
               <span className="mz-byline-item"><ClockIcon />{minutes} Min. Lesezeit</span>
             </div>
           </div>
-          <figure className="mz-article-figure">
+          {isSelftest ? <div className="selftest-hero-preview" aria-label="Dein persönlicher Gefühlskompass">
+            <span className="selftest-preview-orbit" aria-hidden="true" />
+            <HeartFilledIcon /><p>Dein Gefühlskompass</p><strong>Deine Gefühle.<br /><em>Dein Tempo.</em></strong>
+            <span className="selftest-preview-benefit">Persönliche Einschätzung in drei Facetten</span>
+            <div><span>Herzklopfen</span><span>Anziehung</span><span>Beziehungswünsche</span></div>
+          </div> : <figure className="mz-article-figure">
             <MagazineMedia entry={entry} className="mz-article-arch" eager />
             {entry.slug === "temptation-island-vip-2026-erstes-queeres-paar" && <figcaption>KI-generiertes Symbolbild: zwei Frauen an einer mediterranen Villa.</figcaption>}
             <span className="mz-hero-arch-icon" aria-hidden="true"><HeartFilledIcon /></span>
-          </figure>
+          </figure>}
         </div>
       </section>
 
       <div className="wrap mz-article-layout" id="inhalt">
         <article className="mz-article">
+          {isSelftest && <OrientationSelftest />}
           {headings.length >= 3 && (
             <nav className="mz-toc" aria-labelledby="mz-toc-titel">
               <p className="mz-toc-title" id="mz-toc-titel"><BookIcon />Inhalt · {headings.length} Abschnitte</p>
@@ -138,7 +146,6 @@ export default async function MagazineDetailPage({ params }: Props) {
               </ol>
             </nav>
           )}
-          {entry.slug === "bin-ich-lesbisch" && <OrientationSelftest />}
           <div className="rich-content mz-prose" dangerouslySetInnerHTML={{ __html: html }} />
 
           {author && (
@@ -160,7 +167,7 @@ export default async function MagazineDetailPage({ params }: Props) {
           )}
         </article>
 
-        <aside className="mz-side" aria-label="Kostenlos registrieren">
+        {isSelftest ? <aside className="mz-side selftest-side" aria-label="Zum Selbsttest"><div className="mz-side-sticky"><div className="selftest-side-card"><HeartFilledIcon /><p className="kicker">Nur für Dich</p><h2>Was sagt<br />Dein Gefühl?</h2><p>Entdecke Deine Antworten – ohne Anmeldung, in Deinem Tempo.</p><a className="button button-pink" href="#selbsttest">Zum Selbsttest <ArrowIcon /></a><ul><li>8 persönliche Fragen</li><li>Ausführliche Einschätzung</li><li>Teilbare Ergebniskarte</li></ul></div></div></aside> : <aside className="mz-side" aria-label="Kostenlos registrieren">
           <div className="mz-side-sticky">
             <div className="mz-side-cta">
               <span className="mz-side-cta-icon" aria-hidden="true"><VenusPairIcon /></span>
@@ -175,7 +182,7 @@ export default async function MagazineDetailPage({ params }: Props) {
               </a>
             )}
           </div>
-        </aside>
+        </aside>}
       </div>
 
       {related.length > 0 && (
