@@ -25,3 +25,37 @@
 .orientation-test-preview-label { display: block; margin: 18px 0 8px; font-weight: 700; }
 .orientation-test textarea { width: 100%; min-height: 150px; resize: vertical; border: 1px solid #dacbd5; border-radius: 10px; padding: 12px; font: inherit; font-size: .9rem; line-height: 1.6; background: #fff; color: #352239; }
 @media (max-width: 600px) { .orientation-test-actions .button { flex: 1 1 100%; } }
+
+.orientation-test-has-result { padding: 0; overflow: hidden; background: #fff; border-color: #e8d3df; }
+.feeling-card { --card-accent: #f6548b; position: relative; isolation: isolate; overflow: hidden; padding: clamp(26px, 5vw, 52px); min-height: 620px; color: #fff; background: radial-gradient(ellipse at 100% 10%, #bd4c8e66, transparent 60%), linear-gradient(150deg, #28102e, #4b164b 55%, #a32369); }
+.feeling-card-several { --card-accent: #c4a7ff; background: radial-gradient(ellipse at 100% 0, #8970ca77, transparent 65%), linear-gradient(150deg, #201333, #40285d 55%, #993d79); }
+.feeling-card-other { --card-accent: #ffb48c; }
+.feeling-card-little { --card-accent: #8bdfd1; background: radial-gradient(ellipse at 100% 0, #3b8b8577, transparent 65%), linear-gradient(150deg, #152c35, #283e4f 55%, #584075); }
+.feeling-card-exploring { --card-accent: #ffafd8; }
+.feeling-card-top { display: flex; justify-content: space-between; gap: 20px; font-size: .75rem; letter-spacing: .06em; text-transform: uppercase; }
+.feeling-card-top span:first-child { font-weight: 800; }
+.feeling-card-top span:last-child { color: #ffe4f1cc; text-align: right; }
+.feeling-card-rings { position: absolute; z-index: -1; width: 520px; height: 520px; right: -270px; top: -250px; border: 1px solid #ffffff20; border-radius: 50%; box-shadow: 0 0 0 55px #ffffff08, 0 0 0 110px #ffffff06, 0 0 0 165px #ffffff04; }
+.feeling-card-heart { width: 94px; height: 94px; margin: 58px 0 24px; fill: var(--card-accent); transform: rotate(-12deg); filter: drop-shadow(0 15px 35px #e6529d55); }
+.orientation-test .feeling-card-eyebrow { margin: 0 0 12px; color: var(--card-accent); font-size: .75rem; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
+.orientation-test .feeling-card h3 { font-family: Georgia, serif; color: #fff; font-size: clamp(2.25rem, 4.6vw, 4.25rem); line-height: 1.05; letter-spacing: -.045em; margin: 0; scroll-margin-top: 120px; }
+.feeling-card h3 span { display: block; }
+.orientation-test .feeling-card-caption { color: #ffe9f3; max-width: 420px; font-size: 1.1rem; line-height: 1.55; margin: 24px 0 38px; }
+.feeling-card-bottom { border-top: 1px solid #ffffff40; padding-top: 22px; display: grid; gap: 5px; }
+.feeling-card-bottom span { font-weight: 700; }
+.feeling-card-bottom small { color: #ffe9f3; }
+.orientation-test .feeling-card-note { color: #ffffffaa; font-size: .7rem; margin: 25px 0 0; }
+.orientation-test-has-result .orientation-test-share, .feeling-card-interpretation, .orientation-test-has-result > .orientation-test-result > .orientation-test-method, .orientation-test-has-result > .orientation-test-result > .orientation-test-actions { margin: 0; padding: 26px clamp(24px, 4vw, 40px); }
+.orientation-test-has-result .orientation-test-share h4 { margin-top: 0; font-size: 1.6rem; }
+.feeling-card-download { width: 100%; margin: 8px 0 22px; }
+.orientation-test-share-preview { margin-top: 22px; }
+.orientation-test-share-preview summary { cursor: pointer; font-size: .85rem; color: #755e72; }
+.feeling-card-interpretation { border-top: 1px solid #eedde6; background: #fff8fb; }
+.orientation-test-share [role="status"]:empty { display: none; }
+@media (max-width: 600px) {
+  .feeling-card { min-height: 520px; }
+  .feeling-card-top { font-size: .62rem; }
+  .feeling-card-heart { margin-top: 38px; width: 76px; height: 76px; }
+  .orientation-test .feeling-card h3 { font-size: clamp(2rem, 8.4vw, 3rem); }
+  .orientation-test .feeling-card-caption { font-size: 1rem; }
+}
