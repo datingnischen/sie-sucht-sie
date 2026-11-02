@@ -86,6 +86,7 @@ export default function AboutPage() {
     >
       <ul className="ab-hero-chips" aria-label="Themen auf dieser Seite">
         <li><a href="#wer-wir-sind">Wer wir sind</a></li>
+        <li><a href="#geschichte">Geschichte</a></li>
         <li><a href="#community">Community</a></li>
         <li><a href="#magazin">Magazin</a></li>
         <li><a href="#bewertungen">Bewertungen &amp; Erfahrungen</a></li>
@@ -118,6 +119,29 @@ export default function AboutPage() {
           <p>Über 20 Jahre Dating-Erfahrung und Server in Deutschland: Unser Supportteam prüft zu Deiner Sicherheit jedes Profil.</p>
         </div>
         <a className="ab-link" href={platform.legal}>Zum Impressum <ArrowIcon /></a>
+      </div>
+    </section>
+
+    <section className="wrap ab-section" id="geschichte" aria-labelledby="geschichte-title">
+      <div className="ab-feature">
+        <figure className="ab-history-shot">
+          <span className="ab-history-bar" aria-hidden="true"><i /><i /><i /><span>www.sie-sucht-sie.de · 2015</span></span>
+          <a className="ab-history-frame" href={staticAsset("/about/sie-sucht-sie-2015.webp")} target="_blank" rel="noopener">
+            <img src={staticAsset("/about/sie-sucht-sie-2015.webp")} alt="Alte Startseite von Sie-sucht-Sie.de mit Engel und Teufel, rotem Kopfbereich und dem Hinweis „Ein Service von elFlirt“, Stand Februar 2015" width="938" height="2442" loading="lazy" />
+          </a>
+          <figcaption>So sah die Startseite Anfang 2015 aus. Screenshot: <a href="https://web.archive.org/web/20150225005143/http://www.sie-sucht-sie.de/" rel="nofollow noopener noreferrer" target="_blank">Internet Archive</a></figcaption>
+        </figure>
+        <div>
+          <p className="kicker">Unsere Geschichte</p>
+          <h2 id="geschichte-title">Seit 2009 <em>ein Service von elFlirt</em></h2>
+          <p>Sie-sucht-Sie.de gibt es schon lange: Die Seite startete 2009 als Service von elFlirt, der Dating-Plattform, die 2008 aus einer Idee unter Arbeitskollegen entstand.</p>
+          <p>Damals noch mit rotem Kopfbereich, Engel und Teufel und der Frage „Was bist Du?“. Das Design hat sich seitdem stark verändert, die Idee ist geblieben: ein eigener Ort für Frauen, die Frauen lieben.</p>
+          <ul className="ab-stats" aria-label="Sie-sucht-Sie.de damals">
+            <li><strong>2009</strong> Start</li>
+            <li><strong>20.018</strong> Kontaktanzeigen (Anfang 2015)</li>
+          </ul>
+          <a className="ab-link" href="https://www.elflirt.de/ueber-uns/geschichte/">Die Geschichte von elFlirt <ArrowIcon /></a>
+        </div>
       </div>
     </section>
 
