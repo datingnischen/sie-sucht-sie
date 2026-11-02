@@ -133,11 +133,12 @@ export default function AboutPage() {
         </figure>
         <div>
           <p className="kicker">Unsere Geschichte</p>
-          <h2 id="geschichte-title">Seit 2009 <em>ein Service von elFlirt</em></h2>
-          <p>Sie-sucht-Sie.de gibt es schon lange: Die Seite startete 2009 als Service von elFlirt, der Dating-Plattform, die 2008 aus einer Idee unter Arbeitskollegen entstand.</p>
+          <h2 id="geschichte-title">Von elFlirt zur <em>eigenen Plattform</em></h2>
+          <p>Sie-sucht-Sie.de gibt es schon lange: Die Seite startete 2009 als Service von elFlirt, der Dating-Plattform, die 2008 aus einer Idee unter Arbeitskollegen entstand. Seit 2017 entwickelt sich Sie-sucht-Sie.de als eigene Plattform weiter.</p>
           <p>Damals noch mit rotem Kopfbereich, Engel und Teufel und der Frage „Was bist Du?“. Das Design hat sich seitdem stark verändert, die Idee ist geblieben: ein eigener Ort für Frauen, die Frauen lieben.</p>
           <ul className="ab-stats" aria-label="Sie-sucht-Sie.de damals">
-            <li><strong>2009</strong> Start</li>
+            <li><strong>2009</strong> Start als Service von elFlirt</li>
+            <li><strong>2017</strong> eigene Plattform</li>
             <li><strong>20.018</strong> Kontaktanzeigen (Anfang 2015)</li>
           </ul>
           <a className="ab-link" href="https://www.elflirt.de/ueber-uns/geschichte/">Die Geschichte von elFlirt <ArrowIcon /></a>
