@@ -134,7 +134,7 @@ export default function AboutPage() {
         <div>
           <p className="kicker">Unsere Geschichte</p>
           <h2 id="geschichte-title">Von elFlirt zur <em>eigenen Plattform</em></h2>
-          <p>Sie-sucht-Sie.de gibt es schon lange: Die Seite startete 2009 als Service von elFlirt, der Dating-Plattform, die 2008 aus einer Idee unter Arbeitskollegen entstand. 2017 wurde Sie-sucht-Sie.de gemeinsam mit Er-sucht-Ihn.de eine eigene Plattform im ICONY-Netzwerk. Mit diesen beiden Seiten hat ICONY zusammen mit Christian M. Haas erstmals seine Logik für queere Nischen entwickelt.</p>
+          <p>Sie-sucht-Sie.de gibt es schon lange: Die Seite startete 2009 als Service von elFlirt, der Dating-Plattform, die 2008 aus einer Idee unter Arbeitskollegen entstand. 2017 wurde Sie-sucht-Sie.de zeitgleich mit einer zweiten queeren Nische eine eigene Plattform im ICONY-Netzwerk. Mit diesen beiden Seiten hat ICONY zusammen mit Christian M. Haas erstmals seine Logik für queere Nischen entwickelt.</p>
           <p>Damals noch mit rotem Kopfbereich, Engel und Teufel und der Frage „Was bist Du?“. Das Design hat sich seitdem stark verändert, die Idee ist geblieben: ein eigener Ort für Frauen, die Frauen lieben.</p>
           <ul className="ab-stats" aria-label="Sie-sucht-Sie.de damals">
             <li><strong>2009</strong> Start als Service von elFlirt</li>
