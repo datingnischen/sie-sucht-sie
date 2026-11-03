@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import { Fragment, type CSSProperties } from "react";
 import Link from "@/components/link";
 import { publicPages } from "@/lib/content";
 import { registrationUrl } from "@/lib/site";
@@ -7,6 +7,7 @@ import { CITY_POSTCODES, getCitySearchUrl } from "@/lib/location-search.mjs";
 import { staticAsset } from "@/lib/static-asset.mjs";
 import { getLocationName } from "@/lib/site-contract.mjs";
 import { buildCityGuide, selectCityPhoto, TOPIC_LABELS } from "@/lib/city-guide.mjs";
+import { cityNoteFor } from "@/lib/city-notes.mjs";
 import { cityPhotoCredit } from "@/lib/city-photos.mjs";
 import { COUNTRY_BY_ROOT, cityGeo, nearestCities } from "@/lib/city-geo.mjs";
 import { Breadcrumbs } from "@/components/breadcrumbs";
@@ -52,6 +53,13 @@ export function LocationCityPage({ page, path, contentHtml, breadcrumbs, root }:
   const maxKm = Math.max(...nearby.map((entry) => entry.km), 1);
   const within100 = nearestCities(path, 48).filter((entry) => entry.km <= 100).length;
   const chapters = guide.sections.filter((section) => !section.isPart && section.topic !== "sources");
+  const note = cityNoteFor(path);
+  const firstSources = guide.sections.find((section) => section.topic === "sources");
+  const noteBox = note ? (
+    <aside className="sc-chapter sc-t-tip" aria-label="Redaktioneller Hinweis">
+      <div className="sc-rich"><p>{note.before}<a href={note.href} target="_blank" rel="noopener">{note.anchor}</a>{note.after}</p></div>
+    </aside>
+  ) : null;
   const ideas = DATE_IDEAS.map((idea) => ({ ...idea, section: chapters.find((section) => idea.topics.includes(section.topic)) }))
     .filter((idea) => idea.section)
     .slice(0, 4);
@@ -162,7 +170,12 @@ export function LocationCityPage({ page, path, contentHtml, breadcrumbs, root }:
           {guide.introHtml ? <article className="sc-chapter sc-intro"><div className="sc-rich" dangerouslySetInnerHTML={{ __html: guide.introHtml }} /></article> : null}
           {guide.sections.map((section) => {
             if (section.topic === "sources") {
-              return <details key={section.id} id={section.id} className="sc-source-disclosure sc-t-sources"><summary>{section.heading}</summary><div className="sc-rich" dangerouslySetInnerHTML={{ __html: section.html }} /></details>;
+              return (
+                <Fragment key={section.id}>
+                  {section === firstSources ? noteBox : null}
+                  <details id={section.id} className="sc-source-disclosure sc-t-sources"><summary>{section.heading}</summary><div className="sc-rich" dangerouslySetInnerHTML={{ __html: section.html }} /></details>
+                </Fragment>
+              );
             }
             const Heading = section.level === 3 ? "h3" : "h2";
             if (section.isPart) {
@@ -180,6 +193,7 @@ export function LocationCityPage({ page, path, contentHtml, breadcrumbs, root }:
               </article>
             );
           })}
+          {firstSources ? null : noteBox}
         </div>
       </section>
 
