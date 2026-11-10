@@ -27,6 +27,19 @@ test("Lesarion update replaces unsupported prices and prevents a stale spoken su
   assert.match(updated.contentHtml, /detail\.php\?id=69/);
 });
 
+test("Lesbentreff covers meeting offline and links to the separate online guide", () => {
+  const source = entries.find((entry) => entry.slug === "lesbentreff");
+  const updated = applySeoUpdate(source);
+  for (const key of ["path", "canonical", "date", "author", "featuredImage"]) {
+    assert.deepEqual(updated[key], source[key]);
+  }
+  assert.match(updated.contentHtml, /kleineren Stadt/);
+  assert.match(updated.contentHtml, /href="\/lexikon\/kostenloser-lesbenchat\/?"/);
+  assert.match(updated.contentHtml, /href="\/magazin\/lesbische-szenebars\/?"/);
+  assert.doesNotMatch(updated.contentHtml, /Gaydar/);
+  assert.equal(updated.audioSummaryCurrent, false);
+});
+
 test("bar guide distinguishes party series and preserves original image credits", () => {
   const source = entries.find((entry) => entry.slug === "lesbische-szenebars");
   const updated = applySeoUpdate(source);

@@ -34,6 +34,17 @@ test("lexicon pages speak informally and without promises", () => {
   assert.doesNotMatch(corrected(pages, PAGE_CORRECTIONS, "/lexikon/fuer-abenteuer").h1, /Heiße/);
 });
 
+test("Lesbenchat explains first contact while preserving registration and the image credit", () => {
+  const html = corrected(pages, PAGE_CORRECTIONS, "/lexikon/kostenloser-lesbenchat").contentHtml;
+  assert.match(html, /Zwei Beispiele für Deine erste Nachricht/);
+  assert.match(html, /href="\/magazin\/lesbentreff\/?"/);
+  assert.match(html, /href="https:\/\/www\.sie-sucht-sie\.de\/kostenlose-basis-mitgliedschaft\.html"/);
+  assert.match(html, /Nachrichten von Premium-Mitgliedern lesen und beantworten/);
+  assert.match(html, /registration\/\?AID=magazin/);
+  assert.match(html, /Bildquelle: https:\/\/pixabay\.com/);
+  assert.doesNotMatch(html, /Affären und Seitensprünge|zahlreiche Nachrichten in deinem Postfach/);
+});
+
 test("imported typos in city pages are fixed", () => {
   const html = pages.filter((page) => /^\/(partnersuche|schweiz|oesterreich)\//.test(page.path)).map((page) => {
     const fixed = applyTextCorrections(page, PAGE_CORRECTIONS);
