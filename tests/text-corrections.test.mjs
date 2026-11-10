@@ -71,7 +71,6 @@ test("fact-checked magazine entries no longer contain the reported errors (2026-
   const fixed = (slug) => corrected(entries, MAGAZINE_CORRECTIONS, `/magazin/${slug}`);
   assert.doesNotMatch(fixed("welche-sexualitaeten-gibt-es").contentHtml, /<li>Transsexualität<\/li>|Pädosexualität|spezielle sexuelle Ausrichtung/);
   assert.doesNotMatch(fixed("lesben-sex").contentHtml, /80 Prozent|später heterosexuell/);
-  assert.doesNotMatch(fixed("lesben-erkennen").contentHtml, /Stimmfarbe wird teilweise/);
   assert.doesNotMatch(fixed("lecktuch").contentHtml, /78 Millionen|Latex freie Tücher gibt es bisher|nur aus Latex gibt/);
   assert.doesNotMatch(fixed("girlflirt").contentHtml, /komplett kostenlos|wirklich kostenlos|jede Nutzerin verifizieren muss/);
   assert.doesNotMatch(fixed("lesbenschaft").contentHtml, /13,90|überwiegend junge/);

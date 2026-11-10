@@ -40,6 +40,25 @@ test("Lesbentreff covers meeting offline and links to the separate online guide"
   assert.equal(updated.audioSummaryCurrent, false);
 });
 
+test("the definition and dating guide link to each other and to the self-test", () => {
+  for (const [slug, related, opening] of [
+    ["lesbisch", "lesben-erkennen", /^\s*<p>Lesbisch ist eine Selbstbezeichnung/],
+    ["lesben-erkennen", "lesbisch", /^\s*<p>Ob eine Frau lesbisch ist, lässt sich/],
+  ]) {
+    const source = entries.find((entry) => entry.slug === slug);
+    const updated = applySeoUpdate(source);
+    for (const key of ["path", "canonical", "date", "author", "featuredImage"]) {
+      assert.deepEqual(updated[key], source[key]);
+    }
+    assert.match(updated.contentHtml, opening);
+    assert.ok(updated.contentHtml.includes(`href="/magazin/${related}/"`));
+    assert.ok(updated.contentHtml.includes('href="/magazin/bin-ich-lesbisch/#selbsttest"'));
+    assert.doesNotMatch(updated.contentHtml, /ein eindeutiges Indiz|Stimmfarbe wird teilweise|diese Phase nicht vorüber geht/);
+    assert.doesNotMatch(updated.seoTitle, /Diese Zeichen deuten/);
+    assert.equal(updated.audioSummaryCurrent, false);
+  }
+});
+
 test("bar guide distinguishes party series and preserves original image credits", () => {
   const source = entries.find((entry) => entry.slug === "lesbische-szenebars");
   const updated = applySeoUpdate(source);

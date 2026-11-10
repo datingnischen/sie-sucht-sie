@@ -82,7 +82,6 @@ function withAbsoluteAssets(entry: MagazineEntry): MagazineEntry {
 // Seitentitel unter ca. 580 px (Google-Abschnitt), gemessen wie Seobility mit 20px Arial; zu kurze mit Nutzen ergänzt.
 const SEO_TITLES: Record<string, string> = {
   "spaetes-coming-out-frauen": "Spätes Coming-out: Wenn Frauen neu lieben",
-  "lesben-erkennen": "Lesben erkennen: Diese Zeichen deuten darauf hin",
   "offene-beziehungen-frauen": "Offene Beziehungen unter Frauen: Freiheit & Regeln",
   "perfekte-profilbild": "Das perfekte Profilbild für lesbische Dating-Apps",
   "vaginale-selbsttests-dating": "Vaginale Selbsttests und Dating: offen darüber reden",
@@ -116,7 +115,6 @@ const SEO_TITLES: Record<string, string> = {
   lesbentreff: "Lesbentreff: Tipps, wie Du Lesben kennenlernst",
   "lesbian-day": "International Lesbian Day: Ein Tag zum Feiern",
   "lesbian-visibility-day": "Lesbian Visibility Day: Mehr Sichtbarkeit im Alltag",
-  lesbisch: "Lesbisch: Bedeutung, Lesbenliebe & kultureller Hintergrund",
   lgbt: "LGBT: Bedeutung von lesbisch, schwul, bi und trans",
   "love-story-sarah-findet-traumfrau-ueber-sie-sucht-sie": "Love-Story: Wie Sarah bei Sie sucht Sie ihre Traumfrau fand",
   "maskulin-feminin": "Maskulin, feminin, neutrum: Bedeutung der Begriffe",
