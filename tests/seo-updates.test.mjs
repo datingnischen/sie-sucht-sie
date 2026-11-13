@@ -6,15 +6,19 @@ import { applySeoUpdate } from "../lib/seo-updates.mjs";
 const entries = JSON.parse(readFileSync(new URL("../data/magazine.json", import.meta.url), "utf8")).entries;
 
 test("editorial updates preserve URLs, authors and publication dates from the import", () => {
+  const modifiedStamps = new Set();
   for (const path of ["/magazin/lesarion", "/magazin/lesbische-szenebars", "/magazin/androgyn", "/magazin/maskulin-feminin", "/magazin/bin-ich-lesbisch"]) {
     const source = entries.find((entry) => entry.path === path);
     const updated = applySeoUpdate(source);
     for (const key of ["id", "path", "canonical", "date", "author", "featuredImage"]) assert.deepEqual(updated[key], source[key]);
-    assert.equal(updated.modified, "2026-10-23T12:00:00+02:00");
+    assert.match(updated.modified, /^2026-10-23T(0[7-9]|1\d|2[0-2]):[0-5]\d:[0-5]\d$/);
+    assert.doesNotMatch(updated.modified, /:(00|30):00$/);
+    modifiedStamps.add(updated.modified);
     for (const [, href] of updated.contentHtml.matchAll(/href="(\/magazin\/[^"?#]+)"/g)) {
       assert.ok(entries.some((entry) => entry.path === href.replace(/\/$/, "")), `missing article ${href}`);
     }
   }
+  assert.equal(modifiedStamps.size, 5, "every revised article gets its own time");
   const untouched = { path: "/magazin/queer", contentHtml: "original" };
   assert.equal(applySeoUpdate(untouched), untouched);
 });
