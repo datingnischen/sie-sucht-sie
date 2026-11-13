@@ -46,3 +46,7 @@ python scripts/import_magazine.py
 ### Pflicht vor dem Domain-Cutover
 
 Solange `www.sie-sucht-sie.de` noch auf ICONY zeigt, funktionieren die absoluten Plattformlinks. **Vor einem DNS-Cutover auf Vercel muss jedoch ein separater, von Vercel erreichbarer Legacy-Origin festgelegt und für Registrierung, Login, Suche, Hilfe, Kontakt, Legal sowie benötigte WordPress-Admin-/API-Pfade per Proxy/Rewrites angebunden werden.** Ohne diesen Origin darf die Hauptdomain nicht auf Vercel umgestellt werden, weil diese Pfade sonst 404 liefern oder in eine Schleife geraten.
+
+## Zeitstempel im Magazin
+
+`date`/`modified` erscheinen in JSON-LD, Sitemap und `/magazin/wp-json`. Nie runde Uhrzeiten, nie dieselbe Sekunde oder denselben Aktualisierungstag für viele Beiträge, höchstens zwei Beiträge je Erscheinungstag. Für Überarbeitungen im Code `naturalStamp(tag, pfad)` aus `lib/natural-time.mjs` nutzen. `tests/magazine-timestamps.test.mjs` sperrt Verstöße.
