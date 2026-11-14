@@ -2896,7 +2896,7 @@
       "path": "/magazin/lesbische-festivals",
       "canonical": "https://www.sie-sucht-sie.de/magazin/lesbische-festivals",
       "sourceUrl": "https://www.sie-sucht-sie.de/magazin/lesbische-festivals/",
-      "title": "Lesbische Festivals und Frauenpartys",
+      "title": "Lesbische Festivals und Frauenpartys 2026",
       "description": "Welche Festivals für lesbische und queere Frauen es gibt, wann sie im Jahr stattfinden und welche eingestellt wurden – Stand November 2026.",
       "date": "2026-11-13T16:42:07",
       "modified": "2026-11-13T16:42:07",
@@ -2906,7 +2906,7 @@
         "slug": "christian-m-haas",
         "description": ""
       },
-      "featuredImage": null,
+      "featuredImage": "/magazine/media/4501-lesbische-festivals.jpg",
       "categories": [
         {
           "id": 106,
@@ -2935,7 +2935,7 @@
         "slug": "christian-m-haas",
         "description": ""
       },
-      "featuredImage": null,
+      "featuredImage": "/magazine/media/4502-erste-lesben-party.jpg",
       "categories": [
         {
           "id": 106,
