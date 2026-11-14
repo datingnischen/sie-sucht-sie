@@ -20,21 +20,28 @@ test("magazine landing copy speaks directly to women who love women", async () =
 test("magazine snapshot contains the public editorial inventory without contact ads", () => {
   const posts = entries.filter((entry) => entry.type === "post");
   const pages = entries.filter((entry) => entry.type === "page");
-  assert.equal(catalog.sourceCounts.posts - catalog.sourceCounts.retiredContactAds, posts.length);
+  assert.equal(catalog.sourceCounts.posts - catalog.sourceCounts.retiredContactAds - catalog.sourceCounts.retiredEventPosts, posts.length);
   assert.equal(catalog.sourceCounts.pages - 2, pages.length);
   assert.ok(posts.length >= 80, `expected the editorial posts, got ${posts.length}`);
   assert.equal(new Set(entries.map((entry) => entry.path)).size, entries.length);
   assert.equal(new Set(attachments.map((entry) => entry.path)).size, attachments.length);
-  assert.equal(assets.length, attachments.length);
+  // Der Import lieferte zu jedem Medium eine Attachment-Seite. Ausgemusterte Event-Beiträge nehmen ihre
+  // Attachment-Seiten und die nur dort genutzten Medien mit; die Differenz steht in sourceCounts.
+  assert.equal(assets.length + catalog.sourceCounts.retiredEventAssets, attachments.length + catalog.sourceCounts.retiredEventAttachments);
 });
 
 test("contact ads and their category are retired instead of migrated", () => {
   assert.ok(catalog.sourceCounts.retiredContactAds > 300);
-  assert.equal(retired.length, catalog.sourceCounts.retiredContactAds + 1);
+  const retiredEvents = catalog.sourceCounts.retiredEventPosts + catalog.sourceCounts.retiredEventAttachments;
+  assert.equal(retired.length, catalog.sourceCounts.retiredContactAds + 1 + retiredEvents);
   const entryPaths = new Set(entries.map((entry) => entry.path));
+  // Ausgemusterte Einzeltermine von 2017 zeigen auf die gepflegte Festival-Übersicht, alles andere auf /magazin.
+  const eventTarget = "/magazin/lesbische-festivals";
+  assert.ok(entryPaths.has(eventTarget), "Weiterleitungsziel der Event-Altbeiträge fehlt");
+  assert.equal(retired.filter((item) => item.target === eventTarget).length, retiredEvents);
   for (const item of retired) {
-    assert.match(item.path, /^\/magazin\/[^/]+$/);
-    assert.equal(item.target, "/magazin");
+    assert.match(item.path, /^\/magazin\/[^/]+(?:\/[^/]+)?$/);
+    assert.ok(item.target === "/magazin" || item.target === eventTarget, `${item.path} -> ${item.target}`);
     assert.ok(!entryPaths.has(item.path), `${item.path} must not also be migrated`);
   }
   assert.ok(retired.some((item) => item.path === "/magazin/kontaktanzeigen-bundeslaender"));

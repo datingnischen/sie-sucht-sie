@@ -50,3 +50,9 @@ Solange `www.sie-sucht-sie.de` noch auf ICONY zeigt, funktionieren die absoluten
 ## Zeitstempel im Magazin
 
 `date`/`modified` erscheinen in JSON-LD, Sitemap und `/magazin/wp-json`. Nie runde Uhrzeiten, nie dieselbe Sekunde oder denselben Aktualisierungstag für viele Beiträge, höchstens zwei Beiträge je Erscheinungstag. Für Überarbeitungen im Code `naturalStamp(tag, pfad)` aus `lib/natural-time.mjs` nutzen. `tests/magazine-timestamps.test.mjs` sperrt Verstöße.
+
+## Nachtleben: keine Einzeltermine
+
+Die Kategorie `nachtleben` enthält keine Ankündigungen einzelner Partys oder Festivaltermine mehr. Vier Beiträge von 2017 (Tribas-Party, Pink Lake 2017, S.W.A.G, WomenSummerLand) sind ausgemustert und leiten per 308 auf `/magazin/lesbische-festivals`; ihre Attachment-Seiten, Medien und Audio-Zusammenfassungen wurden entfernt. Die Zähler dazu stehen in `sourceCounts` (`retiredEventPosts`, `retiredEventAttachments`, `retiredEventAssets`), `tests/magazine.test.mjs` prüft sie.
+
+Neue Beiträge zum Thema beschreiben den wiederkehrenden Jahresrhythmus (Monat, Reihe, Veranstalter) statt eines Datums, nennen den Stand im Quellenblock und werden einmal jährlich geprüft. Einzeltermine veralten sonst still weiter, während Sammel-Aktualisierungen ein frisches „Aktualisiert am“ darüberlegen.
