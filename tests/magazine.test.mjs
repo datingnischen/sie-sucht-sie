@@ -61,6 +61,8 @@ test("nur Kategorien mit eigenem Hub-Text stehen im Index", async () => {
     assert.ok(posts.length >= 2, `${category.slug}: nur ${posts.length} Beiträge`);
     assert.ok(source.includes(`${category.slug}:`), `${category.slug}: kein eigener Seitentitel hinterlegt`);
   }
+  const sitemap = await readFile(new URL("../app/magazin/sitemap.xml/route.ts", import.meta.url), "utf8");
+  assert.match(sitemap, /magazineCategories\.filter\(\(category\) => category\.description\)/, "indexierbare Kategorien fehlen in der Sitemap");
 });
 
 test("magazine entries preserve public routes and canonical identity", () => {
