@@ -65,6 +65,28 @@ test("nur Kategorien mit eigenem Hub-Text stehen im Index", async () => {
   assert.match(sitemap, /magazineCategories\.filter\(\(category\) => category\.description\)/, "indexierbare Kategorien fehlen in der Sitemap");
 });
 
+test("Hub-Themengruppen deckeln jeden Beitrag der Kategorie genau einmal ab", async () => {
+  const { HUBS } = await import("../lib/magazine-hubs.ts");
+  for (const [slug, hub] of Object.entries(HUBS)) {
+    const category = catalog.categories.find((item) => item.slug === slug);
+    assert.ok(category, `Kategorie ${slug} fehlt`);
+    assert.ok(hub.heading && hub.lead.length >= 80, `${slug}: Hub-Text fehlt`);
+    const posts = entries.filter((entry) => entry.categories.some((item) => item.slug === slug));
+    const grouped = hub.groups.flatMap((group) => group.slugs);
+    assert.equal(new Set(grouped).size, grouped.length, `${slug}: Beitrag in mehreren Gruppen`);
+    assert.deepEqual(
+      posts.map((entry) => entry.slug).sort().filter((entry) => !grouped.includes(entry)),
+      [],
+      `${slug}: Beiträge ohne Themengruppe`,
+    );
+    assert.deepEqual(grouped.filter((item) => !posts.some((entry) => entry.slug === item)), [], `${slug}: Gruppe zeigt auf fremde Beiträge`);
+    for (const group of hub.groups) {
+      assert.ok(group.slugs.length >= 2, `${slug}/${group.heading}: zu wenige Beiträge`);
+      assert.ok(group.intro.length >= 40, `${slug}/${group.heading}: Einleitung fehlt`);
+    }
+  }
+});
+
 test("magazine entries preserve public routes and canonical identity", () => {
   for (const entry of entries) {
     assert.equal(entry.path, `/magazin/${entry.slug}`);

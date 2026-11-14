@@ -2631,3 +2631,62 @@ details.magazine-sources .magazine-sources__body a {
   height: auto;
   border-radius: 16px;
 }
+
+/* Kategorie-Hub: Themengruppen statt Datumsliste. */
+.mz-hub-groups {
+  display: grid;
+  gap: 28px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.mz-hub-group {
+  padding: 26px 28px;
+  background: #fff0f6;
+  border: 1px solid #f1d0e1;
+  border-radius: 24px;
+}
+
+.mz-hub-group h2 {
+  font-size: 1.35rem;
+  line-height: 1.25;
+  margin: 0 0 10px;
+}
+
+.mz-hub-group > p {
+  margin: 0 0 16px;
+  color: #73596d;
+  font-size: .92rem;
+  line-height: 1.65;
+}
+
+.mz-hub-group ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.mz-hub-group li {
+  padding-left: 18px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.mz-hub-group li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: #b32767;
+}
+
+.mz-hub-group a {
+  color: #6b1239;
+  text-decoration: underline;
+  text-underline-offset: .18em;
+}
+
+.mz-hub-group a:hover,
+.mz-hub-group a:focus-visible {
+  color: #b32767;
+}

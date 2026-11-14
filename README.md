@@ -57,4 +57,10 @@ Die Kategorie `nachtleben` enthält keine Ankündigungen einzelner Partys oder F
 
 Neue Beiträge zum Thema beschreiben den wiederkehrenden Jahresrhythmus (Monat, Reihe, Veranstalter) statt eines Datums, nennen den Stand im Quellenblock und werden einmal jährlich geprüft. Einzeltermine veralten sonst still weiter, während Sammel-Aktualisierungen ein frisches „Aktualisiert am“ darüberlegen.
 
-Die Kategorieseite `nachtleben` ist der Hub: eigener Titel, Hero, Städteliste und Infografik in `app/magazin/kategorie/[slug]/page.tsx`. Indexierbar ist eine Kategorie nur, wenn sie in `data/magazine.json` eine eigene `description` hat (derzeit `nachtleben` und `lesbenportale`); reine Beitragslisten bleiben `noindex, follow`. `tests/magazine.test.mjs` prüft die Regel samt Mindestlänge der Beschreibung, Mindestzahl an Beiträgen und eigenem Seitentitel.
+Die Kategorieseite `nachtleben` ist der Hub: eigener Titel, Hero, Städteliste und Infografik in `app/magazin/kategorie/[slug]/page.tsx`. Indexierbar ist eine Kategorie nur, wenn sie in `data/magazine.json` eine eigene `description` hat (derzeit `nachtleben`, `lesbenportale` und `ratgeber`); reine Beitragslisten bleiben `noindex, follow`. `tests/magazine.test.mjs` prüft die Regel samt Mindestlänge der Beschreibung, Mindestzahl an Beiträgen und eigenem Seitentitel.
+
+## Kategorie-Hubs mit Themengruppen
+
+Kategorien mit vielen Beiträgen sind als Datumsliste unbrauchbar. Für sie steht in `lib/magazine-hubs.ts` ein Hub: Überschrift, Einleitung und Themengruppen mit den Slugs der Beiträge; `app/magazin/kategorie/[slug]/page.tsx` rendert daraus Hero, Gruppenkarten (`components/magazine/hub-groups.tsx`) und darunter die drei neuesten Beiträge. Verlinkt ist nur der Beitragstitel, und die Titel kommen aus `data/magazine.json`, damit Hub und Artikel nicht auseinanderlaufen.
+
+`tests/magazine.test.mjs` prüft, dass jeder Beitrag der Kategorie in genau einer Gruppe steht und keine Gruppe auf fremde Beiträge zeigt. Ein neuer Ratgeber-Beitrag lässt den Test also fehlschlagen, bis er einer Gruppe zugeordnet ist – das hält den Hub vollständig, ohne dass jemand daran denken muss.

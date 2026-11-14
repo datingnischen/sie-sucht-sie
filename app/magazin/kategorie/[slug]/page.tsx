@@ -6,7 +6,9 @@ import { notFound } from "next/navigation";
 import { MagazineArchive } from "@/components/magazine-archive";
 import { MagazineCategoryIcon } from "@/components/magazine/category-icon";
 import { readingMinutes } from "@/components/magazine/content";
+import { MagazineHubGroups } from "@/components/magazine/hub-groups";
 import { MagazineMedia } from "@/components/magazine/magazine-card";
+import { HUBS } from "@/lib/magazine-hubs";
 import { PortalRankingSidebar } from "@/components/portal-ranking-sidebar";
 import { getMagazineCategory, magazineCategories, postsForMagazineCategory } from "@/lib/magazine";
 import { PORTAL_RANKING_CATEGORY } from "@/lib/portal-ranking";
@@ -20,6 +22,7 @@ type Props = { params: Promise<{ slug: string }> };
 const CATEGORY_TITLES: Record<string, string> = {
   nachtleben: "Lesbisches Nachtleben: Bars, Partys & Festivals",
   lesbenportale: "Lesbenportale und Communitys im Überblick",
+  ratgeber: "Ratgeber für lesbische Frauen – Themen im Überblick",
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -74,6 +77,40 @@ export default async function CategoryPage({ params }: Props) {
   const years = entries.map((entry) => entry.date.slice(0, 4)).sort();
   const minutes = entries.reduce((sum, entry) => sum + readingMinutes(entry.contentHtml), 0);
   const cover = entries.find((entry) => entry.featuredImage);
+  const hub = HUBS[category.slug];
+  if (hub) {
+    // Hub mit Themengruppen: Die Datumsliste steht nur noch als „Neu“-Block darunter.
+    return (
+      <main className="mz-main">
+        <MagazineArchiveHero
+          kicker="Magazin-Thema"
+          kickerIcon={<MagazineCategoryIcon slug={category.slug} />}
+          title={hub.heading}
+          crumb={category.name}
+          intro={<p>{hub.lead}</p>}
+          stats={[
+            { value: entries.length, label: "Beiträge" },
+            { value: `${minutes} Min.`, label: "Lesestoff" },
+            { value: hub.groups.length, label: "Themenfelder" },
+          ]}
+          visual={cover ? (
+            <figure className="mz-hero-arch" aria-hidden="true">
+              <MagazineMedia entry={cover} eager />
+              <span className="mz-hero-arch-icon"><MagazineCategoryIcon slug={category.slug} /></span>
+            </figure>
+          ) : undefined}
+        />
+        <MagazineFilterChips active={category.slug} />
+        <section className="wrap mz-section mz-archive-list" aria-label="Themen">
+          <MagazineHubGroups entries={entries} groups={hub.groups} />
+        </section>
+        <section className="wrap mz-section mz-archive-list" aria-labelledby="neu-im-thema">
+          <h2 id="neu-im-thema">Neueste Beiträge</h2>
+          <MagazineCardGrid entries={entries.slice(0, 3)} />
+        </section>
+      </main>
+    );
+  }
   return (
     <MagazineArchive
       kicker="Magazin-Thema"
