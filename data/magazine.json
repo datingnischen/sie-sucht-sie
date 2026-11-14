@@ -5420,35 +5420,35 @@
     },
     {
       "path": "/magazin/24-02-17-der-tribas-club-in-frankfurt",
-      "target": "/magazin/lesbische-festivals"
+      "target": "/magazin/kategorie/nachtleben"
     },
     {
       "path": "/magazin/pink-lake-festival-2017-am-woerthersee",
-      "target": "/magazin/lesbische-festivals"
+      "target": "/magazin/kategorie/nachtleben"
     },
     {
       "path": "/magazin/swag-lesbenparty-mai-2017",
-      "target": "/magazin/lesbische-festivals"
+      "target": "/magazin/kategorie/nachtleben"
     },
     {
       "path": "/magazin/womansummerland-2017",
-      "target": "/magazin/lesbische-festivals"
+      "target": "/magazin/kategorie/nachtleben"
     },
     {
       "path": "/magazin/24-02-17-der-tribas-club-in-frankfurt/image-2017-01-16",
-      "target": "/magazin/lesbische-festivals"
+      "target": "/magazin/kategorie/nachtleben"
     },
     {
       "path": "/magazin/pink-lake-festival-2017-am-woerthersee/pinklake-festival-2017",
-      "target": "/magazin/lesbische-festivals"
+      "target": "/magazin/kategorie/nachtleben"
     },
     {
       "path": "/magazin/swag-lesbenparty-mai-2017/swag-lesben-party",
-      "target": "/magazin/lesbische-festivals"
+      "target": "/magazin/kategorie/nachtleben"
     },
     {
       "path": "/magazin/womansummerland-2017/womensummerland2017",
-      "target": "/magazin/lesbische-festivals"
+      "target": "/magazin/kategorie/nachtleben"
     }
   ],
   "assets": [

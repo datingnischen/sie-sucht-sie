@@ -2586,3 +2586,48 @@ details.magazine-sources .magazine-sources__body a {
 .selftest-side-card ul { list-style: none; padding: 12px 0 0; color: #885f78; font-size: .85rem; line-height: 2; }
 .selftest-side-card li::before { content: '✓'; color: #b32767; margin-right: 9px; }
 @media (max-width: 900px) { .mz-selftest-page .mz-article-grid { grid-template-columns: 1fr; } .selftest-hero-preview { display: none; } .mz-selftest-page .mz-article-hero { padding-block: 26px 100px; } }
+
+.mz-nightlife-cities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.mz-nightlife-cities a {
+  display: inline-block;
+  padding: .55rem .9rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+}
+
+.mz-nightlife a {
+  text-decoration: underline;
+  text-underline-offset: .2em;
+}
+
+.mz-nightlife a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+.mz-hero-arch > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: inherit;
+}
+
+.mz-nightlife-infographic {
+  max-width: 720px;
+  margin: 2rem auto 0;
+}
+
+.mz-nightlife-infographic img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+}

@@ -35,9 +35,9 @@ test("contact ads and their category are retired instead of migrated", () => {
   const retiredEvents = catalog.sourceCounts.retiredEventPosts + catalog.sourceCounts.retiredEventAttachments;
   assert.equal(retired.length, catalog.sourceCounts.retiredContactAds + 1 + retiredEvents);
   const entryPaths = new Set(entries.map((entry) => entry.path));
-  // Ausgemusterte Einzeltermine von 2017 zeigen auf die gepflegte Festival-Übersicht, alles andere auf /magazin.
-  const eventTarget = "/magazin/lesbische-festivals";
-  assert.ok(entryPaths.has(eventTarget), "Weiterleitungsziel der Event-Altbeiträge fehlt");
+  // Ausgemusterte Einzeltermine von 2017 zeigen auf den Nachtleben-Hub, alles andere auf /magazin.
+  const eventTarget = "/magazin/kategorie/nachtleben";
+  assert.ok(catalog.categories.some(({ slug }) => eventTarget.endsWith(`/${slug}`)), "Nachtleben-Kategorie fehlt");
   assert.equal(retired.filter((item) => item.target === eventTarget).length, retiredEvents);
   for (const item of retired) {
     assert.match(item.path, /^\/magazin\/[^/]+(?:\/[^/]+)?$/);

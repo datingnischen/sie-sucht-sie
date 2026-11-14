@@ -30,7 +30,7 @@ type EntryPoint = { path: string; label: string; teaser: string; icon: ReactNode
 const ENTRY_POINTS: EntryPoint[] = [
   { path: "/magazin/spaetes-coming-out-frauen", label: "Coming-out & Identität", teaser: "Spätes Coming-out, bi, queer oder genderfluid – Worte für das, was Du fühlst.", icon: <VenusPairIcon />, size: "big" },
   { path: "/magazin/offene-beziehungen-frauen", label: "Liebe & Beziehung", teaser: "Nähe, Regeln und echte Gefühle zwischen Frauen", icon: <HeartIcon /> },
-  { path: "/magazin/lesbische-szenebars", label: "Szene & Nachtleben", teaser: "Bars, Clubs und Treffpunkte in Deutschland", icon: <GlassIcon /> },
+  { path: "/magazin/kategorie/nachtleben", label: "Szene & Nachtleben", teaser: "Bars, Clubs und Treffpunkte in Deutschland", icon: <GlassIcon /> },
   { path: "/magazin/kategorie/tv-shows", label: "TV & Kultur", teaser: "Princess Charming, Serien und Bücher", icon: <TvIcon /> },
   { path: "/magazin/kategorie/lesbenportale", label: "Lesbenportale im Test", teaser: "Singlebörsen und Communitys im Vergleich", icon: <PhoneIcon /> },
   { path: "/magazin/lesbische-tage", label: "Pride, CSD & Sichtbarkeit", teaser: "Die wichtigsten LGBTQ+ Tage im Jahr – vom Lesbian Visibility Day bis zum CSD", icon: <RainbowIcon />, size: "banner" },
