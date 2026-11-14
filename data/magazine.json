@@ -7,7 +7,8 @@
     "media": 386,
     "retiredEventPosts": 4,
     "retiredEventAttachments": 4,
-    "retiredEventAssets": 4
+    "retiredEventAssets": 4,
+    "retiredAiPosterAttachments": 3
   },
   "entries": [
     {
@@ -2317,7 +2318,7 @@
         "slug": "redaktion",
         "description": ""
       },
-      "featuredImage": "/magazine/media/4413-openai_gpt-image-2-medium_20260707_235710_0a5e61e6.png",
+      "featuredImage": null,
       "categories": [
         {
           "id": 252,
@@ -2346,7 +2347,7 @@
         "slug": "redaktion",
         "description": ""
       },
-      "featuredImage": "/magazine/media/4415-openai_gpt-image-2-medium_20260707_235755_2fd5ebd0.png",
+      "featuredImage": null,
       "categories": [
         {
           "id": 252,
@@ -2375,7 +2376,7 @@
         "slug": "redaktion",
         "description": ""
       },
-      "featuredImage": "/magazine/media/4417-openai_gpt-image-2-medium_20260707_235837_45eeef68.png",
+      "featuredImage": null,
       "categories": [
         {
           "id": 252,
@@ -3651,30 +3652,6 @@
       "canonical": "https://www.sie-sucht-sie.de/magazin/ohne-slip-slipless/slipless-ohne-slip",
       "targetType": "entry",
       "target": "/magazin/ohne-slip-slipless"
-    },
-    {
-      "id": 4413,
-      "slug": "openai_gpt-image-2-medium_20260707_235710_0a5e61e6",
-      "path": "/magazin/openai_gpt-image-2-medium_20260707_235710_0a5e61e6",
-      "canonical": "https://www.sie-sucht-sie.de/magazin/openai_gpt-image-2-medium_20260707_235710_0a5e61e6",
-      "targetType": "asset",
-      "target": "/magazine/media/4413-openai_gpt-image-2-medium_20260707_235710_0a5e61e6.png"
-    },
-    {
-      "id": 4415,
-      "slug": "openai_gpt-image-2-medium_20260707_235755_2fd5ebd0",
-      "path": "/magazin/openai_gpt-image-2-medium_20260707_235755_2fd5ebd0",
-      "canonical": "https://www.sie-sucht-sie.de/magazin/openai_gpt-image-2-medium_20260707_235755_2fd5ebd0",
-      "targetType": "asset",
-      "target": "/magazine/media/4415-openai_gpt-image-2-medium_20260707_235755_2fd5ebd0.png"
-    },
-    {
-      "id": 4417,
-      "slug": "openai_gpt-image-2-medium_20260707_235837_45eeef68",
-      "path": "/magazin/openai_gpt-image-2-medium_20260707_235837_45eeef68",
-      "canonical": "https://www.sie-sucht-sie.de/magazin/openai_gpt-image-2-medium_20260707_235837_45eeef68",
-      "targetType": "asset",
-      "target": "/magazine/media/4417-openai_gpt-image-2-medium_20260707_235837_45eeef68.png"
     },
     {
       "id": 3990,
@@ -5449,6 +5426,18 @@
     {
       "path": "/magazin/womansummerland-2017/womensummerland2017",
       "target": "/magazin/kategorie/nachtleben"
+    },
+    {
+      "path": "/magazin/openai_gpt-image-2-medium_20260707_235710_0a5e61e6",
+      "target": "/magazin/princess-charming-2024-staffel-4"
+    },
+    {
+      "path": "/magazin/openai_gpt-image-2-medium_20260707_235755_2fd5ebd0",
+      "target": "/magazin/princess-charming-2025-staffel-5"
+    },
+    {
+      "path": "/magazin/openai_gpt-image-2-medium_20260707_235837_45eeef68",
+      "target": "/magazin/princess-charming-2026-staffel-6"
     }
   ],
   "assets": [
@@ -7745,63 +7734,6 @@
       ]
     },
     {
-      "id": 4413,
-      "sourceUrl": "https://www.sie-sucht-sie.de/magazin/wp-content/uploads/2026/07/openai_gpt-image-2-medium_20260707_235710_0a5e61e6.png",
-      "localPath": "/magazine/media/4413-openai_gpt-image-2-medium_20260707_235710_0a5e61e6.png",
-      "mimeType": "image/png",
-      "bytes": 2552841,
-      "sha256": "d817ee94f95f9a9c8ad119415f6294829254df10712c10671abdce0377bf62ae",
-      "alt": "Promotional cover for Princess Charming 2024 Staffel 4: sunset seaside scene with roses, a crown, and elegant typography.",
-      "legacyPaths": [
-        "/magazin/wp-content/uploads/2026/07/openai_gpt-image-2-medium_20260707_235710_0a5e61e6-100x80.png",
-        "/magazin/wp-content/uploads/2026/07/openai_gpt-image-2-medium_20260707_235710_0a5e61e6-1024x683.png",
-        "/magazin/wp-content/uploads/2026/07/openai_gpt-image-2-medium_20260707_235710_0a5e61e6-1360x765.png",
-        "/magazin/wp-content/uploads/2026/07/openai_gpt-image-2-medium_20260707_235710_0a5e61e6-150x150.png",
-        "/magazin/wp-content/uploads/2026/07/openai_gpt-image-2-medium_20260707_235710_0a5e61e6-300x200.png",
-        "/magazin/wp-content/uploads/2026/07/openai_gpt-image-2-medium_20260707_235710_0a5e61e6-600x450.png",
-        "/magazin/wp-content/uploads/2026/07/openai_gpt-image-2-medium_20260707_235710_0a5e61e6-768x512.png",
-        "/magazin/wp-content/uploads/2026/07/openai_gpt-image-2-medium_20260707_235710_0a5e61e6.png"
-      ]
-    },
-    {
-      "id": 4415,
-      "sourceUrl": "https://www.sie-sucht-sie.de/magazin/wp-content/uploads/2026/07/openai_gpt-image-2-medium_20260707_235755_2fd5ebd0.png",
-      "localPath": "/magazine/media/4415-openai_gpt-image-2-medium_20260707_235755_2fd5ebd0.png",
-      "mimeType": "image/png",
-      "bytes": 2117361,
-      "sha256": "557eba4d34dab96e0d97e0ebe21de58a16c9c03f6a5158ca973a26fa257e1399",
-      "alt": "Poster for Princess Charming 2025 – Staffel 5 by Vanessa Borck, featuring a gold crown and gold-script 'Charming' over a tropical sunset by the sea.",
-      "legacyPaths": [
-        "/magazin/wp-content/uploads/2026/07/openai_gpt-image-2-medium_20260707_235755_2fd5ebd0-100x80.png",
-        "/magazin/wp-content/uploads/2026/07/openai_gpt-image-2-medium_20260707_235755_2fd5ebd0-1024x683.png",
-        "/magazin/wp-content/uploads/2026/07/openai_gpt-image-2-medium_20260707_235755_2fd5ebd0-1360x765.png",
-        "/magazin/wp-content/uploads/2026/07/openai_gpt-image-2-medium_20260707_235755_2fd5ebd0-150x150.png",
-        "/magazin/wp-content/uploads/2026/07/openai_gpt-image-2-medium_20260707_235755_2fd5ebd0-300x200.png",
-        "/magazin/wp-content/uploads/2026/07/openai_gpt-image-2-medium_20260707_235755_2fd5ebd0-600x450.png",
-        "/magazin/wp-content/uploads/2026/07/openai_gpt-image-2-medium_20260707_235755_2fd5ebd0-768x512.png",
-        "/magazin/wp-content/uploads/2026/07/openai_gpt-image-2-medium_20260707_235755_2fd5ebd0.png"
-      ]
-    },
-    {
-      "id": 4417,
-      "sourceUrl": "https://www.sie-sucht-sie.de/magazin/wp-content/uploads/2026/07/openai_gpt-image-2-medium_20260707_235837_45eeef68.png",
-      "localPath": "/magazine/media/4417-openai_gpt-image-2-medium_20260707_235837_45eeef68.png",
-      "mimeType": "image/png",
-      "bytes": 2169487,
-      "sha256": "64fad5cdced392a1b8e5d5a76aa1050736360abdb2558b9c9855ccdcb6bf1a4a",
-      "alt": "Gold crown atop a purple velvet cushion with the text 'PRINCESS CHARMING 2026 — STAFFEL 6 — COMING SOON' in gold typography.",
-      "legacyPaths": [
-        "/magazin/wp-content/uploads/2026/07/openai_gpt-image-2-medium_20260707_235837_45eeef68-100x80.png",
-        "/magazin/wp-content/uploads/2026/07/openai_gpt-image-2-medium_20260707_235837_45eeef68-1024x683.png",
-        "/magazin/wp-content/uploads/2026/07/openai_gpt-image-2-medium_20260707_235837_45eeef68-1360x765.png",
-        "/magazin/wp-content/uploads/2026/07/openai_gpt-image-2-medium_20260707_235837_45eeef68-150x150.png",
-        "/magazin/wp-content/uploads/2026/07/openai_gpt-image-2-medium_20260707_235837_45eeef68-300x200.png",
-        "/magazin/wp-content/uploads/2026/07/openai_gpt-image-2-medium_20260707_235837_45eeef68-600x450.png",
-        "/magazin/wp-content/uploads/2026/07/openai_gpt-image-2-medium_20260707_235837_45eeef68-768x512.png",
-        "/magazin/wp-content/uploads/2026/07/openai_gpt-image-2-medium_20260707_235837_45eeef68.png"
-      ]
-    },
-    {
       "id": 4421,
       "sourceUrl": "https://www.sie-sucht-sie.de/magazin/wp-content/uploads/2026/07/spaetes-coming-out-frauen.png",
       "localPath": "/magazine/media/4421-spaetes-coming-out-frauen-2.png",
@@ -7905,7 +7837,7 @@
     {
       "id": 252,
       "count": 7,
-      "description": "",
+      "description": "Princess Charming Staffel für Staffel und weitere queere Dating-Formate: Worum es geht, wer mitspielt und was vom Format zu halten ist.",
       "name": "TV-Shows",
       "slug": "tv-shows"
     }

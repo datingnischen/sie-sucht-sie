@@ -55,6 +55,28 @@ export const RATGEBER_GROUPS: HubGroup[] = [
   },
 ];
 
+export const TV_SHOWS_GROUPS: HubGroup[] = [
+  {
+    heading: "Princess Charming: alle Staffeln",
+    intro:
+      "Die erste lesbische Dating-Show im deutschen Fernsehen, Staffel für Staffel: Wer die Princess war, " +
+      "wo gedreht wurde und wie die Staffel ausging.",
+    slugs: [
+      "princess-charming-2020-staffel-1",
+      "princess-charming-2021-staffel-2",
+      "princess-charming-2022-staffel-3",
+      "princess-charming-2024-staffel-4",
+      "princess-charming-2025-staffel-5",
+      "princess-charming-2026-staffel-6",
+    ],
+  },
+  {
+    heading: "Weitere queere Formate",
+    intro: "Shows, in denen queere Frauen nicht nur Beiwerk sind.",
+    slugs: ["temptation-island-vip-2026-erstes-queeres-paar"],
+  },
+];
+
 export type Hub = { heading: string; lead: string; groups: HubGroup[] };
 
 export const HUBS: Record<string, Hub> = {
@@ -64,5 +86,12 @@ export const HUBS: Record<string, Hub> = {
       "Die Fragen, die uns am häufigsten erreichen – nach Anliegen sortiert statt nach Datum. " +
       "Von den ersten Zweifeln an der eigenen Orientierung bis zur Beziehung, die schon ein paar Jahre hält.",
     groups: RATGEBER_GROUPS,
+  },
+  "tv-shows": {
+    heading: "Queere Dating-Shows im Fernsehen",
+    lead:
+      "Seit 2020 suchen Frauen auch im deutschen Fernsehen nach Frauen. Hier steht, was in jeder Staffel " +
+      "Princess Charming passiert ist – und welche anderen Formate queere Paare zeigen, statt sie nur zu erwähnen.",
+    groups: TV_SHOWS_GROUPS,
   },
 };

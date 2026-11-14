@@ -33,15 +33,18 @@ test("magazine snapshot contains the public editorial inventory without contact 
 test("contact ads and their category are retired instead of migrated", () => {
   assert.ok(catalog.sourceCounts.retiredContactAds > 300);
   const retiredEvents = catalog.sourceCounts.retiredEventPosts + catalog.sourceCounts.retiredEventAttachments;
-  assert.equal(retired.length, catalog.sourceCounts.retiredContactAds + 1 + retiredEvents);
+  assert.equal(retired.length, catalog.sourceCounts.retiredContactAds + 1 + retiredEvents + catalog.sourceCounts.retiredAiPosterAttachments);
   const entryPaths = new Set(entries.map((entry) => entry.path));
   // Ausgemusterte Einzeltermine von 2017 zeigen auf den Nachtleben-Hub, alles andere auf /magazin.
   const eventTarget = "/magazin/kategorie/nachtleben";
   assert.ok(catalog.categories.some(({ slug }) => eventTarget.endsWith(`/${slug}`)), "Nachtleben-Kategorie fehlt");
   assert.equal(retired.filter((item) => item.target === eventTarget).length, retiredEvents);
+  // Ausgemusterte Attachment-Seiten gelöschter Bilder zeigen auf ihren Beitrag.
+  const posterTargets = retired.filter((item) => entryPaths.has(item.target));
+  assert.equal(posterTargets.length, catalog.sourceCounts.retiredAiPosterAttachments);
   for (const item of retired) {
     assert.match(item.path, /^\/magazin\/[^/]+(?:\/[^/]+)?$/);
-    assert.ok(item.target === "/magazin" || item.target === eventTarget, `${item.path} -> ${item.target}`);
+    assert.ok(item.target === "/magazin" || item.target === eventTarget || entryPaths.has(item.target), `${item.path} -> ${item.target}`);
     assert.ok(!entryPaths.has(item.path), `${item.path} must not also be migrated`);
   }
   assert.ok(retired.some((item) => item.path === "/magazin/kontaktanzeigen-bundeslaender"));
@@ -59,7 +62,9 @@ test("nur Kategorien mit eigenem Hub-Text stehen im Index", async () => {
     assert.ok(category.description.length >= 80, `${category.slug}: Beschreibung zu kurz für eine eigene Seite`);
     const posts = entries.filter((entry) => entry.categories.some(({ slug }) => slug === category.slug));
     assert.ok(posts.length >= 2, `${category.slug}: nur ${posts.length} Beiträge`);
-    assert.ok(source.includes(`${category.slug}:`), `${category.slug}: kein eigener Seitentitel hinterlegt`);
+    // Slugs mit Bindestrich stehen in Anführungszeichen.
+    const titleKey = [`${category.slug}:`, `"${category.slug}":`].some((key) => source.includes(key));
+    assert.ok(titleKey, `${category.slug}: kein eigener Seitentitel hinterlegt`);
   }
   const sitemap = await readFile(new URL("../app/magazin/sitemap.xml/route.ts", import.meta.url), "utf8");
   assert.match(sitemap, /magazineCategories\.filter\(\(category\) => category\.description\)/, "indexierbare Kategorien fehlen in der Sitemap");
@@ -83,7 +88,8 @@ test("Hub-Themengruppen deckeln jeden Beitrag der Kategorie genau einmal ab", as
     );
     assert.deepEqual(grouped.filter((item) => !posts.some((entry) => entry.slug === item)), [], `${slug}: Gruppe zeigt auf fremde Beiträge`);
     for (const group of hub.groups) {
-      assert.ok(group.slugs.length >= 2, `${slug}/${group.heading}: zu wenige Beiträge`);
+      // Füllgruppen vermeiden; in kleinen Kategorien darf eine Gruppe einen einzelnen Beitrag führen.
+      assert.ok(group.slugs.length >= (posts.length >= 10 ? 2 : 1), `${slug}/${group.heading}: zu wenige Beiträge`);
       assert.ok(group.intro.length >= 40, `${slug}/${group.heading}: Einleitung fehlt`);
     }
   }

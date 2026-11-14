@@ -23,6 +23,7 @@ const CATEGORY_TITLES: Record<string, string> = {
   nachtleben: "Lesbisches Nachtleben: Bars, Partys & Festivals",
   lesbenportale: "Lesbenportale und Communitys im Überblick",
   ratgeber: "Ratgeber für lesbische Frauen – Themen im Überblick",
+  "tv-shows": "Queere Dating-Shows: Princess Charming & Co.",
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
