@@ -53,6 +53,8 @@ Solange `www.sie-sucht-sie.de` noch auf ICONY zeigt, funktionieren die absoluten
 
 ## Nachtleben: keine Einzeltermine
 
-Die Kategorie `nachtleben` enthält keine Ankündigungen einzelner Partys oder Festivaltermine mehr. Vier Beiträge von 2017 (Tribas-Party, Pink Lake 2017, S.W.A.G, WomenSummerLand) sind ausgemustert und leiten per 308 auf `/magazin/lesbische-festivals`; ihre Attachment-Seiten, Medien und Audio-Zusammenfassungen wurden entfernt. Die Zähler dazu stehen in `sourceCounts` (`retiredEventPosts`, `retiredEventAttachments`, `retiredEventAssets`), `tests/magazine.test.mjs` prüft sie.
+Die Kategorie `nachtleben` enthält keine Ankündigungen einzelner Partys oder Festivaltermine mehr. Vier Beiträge von 2017 (Tribas-Party, Pink Lake 2017, S.W.A.G, WomenSummerLand) sind ausgemustert und leiten per 308 auf den Nachtleben-Hub `/magazin/kategorie/nachtleben/`; ihre Attachment-Seiten, Medien und Audio-Zusammenfassungen wurden entfernt. Die Zähler dazu stehen in `sourceCounts` (`retiredEventPosts`, `retiredEventAttachments`, `retiredEventAssets`), `tests/magazine.test.mjs` prüft sie.
 
 Neue Beiträge zum Thema beschreiben den wiederkehrenden Jahresrhythmus (Monat, Reihe, Veranstalter) statt eines Datums, nennen den Stand im Quellenblock und werden einmal jährlich geprüft. Einzeltermine veralten sonst still weiter, während Sammel-Aktualisierungen ein frisches „Aktualisiert am“ darüberlegen.
+
+Die Kategorieseite `nachtleben` ist der Hub: eigener Titel, Hero, Städteliste und Infografik in `app/magazin/kategorie/[slug]/page.tsx`. Indexierbar ist eine Kategorie nur, wenn sie in `data/magazine.json` eine eigene `description` hat (derzeit `nachtleben` und `lesbenportale`); reine Beitragslisten bleiben `noindex, follow`. `tests/magazine.test.mjs` prüft die Regel samt Mindestlänge der Beschreibung, Mindestzahl an Beiträgen und eigenem Seitentitel.

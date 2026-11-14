@@ -49,6 +49,20 @@ test("contact ads and their category are retired instead of migrated", () => {
   assert.ok(entries.every((entry) => entry.categories.every((category) => category.slug !== "kontaktanzeigen")));
 });
 
+test("nur Kategorien mit eigenem Hub-Text stehen im Index", async () => {
+  const source = await readFile(new URL("../app/magazin/kategorie/[slug]/page.tsx", import.meta.url), "utf8");
+  // Eine Kategorieseite ohne eigenen Text ist eine reine Beitragsliste und bleibt noindex.
+  assert.match(source, /robots: \{ index: Boolean\(category\.description\), follow: true \}/);
+  const indexable = catalog.categories.filter((category) => category.description);
+  assert.ok(indexable.length >= 1, "keine indexierbare Kategorie");
+  for (const category of indexable) {
+    assert.ok(category.description.length >= 80, `${category.slug}: Beschreibung zu kurz für eine eigene Seite`);
+    const posts = entries.filter((entry) => entry.categories.some(({ slug }) => slug === category.slug));
+    assert.ok(posts.length >= 2, `${category.slug}: nur ${posts.length} Beiträge`);
+    assert.ok(source.includes(`${category.slug}:`), `${category.slug}: kein eigener Seitentitel hinterlegt`);
+  }
+});
+
 test("magazine entries preserve public routes and canonical identity", () => {
   for (const entry of entries) {
     assert.equal(entry.path, `/magazin/${entry.slug}`);
