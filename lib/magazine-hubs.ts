@@ -9,7 +9,7 @@ export const RATGEBER_GROUPS: HubGroup[] = [
   {
     heading: "Orientierung finden",
     intro: "Die eigenen Gefühle einordnen, Frauen kennenlernen und den Zeitpunkt für das Coming-out selbst bestimmen.",
-    slugs: ["bin-ich-lesbisch", "coming-out", "lesben-erkennen", "lesbentreff"],
+    slugs: ["bin-ich-lesbisch", "coming-out", "spaetes-coming-out-frauen", "lesben-erkennen", "lesbentreff"],
   },
   {
     heading: "Sexuelle Orientierungen verstehen",
@@ -46,7 +46,7 @@ export const RATGEBER_GROUPS: HubGroup[] = [
   {
     heading: "Sex, Körper und Nähe",
     intro: "Praktiken, Safer Sex und Berührung – sachlich beschrieben, ohne Leistungsdruck.",
-    slugs: ["lesben-sex", "scissoring-sexstellung", "lecktuch", "lesben-massage", "ohne-slip-slipless"],
+    slugs: ["lesben-sex", "scissoring-sexstellung", "lecktuch", "vaginale-selbsttests-dating", "lesben-massage", "ohne-slip-slipless"],
   },
   {
     heading: "Freizeit und Kultur",

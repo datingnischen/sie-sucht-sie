@@ -67,11 +67,13 @@ test("nur Kategorien mit eigenem Hub-Text stehen im Index", async () => {
 
 test("Hub-Themengruppen deckeln jeden Beitrag der Kategorie genau einmal ab", async () => {
   const { HUBS } = await import("../lib/magazine-hubs.ts");
+  // Gegen die gerenderten Beiträge prüfen: lib/magazine.ts ordnet einzelne Beiträge zur Laufzeit um.
+  const { magazinePosts } = await import("../lib/magazine.ts");
   for (const [slug, hub] of Object.entries(HUBS)) {
     const category = catalog.categories.find((item) => item.slug === slug);
     assert.ok(category, `Kategorie ${slug} fehlt`);
     assert.ok(hub.heading && hub.lead.length >= 80, `${slug}: Hub-Text fehlt`);
-    const posts = entries.filter((entry) => entry.categories.some((item) => item.slug === slug));
+    const posts = magazinePosts.filter((entry) => entry.categories.some((item) => item.slug === slug));
     const grouped = hub.groups.flatMap((group) => group.slugs);
     assert.equal(new Set(grouped).size, grouped.length, `${slug}: Beitrag in mehreren Gruppen`);
     assert.deepEqual(
