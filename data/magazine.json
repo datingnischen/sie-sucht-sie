@@ -6516,9 +6516,9 @@
       "sourceUrl": "https://www.sie-sucht-sie.de/magazin/wp-content/uploads/2023/03/Princess-Charming-1.jpg",
       "localPath": "/magazine/media/tv-princess-charming-staffel-1.webp",
       "mimeType": "image/webp",
-      "bytes": 36548,
-      "sha256": "5aad5bd54f32e20196bd5cd6559cbdb561c38e8e1964b20ade21889a7e00a5c2",
-      "alt": "Eine Rose auf einem Studiopodest zu Princess Charming Staffel 1",
+      "bytes": 178514,
+      "sha256": "f9f633e6c75e06f89a7bb8d01429115e22a450f212abd822657a0b07fea156a1",
+      "alt": "Frau im rosa Kleid zwischen Flamingos zu Princess Charming Staffel 1",
       "legacyPaths": [
         "/magazin/wp-content/uploads/2023/03/Princess-Charming-1-100x80.jpg",
         "/magazin/wp-content/uploads/2023/03/Princess-Charming-1-1024x683.jpg",
@@ -6536,9 +6536,9 @@
       "sourceUrl": "https://www.sie-sucht-sie.de/magazin/wp-content/uploads/2023/03/Princess-Charming-2.jpg",
       "localPath": "/magazine/media/tv-princess-charming-staffel-2.webp",
       "mimeType": "image/webp",
-      "bytes": 48422,
-      "sha256": "7b9cd29de6be9c143e3c6c8dd8f38aceffcfa16aa1af5ba202cec553c6f490f3",
-      "alt": "Zwei Sektgläser im warmen Studiolicht zu Princess Charming Staffel 2",
+      "bytes": 135722,
+      "sha256": "bec2142595b84a59c192f87f0c24b154432bbe915507d5dffb968415c3ac8725",
+      "alt": "Hände setzen einer Frau ein silbernes Diadem auf, zu Princess Charming Staffel 2",
       "legacyPaths": [
         "/magazin/wp-content/uploads/2023/03/Princess-Charming-2-100x80.jpg",
         "/magazin/wp-content/uploads/2023/03/Princess-Charming-2-1024x681.jpg",
@@ -7797,45 +7797,45 @@
       "legacyPaths": [],
       "localPath": "/magazine/media/tv-princess-charming-staffel-3.webp",
       "mimeType": "image/webp",
-      "bytes": 41326,
-      "sha256": "4e2aa437e08c1ac175b0ffb7f9814d321dfd4423adcc209b326b2b186c9117f1",
-      "alt": "Ein Studioscheinwerfer vor pflaumenfarbenem Hintergrund zu Princess Charming Staffel 3"
+      "bytes": 30534,
+      "sha256": "69621c7ad2b0be0fa37857f7044163ce208aa7d2c663e16598e39e25704d3005",
+      "alt": "Lachende Frau mit kleinem Krönchen vor rosa Hintergrund zu Princess Charming Staffel 3"
     },
     {
       "id": 4507,
       "legacyPaths": [],
       "localPath": "/magazine/media/tv-princess-charming-staffel-4.webp",
       "mimeType": "image/webp",
-      "bytes": 98946,
-      "sha256": "ce178c71580c794871940dfed160bd22f727c78fa4fd822334d4197147bfeebd",
-      "alt": "Ein Samtsofa am Pool in der Abenddämmerung zu Princess Charming Staffel 4"
+      "bytes": 172836,
+      "sha256": "15e2aaaaec86ae874df0c1597c9ef388f0c47df573e58fa6638fa3e321bd0398",
+      "alt": "Tropische Bucht bei Sonnenuntergang mit Rosen und Krone zu Princess Charming Staffel 4"
     },
     {
       "id": 4508,
       "legacyPaths": [],
       "localPath": "/magazine/media/tv-princess-charming-staffel-5.webp",
       "mimeType": "image/webp",
-      "bytes": 43974,
-      "sha256": "37f5320a17d09b4db840cba317dab2a603d55fc23c346f3c06c00dfd7bad7000",
-      "alt": "Eine Fernsehkamera im Studiolicht zu Princess Charming Staffel 5"
+      "bytes": 135502,
+      "sha256": "d50313cb129fa2d91975d24f9914b0564c444d08a48e3a260c1e73b70cfd7fe2",
+      "alt": "Thailändische Poolterrasse in der Abenddämmerung mit Diadem zu Princess Charming Staffel 5"
     },
     {
       "id": 4509,
       "legacyPaths": [],
       "localPath": "/magazine/media/tv-princess-charming-staffel-6.webp",
       "mimeType": "image/webp",
-      "bytes": 56020,
-      "sha256": "47feeaab69b490639468040e6d8af81ffec61711277b896c2f214f730ec04713",
-      "alt": "Magenta- und goldfarbene Scheinwerfer zu Princess Charming Staffel 6"
+      "bytes": 93876,
+      "sha256": "59b033587104074d73ded3e0b5ba5d6b8bf0c130d325d5404ff2cc3a918716ee",
+      "alt": "Goldene Krone auf violettem Samt neben einem Fragezeichen zu Princess Charming Staffel 6"
     },
     {
       "id": 4510,
       "legacyPaths": [],
       "localPath": "/magazine/media/tv-temptation-island-vip-2026.webp",
       "mimeType": "image/webp",
-      "bytes": 106526,
-      "sha256": "435982ebc7c66bd84e0c09216e72df42e3e997d90de49a1644a5ef701802a3f8",
-      "alt": "Eine Sitzlounge am Pool mit Palmen im Abendlicht zu Temptation Island VIP 2026"
+      "bytes": 113948,
+      "sha256": "5bf3b7e443d494f22de298202336b83f25ab8210fd6b4197ff56ea89caf17952",
+      "alt": "Zwei Frauen am Pool vor einer felsigen Küste zu Temptation Island VIP 2026"
     }
   ],
   "categories": [
