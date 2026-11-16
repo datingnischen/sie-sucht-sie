@@ -57,7 +57,7 @@ Die Kategorie `nachtleben` enthält keine Ankündigungen einzelner Partys oder F
 
 Neue Beiträge zum Thema beschreiben den wiederkehrenden Jahresrhythmus (Monat, Reihe, Veranstalter) statt eines Datums, nennen den Stand im Quellenblock und werden einmal jährlich geprüft. Einzeltermine veralten sonst still weiter, während Sammel-Aktualisierungen ein frisches „Aktualisiert am“ darüberlegen.
 
-Die Kategorieseite `nachtleben` ist der Hub: eigener Titel, Hero, Städteliste und Infografik in `app/magazin/kategorie/[slug]/page.tsx`. Indexierbar ist eine Kategorie nur, wenn sie in `data/magazine.json` eine eigene `description` hat (derzeit `nachtleben`, `lesbenportale` und `ratgeber`); reine Beitragslisten bleiben `noindex, follow`. `tests/magazine.test.mjs` prüft die Regel samt Mindestlänge der Beschreibung, Mindestzahl an Beiträgen und eigenem Seitentitel.
+Die Kategorieseite `nachtleben` ist der Hub: eigener Titel, Hero, Städteliste und Infografik in `app/magazin/kategorie/[slug]/page.tsx`. Indexierbar ist eine Kategorie nur, wenn sie in `data/magazine.json` eine eigene `description` hat (derzeit `nachtleben`, `lesbenportale`, `ratgeber`, `tv-shows` und `lifestyle`); reine Beitragslisten bleiben `noindex, follow`. `tests/magazine.test.mjs` prüft die Regel samt Mindestlänge der Beschreibung, Mindestzahl an Beiträgen und eigenem Seitentitel.
 
 ## Kategorie-Hubs mit Themengruppen
 

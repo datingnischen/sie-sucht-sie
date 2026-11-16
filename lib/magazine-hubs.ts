@@ -77,6 +77,43 @@ export const TV_SHOWS_GROUPS: HubGroup[] = [
   },
 ];
 
+export const LIFESTYLE_GROUPS: HubGroup[] = [
+  {
+    heading: "Städte und Reiseziele",
+    intro:
+      "Wo die Szene groß genug ist, um jemanden kennenzulernen, und welche Länder als Paar entspannt sind.",
+    slugs: [
+      "top-10-staedte-deutschland",
+      "top-10-staedte-oesterreich",
+      "top-10-staedte-schweiz",
+      "reiselaender-fuer-lesben",
+      "go-holidate-reiseideen-fuer-lesbische-frauen",
+    ],
+  },
+  {
+    heading: "Kennenlernen, Nähe und Beziehungsmodelle",
+    intro:
+      "Vom ersten Kontakt auf einer Dating-Plattform bis zur Frage, wie viel Freiheit eine Beziehung verträgt.",
+    slugs: [
+      "offene-beziehungen-frauen",
+      "partnersuche-auf-dating-plattformen",
+      "lesben-massage",
+      "ohne-slip-slipless",
+      "8-gruende-warum-frauen-die-besseren-liebhaber-sind",
+    ],
+  },
+  {
+    heading: "Gesellschaft und Gegenwind",
+    intro: "Woher Ablehnung kommt, wie queeres Leben anderswo aussieht und welche Utopien daraus entstanden sind.",
+    slugs: ["homophobe-menschen-sind-oft-selbst-homosexuell", "lesbenleben-in-aegypten", "eigener-staat-fuer-schwule-und-lesben"],
+  },
+  {
+    heading: "Klischees im Alltag",
+    intro: "Zwei Sätze, die lesbische Frauen zu oft hören – einmal nachgefragt, was davon übrig bleibt.",
+    slugs: ["lange-fingernaegel", "lesbisch-ab-40"],
+  },
+];
+
 export type Hub = { heading: string; lead: string; groups: HubGroup[] };
 
 export const HUBS: Record<string, Hub> = {
@@ -93,5 +130,12 @@ export const HUBS: Record<string, Hub> = {
       "Seit 2020 suchen Frauen auch im deutschen Fernsehen nach Frauen. Hier steht, was in jeder Staffel " +
       "Princess Charming passiert ist – und welche anderen Formate queere Paare zeigen, statt sie nur zu erwähnen.",
     groups: TV_SHOWS_GROUPS,
+  },
+  lifestyle: {
+    heading: "Lesbischer Alltag: Städte, Reisen und Klischees",
+    lead:
+      "Wo es sich als lesbische Frau gut leben lässt, welche Reiseziele entspannt sind, was in einer Beziehung " +
+      "zwischen zwei Frauen verhandelt wird – und was von den alten Klischees übrig bleibt.",
+    groups: LIFESTYLE_GROUPS,
   },
 };
