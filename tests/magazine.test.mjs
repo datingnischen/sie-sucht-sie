@@ -27,7 +27,8 @@ test("magazine snapshot contains the public editorial inventory without contact 
   assert.equal(new Set(attachments.map((entry) => entry.path)).size, attachments.length);
   // Der Import lieferte zu jedem Medium eine Attachment-Seite. Ausgemusterte Event-Beiträge nehmen ihre
   // Attachment-Seiten und die nur dort genutzten Medien mit; die Differenz steht in sourceCounts.
-  assert.equal(assets.length + catalog.sourceCounts.retiredEventAssets, attachments.length + catalog.sourceCounts.retiredEventAttachments);
+  const importedAssets = assets.filter((asset) => asset.legacyPaths.length > 0);
+  assert.equal(importedAssets.length + catalog.sourceCounts.retiredEventAssets, attachments.length + catalog.sourceCounts.retiredEventAttachments);
 });
 
 test("contact ads and their category are retired instead of migrated", () => {
