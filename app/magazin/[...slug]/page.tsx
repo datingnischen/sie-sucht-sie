@@ -1,3 +1,4 @@
+import { CHRISTIAN_NAME, christianPerson } from "@/lib/christian-person";
 import type { Metadata } from "next";
 import { clampMetaDescription } from "@/lib/meta-description.mjs";
 import Link from "@/components/link";
@@ -74,9 +75,10 @@ export default async function MagazineDetailPage({ params }: Props) {
   const related = relatedMagazineEntries(entry);
   const updated = entry.type === "post" ? articleUpdatedDate(entry) : "";
   const isPortalReview = entry.categories.some((category) => category.slug === PORTAL_RANKING_CATEGORY);
+  const isChristianProfile = entry.type === "page" && entry.slug === "christian-m-haas";
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": entry.type === "post" ? "Article" : "WebPage",
+    "@type": entry.type === "post" ? "Article" : isChristianProfile ? "ProfilePage" : "WebPage",
     "@id": `${entry.canonical}#article`,
     url: entry.canonical,
     headline: entry.title,
@@ -84,7 +86,8 @@ export default async function MagazineDetailPage({ params }: Props) {
     datePublished: entry.date,
     dateModified: entry.modified,
     image: entry.featuredImage || undefined,
-    author: entry.author ? { "@type": entry.author.slug === "redaktion" ? "Organization" : "Person", name: entry.author.name, url: `https://www.sie-sucht-sie.de/magazin/author/${entry.author.slug}/` } : undefined,
+    author: entry.author?.name === CHRISTIAN_NAME ? christianPerson() : entry.author ? { "@type": entry.author.slug === "redaktion" ? "Organization" : "Person", name: entry.author.name, url: `https://www.sie-sucht-sie.de/magazin/author/${entry.author.slug}/` } : undefined,
+    mainEntity: isChristianProfile ? christianPerson() : undefined,
     isPartOf: { "@id": `${SITE_URL}/#website` },
   };
   const category = entry.categories[0] ?? null;
