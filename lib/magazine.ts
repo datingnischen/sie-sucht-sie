@@ -108,7 +108,6 @@ const SEO_TITLES: Record<string, string> = {
   "go-holidate-reiseideen-fuer-lesbische-frauen": "Reiseideen für lesbische Frauen: GO HOLIDATE",
   "homophobe-menschen-sind-oft-selbst-homosexuell": "Homophobie: Sind Homophobe oft selbst homosexuell?",
   intersexuell: "Intersexualität: Bedeutung, Ursachen und Merkmale",
-  "keanu-pioch-unterstuetzung": "Keanu Pioch: Junger Filmemacher braucht Unterstützung",
   "lesben-sex": "Lesben Sex: Stellungen, Vorurteile und Tipps",
   lesbenflagge: "Lesbenflagge: Farben, Bedeutung & Regenbogenfahne",
   "lesbenleben-in-aegypten": "Lesbisch in Ägypten: Leben zwischen Tabus und Tapferkeit",

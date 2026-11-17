@@ -46,6 +46,8 @@ export default function nextConfig(phase: string): NextConfig {
         { source: "/magazin/autor/christian-m-haas", destination: "/magazin/christian-m-haas/", permanent: true },
         // WordPress archives that are not rebuilt: tag listings (mostly contact ads), date archives, pagination.
         { source: "/magazin/kategorie/kontaktanzeigen/:rest*", destination: "/magazin/", permanent: true },
+        // Sammelkategorie „Allgemein“ aufgelöst: Beiträge stehen jetzt in Sichtbarkeit, Ratgeber, Lifestyle und Deine Geschichte.
+        { source: "/magazin/kategorie/allgemein/:rest*", destination: "/magazin/", permanent: true },
         { source: "/magazin/schlagwort/:rest*", destination: "/magazin/", permanent: true },
         { source: "/magazin/page/:page(\\d+)", destination: "/magazin/", permanent: true },
         { source: "/magazin/:year(\\d{4})/:rest*", destination: "/magazin/archiv/", permanent: true },

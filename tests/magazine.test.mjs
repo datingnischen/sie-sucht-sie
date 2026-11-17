@@ -20,7 +20,13 @@ test("magazine landing copy speaks directly to women who love women", async () =
 test("magazine snapshot contains the public editorial inventory without contact ads", () => {
   const posts = entries.filter((entry) => entry.type === "post");
   const pages = entries.filter((entry) => entry.type === "page");
-  assert.equal(catalog.sourceCounts.posts - catalog.sourceCounts.retiredContactAds - catalog.sourceCounts.retiredEventPosts, posts.length);
+  assert.equal(
+    catalog.sourceCounts.posts
+      - catalog.sourceCounts.retiredContactAds
+      - catalog.sourceCounts.retiredEventPosts
+      - catalog.sourceCounts.retiredCampaignPosts,
+    posts.length,
+  );
   assert.equal(catalog.sourceCounts.pages - 2, pages.length);
   assert.ok(posts.length >= 80, `expected the editorial posts, got ${posts.length}`);
   assert.equal(new Set(entries.map((entry) => entry.path)).size, entries.length);
@@ -28,13 +34,25 @@ test("magazine snapshot contains the public editorial inventory without contact 
   // Der Import lieferte zu jedem Medium eine Attachment-Seite. Ausgemusterte Event-Beiträge nehmen ihre
   // Attachment-Seiten und die nur dort genutzten Medien mit; die Differenz steht in sourceCounts.
   const importedAssets = assets.filter((asset) => asset.legacyPaths.length > 0);
-  assert.equal(importedAssets.length + catalog.sourceCounts.retiredEventAssets, attachments.length + catalog.sourceCounts.retiredEventAttachments);
+  assert.equal(
+    importedAssets.length + catalog.sourceCounts.retiredEventAssets + catalog.sourceCounts.retiredCampaignAssets,
+    attachments.length + catalog.sourceCounts.retiredEventAttachments + catalog.sourceCounts.retiredCampaignAttachments,
+  );
 });
 
 test("contact ads and their category are retired instead of migrated", () => {
   assert.ok(catalog.sourceCounts.retiredContactAds > 300);
   const retiredEvents = catalog.sourceCounts.retiredEventPosts + catalog.sourceCounts.retiredEventAttachments;
-  assert.equal(retired.length, catalog.sourceCounts.retiredContactAds + 1 + retiredEvents + catalog.sourceCounts.retiredAiPosterAttachments);
+  const retiredCampaign = catalog.sourceCounts.retiredCampaignPosts + catalog.sourceCounts.retiredCampaignAttachments;
+  assert.equal(
+    retired.length,
+    catalog.sourceCounts.retiredContactAds
+      + 1
+      + retiredEvents
+      + catalog.sourceCounts.retiredAiPosterAttachments
+      + retiredCampaign
+      + catalog.sourceCounts.retiredCollectionCategories,
+  );
   const entryPaths = new Set(entries.map((entry) => entry.path));
   // Ausgemusterte Einzeltermine von 2017 zeigen auf den Nachtleben-Hub, alles andere auf /magazin.
   const eventTarget = "/magazin/kategorie/nachtleben";
@@ -69,6 +87,17 @@ test("nur Kategorien mit eigenem Hub-Text stehen im Index", async () => {
   }
   const sitemap = await readFile(new URL("../app/magazin/sitemap.xml/route.ts", import.meta.url), "utf8");
   assert.match(sitemap, /magazineCategories\.filter\(\(category\) => category\.description\)/, "indexierbare Kategorien fehlen in der Sitemap");
+});
+
+test("die Sammelkategorie Allgemein bleibt aufgelöst", async () => {
+  // Ein Re-Import aus WordPress würde „Allgemein“ zurückbringen; dann muss dieser Test auffallen.
+  assert.ok(!catalog.categories.some(({ slug }) => slug === "allgemein"), "Sammelkategorie Allgemein ist zurück");
+  const { magazinePosts } = await import("../lib/magazine.ts");
+  const strays = magazinePosts.filter((entry) => entry.categories.some(({ slug }) => slug === "allgemein"));
+  assert.deepEqual(strays.map((entry) => entry.slug), [], "Beiträge liegen wieder in Allgemein");
+  assert.ok(magazinePosts.every((entry) => entry.categories.length > 0), "Beitrag ohne Kategorie");
+  const config = await readFile(new URL("../next.config.ts", import.meta.url), "utf8");
+  assert.match(config, /\/magazin\/kategorie\/allgemein/, "Weiterleitung der alten Kategorie-URL fehlt");
 });
 
 test("Hub-Themengruppen deckeln jeden Beitrag der Kategorie genau einmal ab", async () => {

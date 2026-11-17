@@ -57,7 +57,13 @@ Die Kategorie `nachtleben` enthält keine Ankündigungen einzelner Partys oder F
 
 Neue Beiträge zum Thema beschreiben den wiederkehrenden Jahresrhythmus (Monat, Reihe, Veranstalter) statt eines Datums, nennen den Stand im Quellenblock und werden einmal jährlich geprüft. Einzeltermine veralten sonst still weiter, während Sammel-Aktualisierungen ein frisches „Aktualisiert am“ darüberlegen.
 
-Die Kategorieseite `nachtleben` ist der Hub: eigener Titel, Hero, Städteliste und Infografik in `app/magazin/kategorie/[slug]/page.tsx`. Indexierbar ist eine Kategorie nur, wenn sie in `data/magazine.json` eine eigene `description` hat (derzeit `nachtleben`, `lesbenportale`, `ratgeber`, `tv-shows` und `lifestyle`); reine Beitragslisten bleiben `noindex, follow`. `tests/magazine.test.mjs` prüft die Regel samt Mindestlänge der Beschreibung, Mindestzahl an Beiträgen und eigenem Seitentitel.
+Die Kategorieseite `nachtleben` ist der Hub: eigener Titel, Hero, Städteliste und Infografik in `app/magazin/kategorie/[slug]/page.tsx`. Indexierbar ist eine Kategorie nur, wenn sie in `data/magazine.json` eine eigene `description` hat (derzeit `nachtleben`, `lesbenportale`, `ratgeber`, `tv-shows`, `lifestyle` und `sichtbarkeit`); reine Beitragslisten bleiben `noindex, follow`. `tests/magazine.test.mjs` prüft die Regel samt Mindestlänge der Beschreibung, Mindestzahl an Beiträgen und eigenem Seitentitel.
+
+## Sammelkategorie „Allgemein“ aufgelöst
+
+Die WordPress-Standardkategorie `allgemein` gibt es nicht mehr. Ihre Beiträge stehen jetzt in `sichtbarkeit` (queere Aktionstage, Sichtbarkeit in Film und Öffentlichkeit, Ablehnung und ihre Folgen), `ratgeber`, `lifestyle` und `deine-geschichte`; `/magazin/kategorie/allgemein/` leitet per 308 auf `/magazin/`. Die Kategorie `sichtbarkeit` (ID 253) steht nur in `data/magazine.json`, nicht in WordPress – ein Re-Import mit `scripts/import_magazine.py` würde sie entfernen und `allgemein` zurückbringen. `tests/magazine.test.mjs` schlägt dann fehl.
+
+Ausgemustert ist der Crowdfunding-Aufruf `keanu-pioch-unterstuetzung` von 2017 (Kampagne beendet, Link tot): Beitrag, Attachment-Seite, Bild, Audio-Zusammenfassung und Glossar-Eintrag sind entfernt, beide URLs leiten auf `/magazin/`. Die Zähler stehen in `sourceCounts` (`retiredCampaignPosts`, `retiredCampaignAttachments`, `retiredCampaignAssets`, `retiredCollectionCategories`).
 
 ## Kategorie-Hubs mit Themengruppen
 

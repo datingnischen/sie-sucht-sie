@@ -8,7 +8,11 @@
     "retiredEventPosts": 4,
     "retiredEventAttachments": 4,
     "retiredEventAssets": 4,
-    "retiredAiPosterAttachments": 3
+    "retiredAiPosterAttachments": 3,
+    "retiredCampaignPosts": 1,
+    "retiredCampaignAttachments": 1,
+    "retiredCampaignAssets": 1,
+    "retiredCollectionCategories": 1
   },
   "entries": [
     {
@@ -113,11 +117,6 @@
       "featuredImage": "/magazine/media/3394-asexualitaet-2.jpg",
       "categories": [
         {
-          "id": 1,
-          "name": "Allgemein",
-          "slug": "allgemein"
-        },
-        {
           "id": 249,
           "name": "Ratgeber",
           "slug": "ratgeber"
@@ -204,11 +203,6 @@
       },
       "featuredImage": "/magazine/media/2799-bisexuell.jpg",
       "categories": [
-        {
-          "id": 1,
-          "name": "Allgemein",
-          "slug": "allgemein"
-        },
         {
           "id": 249,
           "name": "Ratgeber",
@@ -453,9 +447,9 @@
       "featuredImage": "/magazine/media/3842-18-9-2024_10451_www-freepik-com.jpg",
       "categories": [
         {
-          "id": 1,
-          "name": "Allgemein",
-          "slug": "allgemein"
+          "id": 253,
+          "name": "Sichtbarkeit",
+          "slug": "sichtbarkeit"
         }
       ],
       "tags": [
@@ -488,9 +482,9 @@
       "featuredImage": "/magazine/media/3845-18-9-2024_10352_www-freepik-com.jpg",
       "categories": [
         {
-          "id": 1,
-          "name": "Allgemein",
-          "slug": "allgemein"
+          "id": 253,
+          "name": "Sichtbarkeit",
+          "slug": "sichtbarkeit"
         }
       ],
       "tags": [
@@ -552,11 +546,6 @@
       "featuredImage": "/magazine/media/3390-demisualitaet.jpg",
       "categories": [
         {
-          "id": 1,
-          "name": "Allgemein",
-          "slug": "allgemein"
-        },
-        {
           "id": 249,
           "name": "Ratgeber",
           "slug": "ratgeber"
@@ -615,9 +604,9 @@
       "featuredImage": null,
       "categories": [
         {
-          "id": 2,
-          "name": "Lifestyle",
-          "slug": "lifestyle"
+          "id": 253,
+          "name": "Sichtbarkeit",
+          "slug": "sichtbarkeit"
         }
       ],
       "tags": [],
@@ -634,7 +623,7 @@
       "title": "Wird die Eisprinzessin Elsa lesbisch?",
       "description": "Emanzipierte Frauen kommen vor allem bei jungen Fans stets super an. Auch Elsa, die Hauptrolle aus dem Disney-Animationsfilm „Frozen“ (zu deutsch: „Die Eiskönigin – völlig unver…",
       "date": "2018-09-21T14:42:53",
-      "modified": "2025-08-18T20:46:59",
+      "modified": "2026-11-17T16:25:52",
       "author": {
         "id": 5,
         "name": "Alicia Schlienz",
@@ -644,13 +633,13 @@
       "featuredImage": "/magazine/media/2146-eisprinzessin-elsa-lesbisch-2.jpg",
       "categories": [
         {
-          "id": 1,
-          "name": "Allgemein",
-          "slug": "allgemein"
+          "id": 253,
+          "name": "Sichtbarkeit",
+          "slug": "sichtbarkeit"
         }
       ],
       "tags": [],
-      "contentHtml": "<p></p> <p>Emanzipierte Frauen kommen vor allem bei jungen Fans stets super an. Auch Elsa, die Hauptrolle aus dem Disney-Animationsfilm „Frozen“ (zu deutsch: „Die Eiskönigin – völlig unverfroren“) zeigte sich als solch eine starke Persönlichkeit und imponierte auf diesem Wege ihren Fans.</p> <p>Nun steht zur Debatte, ob Elsa im zweiten Teil zur wohl ersten lesbischen Prinzessin in der Disney-Ära werden soll. Die Fans haben es sich oft gewünscht auch mit diversen Aufrufen auf Twitter und Co. darum gebeten. Ebenfalls wird behauptet, dass die Regisseure ernsthaft darüber nachdenken, Elsa zur Homosexualität zu bekennen. Würde Disney dies tun, würde definitiv mal ein Zeichen gesetzt werden!</p> <h2>„Let it Go“ gilt schon länger als Coming-Out Song</h2> <p>Für viele von den eisigen Fans gilt der Titelsong „Let it go“ als <a href=\"/magazin/coming-out\">Coming-Out</a> Song. Es wird immer mehr der innere Konflikt erkannt, welchen Homosexuelle mit sich selbst führen, insofern sie sich nicht outen. So singt die Elsa Dinge wie „Lass sie nicht rein.“ und „Lass sie nicht sehen wie du bist.“ Ebenso meint sie, dass man nichts fühlen darf und es auch falsch sei, das wahre Ich zu zeigen. Diesen Konflikt mit sich selbst kennt wohl jeder, der nicht der „gesellschaftlichen Norm“ entspricht.</p> <p>Des Weiteren redet sie davon, endlich frei zu sein und fühlt sich wie neu geboren. Diesen Teil sieht die Masse als Coming-Out an, welches hoffentlich in dem nächsten Film von „Die Eiskönigin“ geschehen wird.</p> <p>Auf Twitter kursieren schon seit langem Kommentare wie „#GiveElsaAGirlfriend“. Viele Zuschauer würden sich also über eine homosexuelle <span>Eisprinzessin </span>Elsa freuen, was Disney zudem nicht ausschließt, um auf die Wünsche der Fans zu reagieren.</p> <h2>Was denken die Macher von „Frozen“ über die Sexualität von Elsa?</h2> <p>Autorin und Co-Regisseurin Jennifer Lee kennt die Aufrufe ihrer Fans. Doch wie denkt sie über den womöglichen Werdegang ihres Schützlings? Jennifer Lee und Co-Regisseur Chris Buck wollten sich noch nicht ganz festlegen, wie es mit Elsa weitergeht. Jedoch konnten sie bestätigen, dass bereits diskutiert wird, ob die Bitte der Fans angenommen wird und Elsa ihr Coming-Out erleben wird. Für die homosexuelle Gemeinde wäre dies defitiv ein riesiger Erfolg und Disney würde ein enormes Zeichen in puncto Toleranz setzen.</p> <p>Elsas Originalstimme würde hingegen den sexuellen Wandel sehr begrüßen und wäre somit einverstanden. Erst war sie ziemlich überrascht, findet die Debatte jedoch sehr spannend und freut sich darüber, dass über das Thema diskutiert wird.</p> <p>Eines steht jedenfalls fest: Alle Mitwirkenden lieben es, was über Elsa gesagt wird und stellen sich dem Wandel keinesfalls in den Weg. Demnach wird es wohl demnächst eine weitere weibliche Rolle bei „Frozen“ geben. Wer diese sprechen wird, steht noch nicht fest, es wird aber bereits gemunkelt, dass es sich um jemanden aus dem LGBTQ-Bereich handeln könnte.</p> <h2>Elsa ist bei den Zuschauern sehr beliebt</h2> <p>Der Hauptcharakter stellt keine Prinzessin dar, welche auf ihren Traumprinzen wartet. Sie ist eine junge und starke Persönlichkeit, welche mit ihrer Schwester Anna die Herzen der Zuschauer berührt. Sie hat die Fähigkeit, Dinge zu vereisen, wodurch sie schon öfter in Schwierigkeiten geraten ist. Elsa möchte keinen weiteren Schaden anrichtet und versteckt sich aus diesem Grund in einem Eispalast. Anna macht sich auf die Suche nach ihrer Schwester. Gemeinsam erleben sie viele Abenteuer und treffen unter anderem einen bösen Prinzen.</p> <p>Letztendlich ist die Liebe zwischen den beiden Schwestern so stark, dass sie sogar Flüche überwinden kann. Doch verliebt sich Elsa nun im zweiten Teil?</p> <p>Olaf, der Schneemann und die beiden Schwestern wurden zum Hit. Kuscheltiere und Co wurden zu Massen verkauft. Ob der zweite Teil auch so gut bei den Fans landen wird? Eines ist jedenfalls klar: Es bleibt spannend, egal ob Elsa ihr Coming-Out erleben wird oder nicht. Geplant ist der zweite Teil für November 2019. Demnach müssen sich die Fans noch etwas gedulden.</p> <p><em><strong>Quellen:</strong></em></p> <ul> <li>https://www.moviejones.de/news/news-jepp-elsa-wohl-lesbisch-verliebt-sie-sich-in-die-eiskoenigin-2_33265.html</li> <li>https://www.bravo.de/die-eiskoenigin-2-wird-elsa-lesbisch-377514.html</li> <li>https://www.ksta.de/kultur/die-eiskoenigin-elsa-koennte-erste-lesbische-disney-prinzessin-werden-29802742</li> </ul>"
+      "contentHtml": "<p></p> <h2>Update: Was aus der Frage geworden ist</h2> <p>„Die Eiskönigin 2“ lief im November 2019 an – ohne Freundin für Elsa. Ein dritter Teil ist für November 2027 angekündigt. Disney hat dazu erstes Material gezeigt, in dem Anna und Kristoff heiraten; für Elsa ist weiterhin keine Partnerin bestätigt. Videos, die behaupten, sie heirate im dritten Teil eine Frau, sind frei erfunden.</p> <p>Der Text darunter stammt aus dem Jahr 2018 und beschreibt die Debatte, wie sie damals geführt wurde.</p> <p>Emanzipierte Frauen kommen vor allem bei jungen Fans stets super an. Auch Elsa, die Hauptrolle aus dem Disney-Animationsfilm „Frozen“ (zu deutsch: „Die Eiskönigin – völlig unverfroren“) zeigte sich als solch eine starke Persönlichkeit und imponierte auf diesem Wege ihren Fans.</p> <p>Nun steht zur Debatte, ob Elsa im zweiten Teil zur wohl ersten lesbischen Prinzessin in der Disney-Ära werden soll. Die Fans haben es sich oft gewünscht auch mit diversen Aufrufen auf Twitter und Co. darum gebeten. Ebenfalls wird behauptet, dass die Regisseure ernsthaft darüber nachdenken, Elsa zur Homosexualität zu bekennen. Würde Disney dies tun, würde definitiv mal ein Zeichen gesetzt werden!</p> <h2>„Let it Go“ gilt schon länger als Coming-Out Song</h2> <p>Für viele von den eisigen Fans gilt der Titelsong „Let it go“ als <a href=\"/magazin/coming-out\">Coming-Out</a> Song. Es wird immer mehr der innere Konflikt erkannt, welchen Homosexuelle mit sich selbst führen, insofern sie sich nicht outen. So singt die Elsa Dinge wie „Lass sie nicht rein.“ und „Lass sie nicht sehen wie du bist.“ Ebenso meint sie, dass man nichts fühlen darf und es auch falsch sei, das wahre Ich zu zeigen. Diesen Konflikt mit sich selbst kennt wohl jeder, der nicht der „gesellschaftlichen Norm“ entspricht.</p> <p>Des Weiteren redet sie davon, endlich frei zu sein und fühlt sich wie neu geboren. Diesen Teil sieht die Masse als Coming-Out an, welches hoffentlich in dem nächsten Film von „Die Eiskönigin“ geschehen wird.</p> <p>Auf Twitter kursieren schon seit langem Kommentare wie „#GiveElsaAGirlfriend“. Viele Zuschauer würden sich also über eine homosexuelle <span>Eisprinzessin </span>Elsa freuen, was Disney zudem nicht ausschließt, um auf die Wünsche der Fans zu reagieren.</p> <h2>Was denken die Macher von „Frozen“ über die Sexualität von Elsa?</h2> <p>Autorin und Co-Regisseurin Jennifer Lee kennt die Aufrufe ihrer Fans. Doch wie denkt sie über den womöglichen Werdegang ihres Schützlings? Jennifer Lee und Co-Regisseur Chris Buck wollten sich noch nicht ganz festlegen, wie es mit Elsa weitergeht. Jedoch konnten sie bestätigen, dass bereits diskutiert wird, ob die Bitte der Fans angenommen wird und Elsa ihr Coming-Out erleben wird. Für die homosexuelle Gemeinde wäre dies defitiv ein riesiger Erfolg und Disney würde ein enormes Zeichen in puncto Toleranz setzen.</p> <p>Elsas Originalstimme würde hingegen den sexuellen Wandel sehr begrüßen und wäre somit einverstanden. Erst war sie ziemlich überrascht, findet die Debatte jedoch sehr spannend und freut sich darüber, dass über das Thema diskutiert wird.</p> <p>Eines steht jedenfalls fest: Alle Mitwirkenden lieben es, was über Elsa gesagt wird und stellen sich dem Wandel keinesfalls in den Weg. Demnach wird es wohl demnächst eine weitere weibliche Rolle bei „Frozen“ geben. Wer diese sprechen wird, steht noch nicht fest, es wird aber bereits gemunkelt, dass es sich um jemanden aus dem LGBTQ-Bereich handeln könnte.</p> <h2>Elsa ist bei den Zuschauern sehr beliebt</h2> <p>Der Hauptcharakter stellt keine Prinzessin dar, welche auf ihren Traumprinzen wartet. Sie ist eine junge und starke Persönlichkeit, welche mit ihrer Schwester Anna die Herzen der Zuschauer berührt. Sie hat die Fähigkeit, Dinge zu vereisen, wodurch sie schon öfter in Schwierigkeiten geraten ist. Elsa möchte keinen weiteren Schaden anrichtet und versteckt sich aus diesem Grund in einem Eispalast. Anna macht sich auf die Suche nach ihrer Schwester. Gemeinsam erleben sie viele Abenteuer und treffen unter anderem einen bösen Prinzen.</p> <p>Letztendlich ist die Liebe zwischen den beiden Schwestern so stark, dass sie sogar Flüche überwinden kann. Doch verliebt sich Elsa nun im zweiten Teil?</p> <p>Olaf, der Schneemann und die beiden Schwestern wurden zum Hit. Kuscheltiere und Co wurden zu Massen verkauft. Ob der zweite Teil auch so gut bei den Fans landen wird? Eines ist jedenfalls klar: Es bleibt spannend, egal ob Elsa ihr Coming-Out erleben wird oder nicht. Geplant ist der zweite Teil für November 2019. Demnach müssen sich die Fans noch etwas gedulden.</p> <p><em><strong>Quellen:</strong></em></p> <ul> <li>https://www.moviejones.de/news/news-jepp-elsa-wohl-lesbisch-verliebt-sie-sich-in-die-eiskoenigin-2_33265.html</li> <li>https://www.bravo.de/die-eiskoenigin-2-wird-elsa-lesbisch-377514.html</li> <li>https://www.ksta.de/kultur/die-eiskoenigin-elsa-koennte-erste-lesbische-disney-prinzessin-werden-29802742</li> <li>https://www.filmstarts.de/nachrichten/1000164609.html</li> <li>https://screenrant.com/frozen-3-movie-disney-sequel-release-date-story/</li> <li>Stand der Angaben zum dritten Teil: 18. November 2026</li> </ul>"
     },
     {
       "id": 556,
@@ -702,9 +691,9 @@
       "featuredImage": "/magazine/media/2262-genderfluid.jpg",
       "categories": [
         {
-          "id": 1,
-          "name": "Allgemein",
-          "slug": "allgemein"
+          "id": 249,
+          "name": "Ratgeber",
+          "slug": "ratgeber"
         }
       ],
       "tags": [],
@@ -789,7 +778,7 @@
       "featuredImage": null,
       "categories": [],
       "tags": [],
-      "contentHtml": "<p>In unserem Lesben-Glossar möchten wir euch alle Begrifflichkeiten nahebringen.</p> <p><strong>A</strong><br/> <a href=\"/lexikon/fuer-abenteuer\">Abenteuer</a><br/> <a href=\"/magazin/androgyn\">Androgyn</a><br/> <a href=\"/magazin/asexualitaet\">Asexualität</a></p> <p><strong>B</strong><br/> <a href=\"/lexikon/fuer-beziehung\">Beziehung</a><br/> <a href=\"/magazin/bin-ich-lesbisch\">Bin ich lesbisch?</a><br/> <a href=\"/magazin/bisexuell-darum-ist-jede-frau-etwas-bi\">Bisexuell</a></p> <p><strong>C</strong><br/> <a href=\"/magazin/cisgender\">CIS-Gender</a><br/> <a href=\"/magazin/coming-out\">Coming out – Tipps und tricks</a><br/> <a href=\"/lexikon/kostenloser-lesbenchat\">Chat</a><br/> <a href=\"/lexikon/lesbencommunity\">Community – Lesbengemeinschaft</a></p> <p><strong>D</strong><br/> <a href=\"/magazin/demisexualitaet\">Demisexualität</a><br/> <a href=\"/magazin/buchvorstellung-die-dritte\">Die Dritte – Buchvorstellung</a><br/> <a href=\"/magazin/leseprobe-dinner-for-one-or-two\">Dinner for one … or two – Buchvorstellung</a></p> <p><strong>E</strong><br/> <a href=\"/magazin/eisprinzessin-elsa-lesbisch\">Eisprinzessin Elsa</a><br/> <a href=\"/magazin/eigener-staat-fuer-schwule-und-lesben\">Eigener Staat für Schwule und Lesben</a><br/> <a href=\"/magazin/die-ex-zurueckgewinnen\">Ex zurückgewinnen</a></p> <p><strong>F</strong><br/> <a href=\"/magazin/maskulin-feminin\">Feminin &amp; Feminismus</a><br/> <a href=\"/lexikon/singleboersen-und-fremdgehen\">Fremdgehen in Singlebörse</a><br/> <a href=\"/magazin/lesbische-festivals\">Festivals für lesbische Frauen</a><br/> <a href=\"/magazin/lesbische-facebook-seiten-und-gruppen\">Facebook-Seiten und Gruppen (lesbisch)</a><br/> <a href=\"/magazin/lesbenbars-in-frankfurt\">Frankfurter Lesbenbars</a><br/> <a href=\"/magazin/8-gruende-warum-frauen-die-besseren-liebhaber-sind\">Frauen als bessere Liebhaber</a></p> <p><strong>G</strong><br/> <a href=\"/magazin/genderfluid\">Genderfluid</a><br/> <a href=\"/magazin/geschlechtsidentitaet\">Geschlechtsidentitäten</a><br/> <a href=\"/magazin/girlflirt\">Girlflirt</a></p> <p><strong>H</strong><br/> <a href=\"/magazin/homophobe-menschen-sind-oft-selbst-homosexuell\">Homophobe Menschen</a></p> <p><strong>I</strong><br/> <a href=\"/magazin/intersexuell\">Intersexualität</a></p> <p><strong>J</strong></p> <p><strong>K</strong><br/> Kontaktanzeigen<br/> <a href=\"/magazin/keanu-pioch-unterstuetzung\">Keanu Pioch Unterstützung</a><br/> <a href=\"/magazin/buchprojekt-karlas-mama\">Karlas Mama – Buchvorstellung</a></p> <p><strong>L</strong><br/> <a href=\"/magazin/sie-sucht-sie-ueber-50\">Late Bloomers</a><br/> <a href=\"/magazin/lesbisch\">Lesbisch</a><br/> <a href=\"/magazin/lgbt\">LGTB – Die Bedeutung</a><br/> <a href=\"/magazin/lesbenflagge\">Lesbenflagge</a><br/> <a href=\"/magazin/lesben-sex\">Lesben Sex – Wie haben Frauen Sex miteinander?</a><br/> <a href=\"/magazin/lesben-erkennen\">Lesben erkennen</a><br/> <a href=\"/magazin/erste-lesben-party\">Lesben-Party: das erste Mal</a><br/> <a href=\"/magazin/lecktuch\">Lecktuch</a><br/> <a href=\"/magazin/lesbische-beziehung\">Lesbische Beziehung</a><br/> <a href=\"/magazin/lesbische-serien\">Lesbische Serien</a><br/> <a href=\"/magazin/lesbentreff\">Lesbentreff</a><br/> <a href=\"/magazin/lesben-massage\">Lesben Massage</a><br/> <a href=\"/magazin/lesarion\">Lesarion</a><br/> <a href=\"/magazin/lesbido\">Lesbido</a><br/> <a href=\"/magazin/lange-fingernaegel\">Langen Fingernägel</a><br/> <a href=\"/magazin/lesbisch-ab-40\">Lesbisch ab 40</a><br/> <a href=\"/magazin/ich-habe-liebeskummer\">Liebeskummer</a></p> <p><strong>M</strong><br/> <a href=\"/magazin/maskulin-feminin\">Maskulin</a><br/> <a href=\"/lexikon/fuer-abenteuer\">Abenteuer</a></p> <p><strong>N</strong></p> <p><strong>O</strong></p> <p><strong>P</strong><br/> <a href=\"/lexikon/partnersuche-im-internet\">Partnersuche</a><br/> <a href=\"/magazin/pansexualitaet\">Pansexualität</a><br/> <a href=\"/magazin/lesbische-festivals\">Pink Lake Festival</a><br/> <a href=\"/magazin/buchvorstellung-popcorn-love-das-glueck-ist-so-nah\">Popcorn Love – Buchvorstellung</a><br/> <a href=\"/magazin/partnersuche-auf-dating-plattformen\">Partnersuche auf Dating-Plattformen</a></p> <p><strong>Q</strong><br/> <a href=\"/magazin/queer\">Queer</a></p> <p><strong>R</strong><br/> <a href=\"/magazin/go-holidate-reiseideen-fuer-lesbische-frauen\">Reiseideen für lesbische Frauen</a><br/> <a href=\"/magazin/rosa-geld\">Rosa Geld</a></p> <p><strong>S</strong><br/> <a href=\"/magazin/scissoring-sexstellung\">Scissoring</a><br/> <a href=\"/magazin/ohne-slip-slipless\">Slipless</a><br/> <a href=\"/magazin/sookee\">Sookee (Künstlerin) </a><br/> <a href=\"/magazin/lesbische-szenebars\">Szenebars</a><br/> <a href=\"/lexikon/seitensprung-finden\">Seitensprung</a><br/> <a href=\"/magazin/welche-sexualitaeten-gibt-es\">Sexualitäten</a><br/> <a href=\"/magazin/sie-sucht-sie-ueber-50\">Sie sucht Sie über 50</a></p> <p><strong>T</strong><br/> <a href=\"/magazin/lesbentreff\">Treffen mit Lesben</a><br/> <a href=\"/magazin/buchvorstellung-thoughts-of-a-broken-girl\">Thoughts of a Broken Girl – Buchvorstellung</a></p> <p><strong>U</strong><br/> <a href=\"/magazin/sie-sucht-sie-ueber-50\">Über 50 Lesben finden</a><br/> <a href=\"/magazin\">Unser Magazin</a></p> <p><strong>V</strong><br/> <a href=\"/magazin/venus7\">Venus7.de</a></p> <p><strong>W</strong><br/> <a href=\"/magazin/lesbische-festivals\">WomenSummerLand (abgesagt)</a></p> <p><strong>X</strong></p> <p><strong>Y</strong></p> <p><strong>Z</strong></p>"
+      "contentHtml": "<p>In unserem Lesben-Glossar möchten wir euch alle Begrifflichkeiten nahebringen.</p> <p><strong>A</strong><br/> <a href=\"/lexikon/fuer-abenteuer\">Abenteuer</a><br/> <a href=\"/magazin/androgyn\">Androgyn</a><br/> <a href=\"/magazin/asexualitaet\">Asexualität</a></p> <p><strong>B</strong><br/> <a href=\"/lexikon/fuer-beziehung\">Beziehung</a><br/> <a href=\"/magazin/bin-ich-lesbisch\">Bin ich lesbisch?</a><br/> <a href=\"/magazin/bisexuell-darum-ist-jede-frau-etwas-bi\">Bisexuell</a></p> <p><strong>C</strong><br/> <a href=\"/magazin/cisgender\">CIS-Gender</a><br/> <a href=\"/magazin/coming-out\">Coming out – Tipps und tricks</a><br/> <a href=\"/lexikon/kostenloser-lesbenchat\">Chat</a><br/> <a href=\"/lexikon/lesbencommunity\">Community – Lesbengemeinschaft</a></p> <p><strong>D</strong><br/> <a href=\"/magazin/demisexualitaet\">Demisexualität</a><br/> <a href=\"/magazin/buchvorstellung-die-dritte\">Die Dritte – Buchvorstellung</a><br/> <a href=\"/magazin/leseprobe-dinner-for-one-or-two\">Dinner for one … or two – Buchvorstellung</a></p> <p><strong>E</strong><br/> <a href=\"/magazin/eisprinzessin-elsa-lesbisch\">Eisprinzessin Elsa</a><br/> <a href=\"/magazin/eigener-staat-fuer-schwule-und-lesben\">Eigener Staat für Schwule und Lesben</a><br/> <a href=\"/magazin/die-ex-zurueckgewinnen\">Ex zurückgewinnen</a></p> <p><strong>F</strong><br/> <a href=\"/magazin/maskulin-feminin\">Feminin &amp; Feminismus</a><br/> <a href=\"/lexikon/singleboersen-und-fremdgehen\">Fremdgehen in Singlebörse</a><br/> <a href=\"/magazin/lesbische-festivals\">Festivals für lesbische Frauen</a><br/> <a href=\"/magazin/lesbische-facebook-seiten-und-gruppen\">Facebook-Seiten und Gruppen (lesbisch)</a><br/> <a href=\"/magazin/lesbenbars-in-frankfurt\">Frankfurter Lesbenbars</a><br/> <a href=\"/magazin/8-gruende-warum-frauen-die-besseren-liebhaber-sind\">Frauen als bessere Liebhaber</a></p> <p><strong>G</strong><br/> <a href=\"/magazin/genderfluid\">Genderfluid</a><br/> <a href=\"/magazin/geschlechtsidentitaet\">Geschlechtsidentitäten</a><br/> <a href=\"/magazin/girlflirt\">Girlflirt</a></p> <p><strong>H</strong><br/> <a href=\"/magazin/homophobe-menschen-sind-oft-selbst-homosexuell\">Homophobe Menschen</a></p> <p><strong>I</strong><br/> <a href=\"/magazin/intersexuell\">Intersexualität</a></p> <p><strong>J</strong></p> <p><strong>K</strong><br/> Kontaktanzeigen<br/> <a href=\"/magazin/buchprojekt-karlas-mama\">Karlas Mama – Buchvorstellung</a></p> <p><strong>L</strong><br/> <a href=\"/magazin/sie-sucht-sie-ueber-50\">Late Bloomers</a><br/> <a href=\"/magazin/lesbisch\">Lesbisch</a><br/> <a href=\"/magazin/lgbt\">LGTB – Die Bedeutung</a><br/> <a href=\"/magazin/lesbenflagge\">Lesbenflagge</a><br/> <a href=\"/magazin/lesben-sex\">Lesben Sex – Wie haben Frauen Sex miteinander?</a><br/> <a href=\"/magazin/lesben-erkennen\">Lesben erkennen</a><br/> <a href=\"/magazin/erste-lesben-party\">Lesben-Party: das erste Mal</a><br/> <a href=\"/magazin/lecktuch\">Lecktuch</a><br/> <a href=\"/magazin/lesbische-beziehung\">Lesbische Beziehung</a><br/> <a href=\"/magazin/lesbische-serien\">Lesbische Serien</a><br/> <a href=\"/magazin/lesbentreff\">Lesbentreff</a><br/> <a href=\"/magazin/lesben-massage\">Lesben Massage</a><br/> <a href=\"/magazin/lesarion\">Lesarion</a><br/> <a href=\"/magazin/lesbido\">Lesbido</a><br/> <a href=\"/magazin/lange-fingernaegel\">Langen Fingernägel</a><br/> <a href=\"/magazin/lesbisch-ab-40\">Lesbisch ab 40</a><br/> <a href=\"/magazin/ich-habe-liebeskummer\">Liebeskummer</a></p> <p><strong>M</strong><br/> <a href=\"/magazin/maskulin-feminin\">Maskulin</a><br/> <a href=\"/lexikon/fuer-abenteuer\">Abenteuer</a></p> <p><strong>N</strong></p> <p><strong>O</strong></p> <p><strong>P</strong><br/> <a href=\"/lexikon/partnersuche-im-internet\">Partnersuche</a><br/> <a href=\"/magazin/pansexualitaet\">Pansexualität</a><br/> <a href=\"/magazin/lesbische-festivals\">Pink Lake Festival</a><br/> <a href=\"/magazin/buchvorstellung-popcorn-love-das-glueck-ist-so-nah\">Popcorn Love – Buchvorstellung</a><br/> <a href=\"/magazin/partnersuche-auf-dating-plattformen\">Partnersuche auf Dating-Plattformen</a></p> <p><strong>Q</strong><br/> <a href=\"/magazin/queer\">Queer</a></p> <p><strong>R</strong><br/> <a href=\"/magazin/go-holidate-reiseideen-fuer-lesbische-frauen\">Reiseideen für lesbische Frauen</a><br/> <a href=\"/magazin/rosa-geld\">Rosa Geld</a></p> <p><strong>S</strong><br/> <a href=\"/magazin/scissoring-sexstellung\">Scissoring</a><br/> <a href=\"/magazin/ohne-slip-slipless\">Slipless</a><br/> <a href=\"/magazin/sookee\">Sookee (Künstlerin) </a><br/> <a href=\"/magazin/lesbische-szenebars\">Szenebars</a><br/> <a href=\"/lexikon/seitensprung-finden\">Seitensprung</a><br/> <a href=\"/magazin/welche-sexualitaeten-gibt-es\">Sexualitäten</a><br/> <a href=\"/magazin/sie-sucht-sie-ueber-50\">Sie sucht Sie über 50</a></p> <p><strong>T</strong><br/> <a href=\"/magazin/lesbentreff\">Treffen mit Lesben</a><br/> <a href=\"/magazin/buchvorstellung-thoughts-of-a-broken-girl\">Thoughts of a Broken Girl – Buchvorstellung</a></p> <p><strong>U</strong><br/> <a href=\"/magazin/sie-sucht-sie-ueber-50\">Über 50 Lesben finden</a><br/> <a href=\"/magazin\">Unser Magazin</a></p> <p><strong>V</strong><br/> <a href=\"/magazin/venus7\">Venus7.de</a></p> <p><strong>W</strong><br/> <a href=\"/magazin/lesbische-festivals\">WomenSummerLand (abgesagt)</a></p> <p><strong>X</strong></p> <p><strong>Y</strong></p> <p><strong>Z</strong></p>"
     },
     {
       "id": 1734,
@@ -811,11 +800,6 @@
       },
       "featuredImage": "/magazine/media/1738-goholidate.jpg",
       "categories": [
-        {
-          "id": 1,
-          "name": "Allgemein",
-          "slug": "allgemein"
-        },
         {
           "id": 2,
           "name": "Lifestyle",
@@ -875,9 +859,9 @@
       "featuredImage": null,
       "categories": [
         {
-          "id": 2,
-          "name": "Lifestyle",
-          "slug": "lifestyle"
+          "id": 253,
+          "name": "Sichtbarkeit",
+          "slug": "sichtbarkeit"
         }
       ],
       "tags": [],
@@ -933,9 +917,9 @@
       "featuredImage": "/magazine/media/3848-18-9-2024_10127_www-freepik-com.jpg",
       "categories": [
         {
-          "id": 1,
-          "name": "Allgemein",
-          "slug": "allgemein"
+          "id": 253,
+          "name": "Sichtbarkeit",
+          "slug": "sichtbarkeit"
         }
       ],
       "tags": [
@@ -977,35 +961,6 @@
       "contentHtml": "<p></p> <h2>Was ist intersexuell? Wir klären auf.</h2> <p>In der Biologie unterscheiden wir üblicherweise zwischen dem weiblichen und männlichen Geschlecht. Doch es gibt Menschen, welche keinem hundertprozentig zugeordnet werden können. Dieses Phänomen bezeichnen Wissenschaftler als „Intersexuell“. Lesen Sie hier alles über Ursachen, Symptome und Unterschiede.</p> <p></p> <h2>Warum gibt es intersexuelle Menschen?</h2> <p>Aus den verschiedensten Gründen kann es während einer Schwangerschaft zu Entwicklungsstörungen beim Fötus kommen. In solchen Fällen handelt es sich um eine Störung bei der Herausbildung des Geschlechts. Wenn das Kind geboren wird, verfügt es dann sowohl über weibliche als auch männliche Geschlechtsmerkmale. Wiederum gibt es Fälle, in denen neugeborene erst einmal als Mädchen oder Junge identifiziert werden. Später stellt sich aber heraus, dass Merkmale des anderen Geschlechts vorhanden sind. Doch wie kann so etwas passieren?</p> <p>Bevor wir die Frage beantworten ist es wichtig zu erklären, wie sich das menschliche Geschlecht eigentlich zusammensetzt. Bestimmt wird es durch Geschlechtschromosomen, Hormone und die Geschlechtsorgane. Bei den Chromosomen bestimmen die X und Y-Chromosomen das Geschlecht. Zwei X-Chromosomen bedeuten ein Mädchen, ein X und ein Y-Chromosom lässt auf einen Jungen schließen. Mädchen haben Vagina und Busen, Jungen Penis und Hodensack. Die Hormone prägen die geschlechtliche Entwicklung wie Stimme, Geschlechtsreife und sexuelle Gefühle. Aber auch Gebärfähigkeit der Frau und Zeugungsfähigkeit des Mannes.</p> <p>Bei intersexuellen Menschen sind meist nur entweder die weiblichen oder die männlichen Geschlechtsorgane vollkommen entwickelt. In vereinzelten Fällen kommt es aber auch vor, dass sowohl weibliche als auch männliche Geschlechtsmerkmale voll ausgeprägt sind. Diesen Zustand nennt man Zwittrigkeit. Damit ist auch die Frage beantwortet, warum solche Menschen als Zwitter bezeichnet werden.</p> <h2>Verwechslungsfehler</h2> <p>Aufgrund unterschiedlicher Arten von Intersexualität kommt es mitunter zu Verwechselungen. Betroffene werden nicht selten den Transgendern oder transsexuellen zugeordnet. Zum besseren Verständnis folgen nun einige Erläuterungen zu diesen beiden <a href=\"/magazin/queer\">queeren</a> Personengruppen.</p> <h3>Transgender:</h3> <p>Dies sind Menschen, die bei der Geburt einem Geschlecht zugeordnet werden, ihre Rolle später jedoch nicht akzeptieren. Sie möchten unbedingt dem anderen Geschlecht angehören. Doch operative Eingriffe zur körperlichen Veränderung lehnen sie ab. Beispiel: Ein Junge merkt schon sehr früh, dass er die Charakterzüge eines Mädchens besitzt. Er fühlt sich im falschen Körper geboren und meint, als Mädchen glücklicher zu sein. So wird er in seinem weiteren Leben als Frau auftreten und einem Mann auch als solche begegnen. Aber die körperliche und hormonelle Verwandlung in eine Frau bezeichnet er als Verstümmelung. In einigen Fällen sind Transgender aber auch intersexuell.</p> <p>Zu den Transgendern gehören gewissermaßen auch Transvestiten. Diese belassen es allerdings bei einer Umgestaltung ihres äußerlichen Erscheinungsbildes wie Kleidung und Frisur. So ziehen sich Männer beispielsweise wie eine Frau an, schminken sich und setzen eine Perücke auf.</p> <h3>Transsexuelle:</h3> <p>Diese wurden bei der Geburt eindeutig als Mädchen oder Junge identifiziert. Irgendwann fühlten sie sich aber dem anderen Geschlecht zugehörig. Es entstand der sehnliche Wunsch nach einer Verwandlung. Für solche Menschen gibt es keine Grenzen; sie müssen alles verändern, um glücklich zu sein. Beispiel: Eine Frau wird sich irgendwann dessen bewusst, dass gewisse Symptome in ihr einen Mann erkennen lassen. Nun bekennt sie sich dazu und möchte unbedingt einer sein. Auch vor einer OP schreckt sie nicht zurück. Ärzte diagnostizieren in solchen Fällen meist eine psychische Störung. Die Definition bezeichnet eine persönlichkeits-Störung, die das gesamte Verhalten beeinflusst. Mit anderen Worten: Es liegt eine Störung der <a href=\"/magazin/geschlechtsidentitaet\">Geschlechtsidentität</a> vor. Die Diagnose lautet: Transsexualismus.</p> <h2>Intersexualität: Definition, Ursachen und Auswirkungen</h2> <p>Folgende Diagnosen stellen Ärzte bei der Untersuchung von betroffenen:</p> <p><strong>1. Das adrenogenitale Syndrom:</strong> Die am häufigsten vorkommende Variante. Ursache ist eine gestörte Nierenrinden-Funktion. Unter ungünstigen Umständen kommt es zu einem Salzverlust. Die Folgen können mitunter lebensgefährlich sein. Deshalb ist eine Behandlung zwingend erforderlich. Der Chromosomensatz ist weiblich, doch kommt es zur Bildung männlicher Hormone wie Testosteron. Bei nicht Behandlung erfolgt eine Vermännlichung der äußeren Geschlechtsorgane.</p> <p><strong>2. Das Androgen-Resistenz-Syndrom:</strong> Es handelt sich sozusagen um eine Störung der Zellentwicklung. Die inneren Geschlechtsorgane sind zwar ausgebildet, die Hoden aber nicht nach außen gewachsen. Teilweise zeigt sich äußerlich ein weibliches Erscheinungsbild. Doch die Vulva bleibt unbehaart. Auch unter den Achselhöhlen wachsen keine Haare. Gebärmutter und Eileiter sind nicht ausgebildet.</p> <p><strong>3. Gonaden-Dysgenesien:</strong> Gonaden bezeichnen die Keimdrüsen, in denen die Sexualhormone und Keimzellen gebildet werden. Diese entwickeln sich im Falle von Gonaden-Dysgenesien verkehrt oder gar nicht. Die Folgen können sein: Kleinwuchs der Geschlechtsorgane oder Unfruchtbarkeit.</p> <p><strong>4. Der Hermaphroditismus-Virus:</strong> Gleiches vorhanden sein von weiblichen und männlichen Geschlechtsmerkmalen. Ursache ist vermutlich ein Gen-Defekt. Die Auswirkungen können unterschiedlicher Natur sein. Typisch ist zum Beispiel ein Geschlechtsorgan aus einer Klitoris-Penis-Kombination. Der Chromosomen-Satz ist in den meisten Fällen männlich.</p>"
     },
     {
-      "id": 1116,
-      "type": "post",
-      "status": "publish",
-      "slug": "keanu-pioch-unterstuetzung",
-      "path": "/magazin/keanu-pioch-unterstuetzung",
-      "canonical": "https://www.sie-sucht-sie.de/magazin/keanu-pioch-unterstuetzung",
-      "sourceUrl": "https://www.sie-sucht-sie.de/magazin/keanu-pioch-unterstuetzung/",
-      "title": "Junger Filmemacher Keanu Pioch braucht eure Unterstützung!",
-      "description": "Hallo, Ich bin Keanu, 18 Jahre alt und ein junger Filmemacher aus Berlin. Zurzeit arbeite ich an meinem 2. Kurzfilm „Na und ?“ Es geht um eine lesbische Lovestory Ende",
-      "date": "2017-07-11T00:05:27",
-      "modified": "2026-04-25T07:50:57",
-      "author": {
-        "id": 5,
-        "name": "Alicia Schlienz",
-        "slug": "lesbischeliebe",
-        "description": "Auf <a href=\"https://www.sie-sucht-sie.de\" target=\"_blank\" rel=\"noopener\">sie-sucht-sie.de</a> setzt Alicia ihren Schwerpunkt auf die Partnersuche zwischen Frauen. Ihr Anliegen ist es, lesbischen, bisexuellen und queeren Frauen eine Stimme zu geben und ihnen Tipps an die Hand zu geben, wie sie selbstbewusst auftreten und passende Partnerinnen finden können. Zusammen mit <a href=\"https://www.sie-sucht-sie.de/magazin/christian-m-haas/\">Christian als Dating-Experten </a>haben sie immer die LGBTQ Community im Blick. "
-      },
-      "featuredImage": "/magazine/media/1117-keanu-pioch-film-na-und.png",
-      "categories": [
-        {
-          "id": 1,
-          "name": "Allgemein",
-          "slug": "allgemein"
-        }
-      ],
-      "tags": [],
-      "contentHtml": "<p>Hallo,</p> <p>Ich bin Keanu, 18 Jahre alt und ein junger Filmemacher aus Berlin. Zurzeit arbeite ich an meinem 2. Kurzfilm „Na und ?“ Es geht um eine lesbische Lovestory Ende der 70er Jahre in West Berlin. Stefanie stammt aus einem wohlbehüteten Elternhaus und würde nie die Regeln brechen. Bis sie Katja kennenlernt. Sie verlieben sich – ein Balanceakt zwischen Gefühl und einer konservativen Gesellschaft, der auch an Stefanies Familie nicht vorbeigeht…<br/> Um das alles finanzieren zu können, habe ich vor zwei Wochen eine Crowdfunding Kampagne gestartet. Leider ist bisher noch nicht viel zusammengekommen und daher droht das ganze Projekt zu scheitern. Monatelange Arbeit wäre umsonst gewesen und bereits investiertes Geld verloren. Deshalb würde ich mich sehr freuen, wenn ihr, sofern euch meine Idee gefällt, meine Projekt unterstützt. Das Projekt liegt mir wirklich sehr am Herzen und damit würdet ihr mir auf jeden Fall weiterhelfen.</p> <p>Schöne Grüße,<br/> Keanu Pioch<br/> Passend zum Thema Sichtbarkeit lesbischer Geschichten ist auch der <a href=\"/magazin/lesbian-visibility-day\">Lesbian Visibility Day</a> ein wichtiger Anlass.</p> <p>Hier ein paar Links, für weitere Infos:</p> <p>Crowdfunding-Plattform Indiegogo.com: <a href=\"http://www.igg.me/at/naund\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">www.igg.me/at/naund</a><br/> Facebook-Seite: www.facebook.com/keanupioch</p>"
-    },
-    {
       "id": 4378,
       "type": "post",
       "status": "publish",
@@ -1026,9 +981,9 @@
       "featuredImage": "/magazine/media/4379-kinderwunsch-social-media-samenspende-2.png",
       "categories": [
         {
-          "id": 1,
-          "name": "Allgemein",
-          "slug": "allgemein"
+          "id": 249,
+          "name": "Ratgeber",
+          "slug": "ratgeber"
         }
       ],
       "tags": [],
@@ -1344,14 +1299,9 @@
       "featuredImage": "/magazine/media/3803-medium-shot-woman-desert-wearing-scarf.jpg",
       "categories": [
         {
-          "id": 1,
-          "name": "Allgemein",
-          "slug": "allgemein"
-        },
-        {
-          "id": 2,
-          "name": "Lifestyle",
-          "slug": "lifestyle"
+          "id": 253,
+          "name": "Sichtbarkeit",
+          "slug": "sichtbarkeit"
         }
       ],
       "tags": [],
@@ -1436,9 +1386,9 @@
       "featuredImage": "/magazine/media/3846-18-9-2024_10310_www-freepik-com.jpg",
       "categories": [
         {
-          "id": 1,
-          "name": "Allgemein",
-          "slug": "allgemein"
+          "id": 253,
+          "name": "Sichtbarkeit",
+          "slug": "sichtbarkeit"
         }
       ],
       "tags": [
@@ -1471,9 +1421,9 @@
       "featuredImage": "/magazine/media/3847-18-9-2024_1029_www-freepik-com.jpg",
       "categories": [
         {
-          "id": 1,
-          "name": "Allgemein",
-          "slug": "allgemein"
+          "id": 253,
+          "name": "Sichtbarkeit",
+          "slug": "sichtbarkeit"
         }
       ],
       "tags": [
@@ -1829,9 +1779,9 @@
       "featuredImage": "/magazine/media/3838-women-celebrating-pride-day.jpg",
       "categories": [
         {
-          "id": 1,
-          "name": "Allgemein",
-          "slug": "allgemein"
+          "id": 253,
+          "name": "Sichtbarkeit",
+          "slug": "sichtbarkeit"
         }
       ],
       "tags": [],
@@ -1922,9 +1872,9 @@
       "featuredImage": "/magazine/media/1959-love-story-sarah.jpg",
       "categories": [
         {
-          "id": 1,
-          "name": "Allgemein",
-          "slug": "allgemein"
+          "id": 74,
+          "name": "Deine Geschichte",
+          "slug": "deine-geschichte"
         }
       ],
       "tags": [
@@ -2050,11 +2000,6 @@
       "featuredImage": "/magazine/media/3747-slipless-ohne-slip.jpg",
       "categories": [
         {
-          "id": 1,
-          "name": "Allgemein",
-          "slug": "allgemein"
-        },
-        {
           "id": 2,
           "name": "Lifestyle",
           "slug": "lifestyle"
@@ -2089,9 +2034,9 @@
       "featuredImage": "/magazine/media/3990-rainbow-flag-7969658_1280-new.jpg",
       "categories": [
         {
-          "id": 1,
-          "name": "Allgemein",
-          "slug": "allgemein"
+          "id": 249,
+          "name": "Ratgeber",
+          "slug": "ratgeber"
         }
       ],
       "tags": [],
@@ -2408,11 +2353,6 @@
       "featuredImage": "/magazine/media/3493-queer.jpg",
       "categories": [
         {
-          "id": 1,
-          "name": "Allgemein",
-          "slug": "allgemein"
-        },
-        {
           "id": 249,
           "name": "Ratgeber",
           "slug": "ratgeber"
@@ -2638,9 +2578,9 @@
       "featuredImage": "/magazine/media/3844-18-9-2024_1048_www-freepik-com.jpg",
       "categories": [
         {
-          "id": 1,
-          "name": "Allgemein",
-          "slug": "allgemein"
+          "id": 253,
+          "name": "Sichtbarkeit",
+          "slug": "sichtbarkeit"
         }
       ],
       "tags": [
@@ -2817,11 +2757,6 @@
       },
       "featuredImage": "/magazine/media/3441-welche-sexualitaeten-gibt-es.jpg",
       "categories": [
-        {
-          "id": 1,
-          "name": "Allgemein",
-          "slug": "allgemein"
-        },
         {
           "id": 249,
           "name": "Ratgeber",
@@ -3180,14 +3115,6 @@
       "canonical": "https://www.sie-sucht-sie.de/magazin/idahobit/%d0%b5%d0%ba%d1%80%d0%b0%d0%bd%d0%bd%d0%b0-%d1%81%d0%bd%d0%b8%d0%bc%d0%ba%d0%b0_18-9-2024_1048_www-freepik-com",
       "targetType": "entry",
       "target": "/magazin/idahobit"
-    },
-    {
-      "id": 1117,
-      "slug": "keanu-pioch-film-na-und",
-      "path": "/magazin/keanu-pioch-unterstuetzung/keanu-pioch-film-na-und",
-      "canonical": "https://www.sie-sucht-sie.de/magazin/keanu-pioch-unterstuetzung/keanu-pioch-film-na-und",
-      "targetType": "entry",
-      "target": "/magazin/keanu-pioch-unterstuetzung"
     },
     {
       "id": 4379,
@@ -5438,6 +5365,18 @@
     {
       "path": "/magazin/openai_gpt-image-2-medium_20260707_235837_45eeef68",
       "target": "/magazin/princess-charming-2026-staffel-6"
+    },
+    {
+      "path": "/magazin/keanu-pioch-unterstuetzung",
+      "target": "/magazin"
+    },
+    {
+      "path": "/magazin/keanu-pioch-unterstuetzung/keanu-pioch-film-na-und",
+      "target": "/magazin"
+    },
+    {
+      "path": "/magazin/kategorie/allgemein",
+      "target": "/magazin"
     }
   ],
   "assets": [
@@ -5597,18 +5536,6 @@
         "/magazin/wp-content/uploads/2017/04/17967967_1376065822429397_1850611195_o-60x60.jpg",
         "/magazin/wp-content/uploads/2017/04/17967967_1376065822429397_1850611195_o-743x410.jpg",
         "/magazin/wp-content/uploads/2017/04/17967967_1376065822429397_1850611195_o.jpg"
-      ]
-    },
-    {
-      "id": 1117,
-      "sourceUrl": "https://www.sie-sucht-sie.de/magazin/wp-content/uploads/2017/07/keanu-pioch-film-na-und.png",
-      "localPath": "/magazine/media/1117-keanu-pioch-film-na-und.png",
-      "mimeType": "image/png",
-      "bytes": 428924,
-      "sha256": "48ca0fb12cb060410c8769f4fd2377b4cf67138c92c2fcb5ef7f4d844ecdefa0",
-      "alt": "Keanu Pioch | Film | Na und!?",
-      "legacyPaths": [
-        "/magazin/wp-content/uploads/2017/07/keanu-pioch-film-na-und.png"
       ]
     },
     {
@@ -7840,15 +7767,8 @@
   ],
   "categories": [
     {
-      "id": 1,
-      "count": 21,
-      "description": "",
-      "name": "Allgemein",
-      "slug": "allgemein"
-    },
-    {
       "id": 74,
-      "count": 5,
+      "count": 6,
       "description": "",
       "name": "Deine Geschichte",
       "slug": "deine-geschichte"
@@ -7862,7 +7782,7 @@
     },
     {
       "id": 2,
-      "count": 15,
+      "count": 12,
       "description": "Städte, Reisen, Beziehungsmodelle und Klischees: Beiträge über den Alltag lesbischer Frauen – nach Themen sortiert statt als endlose Datumsliste.",
       "name": "Lifestyle",
       "slug": "lifestyle"
@@ -7883,10 +7803,17 @@
     },
     {
       "id": 249,
-      "count": 32,
+      "count": 35,
       "description": "Coming-out, Begriffe, Dating, Beziehung und Sex: Unsere Ratgeber für lesbische Frauen – nach Anliegen sortiert statt als endlose Datumsliste.",
       "name": "Ratgeber",
       "slug": "ratgeber"
+    },
+    {
+      "id": 253,
+      "name": "Sichtbarkeit",
+      "slug": "sichtbarkeit",
+      "description": "Aktionstage wie CSD, IDAHOBIT und Coming-out-Day, queere Sichtbarkeit im Film und Berichte aus Ländern, in denen lesbisches Leben gefährlich ist.",
+      "count": 11
     },
     {
       "id": 252,

@@ -1,13 +1,13 @@
 import { BookIcon, ChatIcon, CoffeeIcon, GlassIcon, HeartIcon, PhoneIcon, PinIcon, SparkIcon, TvIcon, VenusPairIcon } from "@/components/icons";
 
 const ICONS = {
-  allgemein: SparkIcon,
   "deine-geschichte": ChatIcon,
   lesbenportale: PhoneIcon,
   lifestyle: CoffeeIcon,
   literatur: BookIcon,
   nachtleben: GlassIcon,
   ratgeber: HeartIcon,
+  sichtbarkeit: SparkIcon,
   "tv-shows": TvIcon,
   guide: PinIcon,
 } as const;

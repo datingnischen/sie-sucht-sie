@@ -9,7 +9,14 @@ export const RATGEBER_GROUPS: HubGroup[] = [
   {
     heading: "Orientierung finden",
     intro: "Die eigenen Gefühle einordnen, Frauen kennenlernen und den Zeitpunkt für das Coming-out selbst bestimmen.",
-    slugs: ["bin-ich-lesbisch", "coming-out", "spaetes-coming-out-frauen", "lesben-erkennen", "lesbentreff"],
+    slugs: [
+      "bin-ich-lesbisch",
+      "coming-out",
+      "outing-und-coming-out-was-ist-hinterher-versteckt",
+      "spaetes-coming-out-frauen",
+      "lesben-erkennen",
+      "lesbentreff",
+    ],
   },
   {
     heading: "Sexuelle Orientierungen verstehen",
@@ -26,7 +33,7 @@ export const RATGEBER_GROUPS: HubGroup[] = [
   {
     heading: "Geschlecht und Identität",
     intro: "Geschlechtsidentität ist etwas anderes als Orientierung. Diese Beiträge erklären die Unterschiede.",
-    slugs: ["geschlechtsidentitaet", "cisgender", "intersexuell", "androgyn", "maskulin-feminin"],
+    slugs: ["geschlechtsidentitaet", "genderfluid", "cisgender", "intersexuell", "androgyn", "maskulin-feminin"],
   },
   {
     heading: "Szene, Symbole und Geschichte",
@@ -36,7 +43,7 @@ export const RATGEBER_GROUPS: HubGroup[] = [
   {
     heading: "Dating und Sicherheit",
     intro: "Vom Profilbild bis zum Umgang mit missbrauchten Fotos: wie Du beim Online-Dating gut ankommst und geschützt bleibst.",
-    slugs: ["perfekte-profilbild", "sie-sucht-sie-ueber-50", "deepfake-gewalt-dating"],
+    slugs: ["perfekte-profilbild", "sie-sucht-sie-ueber-50", "deepfake-gewalt-dating", "kinderwunsch-social-media-samenspende"],
   },
   {
     heading: "Beziehung führen",
@@ -103,14 +110,36 @@ export const LIFESTYLE_GROUPS: HubGroup[] = [
     ],
   },
   {
-    heading: "Gesellschaft und Gegenwind",
-    intro: "Woher Ablehnung kommt, wie queeres Leben anderswo aussieht und welche Utopien daraus entstanden sind.",
-    slugs: ["homophobe-menschen-sind-oft-selbst-homosexuell", "lesbenleben-in-aegypten", "eigener-staat-fuer-schwule-und-lesben"],
-  },
-  {
     heading: "Klischees im Alltag",
     intro: "Zwei Sätze, die lesbische Frauen zu oft hören – einmal nachgefragt, was davon übrig bleibt.",
     slugs: ["lange-fingernaegel", "lesbisch-ab-40"],
+  },
+];
+
+export const SICHTBARKEIT_GROUPS: HubGroup[] = [
+  {
+    heading: "Aktionstage im Jahr",
+    intro:
+      "Welcher Tag wofür steht, woher er kommt und was an ihm passiert – von der Übersicht bis zum einzelnen Datum.",
+    slugs: [
+      "lesbische-tage",
+      "csd",
+      "idahobit",
+      "coming-out-day",
+      "lesbian-day",
+      "lesbian-visibility-day",
+      "tag-der-bisexualitaet",
+    ],
+  },
+  {
+    heading: "Sichtbarkeit in Film und Öffentlichkeit",
+    intro: "Wo queere Frauen in großen Geschichten vorkommen – und was passiert, wenn sie dort fehlen.",
+    slugs: ["eisprinzessin-elsa-lesbisch", "eigener-staat-fuer-schwule-und-lesben"],
+  },
+  {
+    heading: "Ablehnung und ihre Folgen",
+    intro: "Woher Homophobie kommt und wie sie wirkt – im Alltag und in Ländern, in denen sie Staatssache ist.",
+    slugs: ["homophobe-menschen-sind-oft-selbst-homosexuell", "lesbenleben-in-aegypten"],
   },
 ];
 
@@ -137,5 +166,12 @@ export const HUBS: Record<string, Hub> = {
       "Wo es sich als lesbische Frau gut leben lässt, welche Reiseziele entspannt sind, was in einer Beziehung " +
       "zwischen zwei Frauen verhandelt wird – und was von den alten Klischees übrig bleibt.",
     groups: LIFESTYLE_GROUPS,
+  },
+  sichtbarkeit: {
+    heading: "Queere Sichtbarkeit: Aktionstage, Filme, Gegenwind",
+    lead:
+      "Ein Jahr voller Tage, an denen queeres Leben sichtbar wird – vom CSD bis zum Coming-out-Day. Dazu die Frage, "
+      + "wo lesbische Frauen in großen Geschichten vorkommen und wo Sichtbarkeit bis heute gefährlich ist.",
+    groups: SICHTBARKEIT_GROUPS,
   },
 };
