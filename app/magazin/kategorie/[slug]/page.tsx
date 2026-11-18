@@ -26,6 +26,7 @@ const CATEGORY_TITLES: Record<string, string> = {
   "tv-shows": "Queere Dating-Shows: Princess Charming & Co.",
   lifestyle: "Lesbischer Lifestyle: Städte, Reisen & Alltag",
   sichtbarkeit: "Queere Aktionstage und Sichtbarkeit im Überblick",
+  "deine-geschichte": "Eure Geschichten: Coming-out, Familie und Liebe",
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

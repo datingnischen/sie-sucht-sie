@@ -167,6 +167,37 @@ export const LESBENPORTALE_GROUPS: HubGroup[] = [
   },
 ];
 
+export const DEINE_GESCHICHTE_GROUPS: HubGroup[] = [
+  {
+    heading: "Coming-out und der eigene Weg",
+    intro:
+      "Zwei Menschen erzählen ausführlich, wie sie zu sich gefunden haben – vom ersten Verdacht in der "
+      + "Kindheit bis zu dem Tag, an dem es ausgesprochen war.",
+    slugs: ["mones-coming-out", "leons-leben-als-transgender"],
+  },
+  {
+    heading: "Aufwachsen in einer Regenbogenfamilie",
+    intro:
+      "Amina war fünf, als ihre Eltern sich trennten; seitdem lebt sie mit zwei Müttern. Mit 15 schreibt "
+      + "sie auf, was daran normal ist und was ihr trotzdem entgegenschlägt.",
+    slugs: ["zwei-muetter-na-und"],
+  },
+  {
+    heading: "Hier hat es geklappt",
+    intro:
+      "Aus einer Kontaktanzeige wurde eine Beziehung: Sarah schreibt, wie sie ihre Partnerin über "
+      + "Sie-sucht-Sie kennengelernt hat.",
+    slugs: ["love-story-sarah-findet-traumfrau-ueber-sie-sucht-sie"],
+  },
+  {
+    heading: "Fragen an die Community",
+    intro:
+      "Zwei Beiträge sind keine Geschichten, sondern Fragen: eine zur gemeinsamen Familienplanung mit "
+      + "Samenspender, eine zu einem Übergriff im Freundeskreis. Beide warten auf Antworten.",
+    slugs: ["hallo-wir-wuenschen-uns-ein-kind", "freund-meiner-besten-freundin-beruehrte-mich"],
+  },
+];
+
 export type Hub = { heading: string; lead: string; groups: HubGroup[] };
 
 export const HUBS: Record<string, Hub> = {
@@ -205,5 +236,13 @@ export const HUBS: Record<string, Hub> = {
       + "ein kostenloser Einstieg oder ein Portal mit engem Zuschnitt. Jeder Testbericht nennt Zielgruppe, "
       + "Altersschwerpunkt und Preisniveau.",
     groups: LESBENPORTALE_GROUPS,
+  },
+  "deine-geschichte": {
+    heading: "Eure Geschichten",
+    lead:
+      "Leserinnen und Leser erzählen aus ihrem Leben: ein Coming-out mit 24, das Leben als Transmann, der "
+      + "Alltag in einer Regenbogenfamilie, die Frau fürs Leben aus einer Kontaktanzeige. Dazu zwei Fragen, "
+      + "auf die noch eine Antwort aus der Community fehlt.",
+    groups: DEINE_GESCHICHTE_GROUPS,
   },
 };
