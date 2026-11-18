@@ -27,6 +27,7 @@ const CATEGORY_TITLES: Record<string, string> = {
   lifestyle: "Lesbischer Lifestyle: Städte, Reisen & Alltag",
   sichtbarkeit: "Queere Aktionstage und Sichtbarkeit im Überblick",
   "deine-geschichte": "Eure Geschichten: Coming-out, Familie und Liebe",
+  literatur: "Bücher über lesbische Liebe und Regenbogenfamilien",
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

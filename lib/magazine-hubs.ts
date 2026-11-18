@@ -198,6 +198,35 @@ export const DEINE_GESCHICHTE_GROUPS: HubGroup[] = [
   },
 ];
 
+export const LITERATUR_GROUPS: HubGroup[] = [
+  {
+    heading: "Liebesromane",
+    intro:
+      "Drei Romane über Frauen, die sich ineinander verlieben: eine New Yorker Geschäftsfrau und die "
+      + "Babysitterin ihres Sohnes, zwei am selben Abend versetzte Frauen, zwei Frauen auf der Spur derselben "
+      + "verschwundenen Dritten.",
+    slugs: [
+      "buchvorstellung-popcorn-love-das-glueck-ist-so-nah",
+      "leseprobe-dinner-for-one-or-two",
+      "buchvorstellung-die-dritte",
+    ],
+  },
+  {
+    heading: "In eigenen Worten",
+    intro:
+      "Julia Snelinski schreibt auf Englisch über ihr Outing, über den Glauben und darüber, in der eigenen "
+      + "Familie die ewige Enttäuschung zu sein. Sie stellt ihr Buch hier selbst vor.",
+    slugs: ["buchvorstellung-thoughts-of-a-broken-girl"],
+  },
+  {
+    heading: "Für Regenbogenfamilien",
+    intro:
+      "Ein dänisches Kinderbuch für Familien ohne Papa: Pia Olsen hat ihre Tochter Karla nach einer "
+      + "Samenspende bekommen und erzählt die Reihe gemeinsam mit ihr.",
+    slugs: ["buchprojekt-karlas-mama"],
+  },
+];
+
 export type Hub = { heading: string; lead: string; groups: HubGroup[] };
 
 export const HUBS: Record<string, Hub> = {
@@ -244,5 +273,13 @@ export const HUBS: Record<string, Hub> = {
       + "Alltag in einer Regenbogenfamilie, die Frau fürs Leben aus einer Kontaktanzeige. Dazu zwei Fragen, "
       + "auf die noch eine Antwort aus der Community fehlt.",
     groups: DEINE_GESCHICHTE_GROUPS,
+  },
+  literatur: {
+    heading: "Bücher über lesbisches Leben",
+    lead:
+      "Fünf Buchtipps aus den ersten Jahren des Magazins, vorgestellt 2016 und 2017: drei Liebesromane, "
+      + "ein schmaler Band über das eigene Outing und ein Kinderbuch für Regenbogenfamilien. Die Links haben "
+      + "wir im November 2026 nachgeprüft – nicht jedes Buch ist heute noch neu zu bekommen.",
+    groups: LITERATUR_GROUPS,
   },
 };
