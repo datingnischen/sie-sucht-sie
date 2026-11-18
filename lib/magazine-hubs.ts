@@ -143,6 +143,30 @@ export const SICHTBARKEIT_GROUPS: HubGroup[] = [
   },
 ];
 
+export const LESBENPORTALE_GROUPS: HubGroup[] = [
+  {
+    heading: "Viele Profile, große Auswahl",
+    intro:
+      "Die beiden größten Plattformen im Test: eine international mit Nutzerinnen aus den USA und Europa, "
+      + "eine deutschsprachige Community, die es seit dem Jahr 2000 gibt.",
+    slugs: ["pinkcupid", "lesarion"],
+  },
+  {
+    heading: "Kostenlos ausprobieren",
+    intro:
+      "Anmelden und schreiben kostet hier nichts. Dafür sind die Communitys kleiner, und eine der beiden "
+      + "finanziert sich über Werbung.",
+    slugs: ["lesbido", "girlflirt"],
+  },
+  {
+    heading: "Portale mit engem Zuschnitt",
+    intro:
+      "Zwei Plattformen für ein bestimmtes Publikum: eine für Frauen ab Mitte 30, die eine feste Beziehung "
+      + "suchen, eine für bisexuelle Frauen und Paare.",
+    slugs: ["lesbenschaft", "venus7"],
+  },
+];
+
 export type Hub = { heading: string; lead: string; groups: HubGroup[] };
 
 export const HUBS: Record<string, Hub> = {
@@ -173,5 +197,13 @@ export const HUBS: Record<string, Hub> = {
       "Ein Jahr voller Tage, an denen queeres Leben sichtbar wird – vom CSD bis zum Coming-out-Day. Dazu die Frage, "
       + "wo lesbische Frauen in großen Geschichten vorkommen und wo Sichtbarkeit bis heute gefährlich ist.",
     groups: SICHTBARKEIT_GROUPS,
+  },
+  lesbenportale: {
+    heading: "Lesbenportale und Communitys im Vergleich",
+    lead:
+      "Sechs Plattformen für Frauen, die Frauen suchen – geordnet nach dem, was Du vorhast: viel Auswahl, "
+      + "ein kostenloser Einstieg oder ein Portal mit engem Zuschnitt. Jeder Testbericht nennt Zielgruppe, "
+      + "Altersschwerpunkt und Preisniveau.",
+    groups: LESBENPORTALE_GROUPS,
   },
 };

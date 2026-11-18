@@ -105,7 +105,15 @@ export default async function CategoryPage({ params }: Props) {
         />
         <MagazineFilterChips active={category.slug} />
         <section className="wrap mz-section mz-archive-list" aria-label="Themen">
-          <MagazineHubGroups entries={entries} groups={hub.groups} />
+          {category.slug === PORTAL_RANKING_CATEGORY ? (
+            // Die Portalkategorie behält neben den Themengruppen ihr Ranking und die eigene Empfehlung.
+            <div className="mz-archive-layout mz-hub-layout">
+              <MagazineHubGroups entries={entries} groups={hub.groups} />
+              <PortalRankingSidebar registrationHref={registrationUrl(`/magazin/kategorie/${category.slug}`)} />
+            </div>
+          ) : (
+            <MagazineHubGroups entries={entries} groups={hub.groups} />
+          )}
         </section>
         <section className="wrap mz-section mz-archive-list" aria-labelledby="neu-im-thema">
           <h2 id="neu-im-thema">Neueste Beiträge</h2>

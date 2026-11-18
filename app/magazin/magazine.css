@@ -2639,6 +2639,12 @@ details.magazine-sources .magazine-sources__body a {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
+/* Hub mit Seitenleiste (Lesbenportale): die Gruppen bleiben einspaltig, das Ranking steht daneben. */
+.mz-hub-layout .mz-hub-groups {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 22px;
+}
+
 .mz-hub-group {
   padding: 26px 28px;
   background: #fff0f6;
