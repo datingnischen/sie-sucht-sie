@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 import { PHASE_DEVELOPMENT_SERVER } from "next/constants.js";
 import { aboutRedirects } from "./lib/about-pages.mjs";
+import magazine from "./data/magazine.json" with { type: "json" };
 
 // Der nginx vor sie-sucht-sie.de reicht nur Seitenrouten an Vercel weiter; /_next/* und public/-Dateien
 // kommen deshalb absolut vom Vercel-Host (per NEXT_PUBLIC_ASSET_HOST ueberschreibbar).
@@ -36,6 +37,12 @@ export default function nextConfig(phase: string): NextConfig {
     async redirects() {
       return [
         ...aboutRedirects,
+        ...magazine.assets.flatMap(({ localPath, legacyPaths }) =>
+          legacyPaths.filter((path) => path.startsWith("/magazine/media/")).flatMap((path) => [
+            { source: path, destination: localPath, permanent: true },
+            { source: `${assetPathPrefix}${path}`, destination: `${assetPathPrefix}${localPath}`, permanent: true },
+          ]),
+        ),
         { source: "/magazin/wp-sitemap.xml", destination: "/magazin/sitemap.xml", permanent: true },
         { source: "/magazin/sitemap_index.xml", destination: "/magazin/sitemap.xml", permanent: true },
         { source: "/magazin/post-sitemap.xml", destination: "/magazin/sitemap.xml", permanent: true },

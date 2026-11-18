@@ -74,3 +74,16 @@ test("Magazinbeiträge mit Quellen werden eingeklappt, Renderer nutzt den Block"
   const content = readFileSync(new URL("../components/magazine/content.ts", import.meta.url), "utf8");
   assert.match(content, /const cleaned = collapseSourceSections\(/);
 });
+
+test("Sichtbarkeit-Artikel zeigen die Bildnachweise im eingeklappten Quellenblock", async () => {
+  const { magazinePosts } = await import("../lib/magazine.ts");
+  const covers = magazinePosts.filter(({ featuredImage }) => featuredImage?.includes("/magazine/media/sichtbarkeit-"));
+  assert.equal(covers.length, 9);
+  for (const post of covers) {
+    assert.match(collapseSourceSections(post.contentHtml), /<details class="magazine-sources">[\s\S]*KI-generiertes Symbolbild/, post.slug);
+  }
+  const year = covers.find(({ slug }) => slug === "lesbische-tage");
+  const html = collapseSourceSections(year.contentHtml);
+  assert.match(html, /Gemeinschaft beitragen\.<\/p>\s*<figure><img[^>]+sichtbarkeit-aktionstage-jahreslauf\.webp[^>]+loading="lazy"/);
+  assert.match(html, /<details class="magazine-sources">[\s\S]*https:\/\/aceweek\.org\/stories\/ace-week-dates/);
+});

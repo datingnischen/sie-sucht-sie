@@ -58,7 +58,10 @@ export default function MagazinePage() {
   const knowledgeGuides = guides.filter((entry) => !isSceneGuide(entry));
   const categories = categoriesWithPosts();
   const [newest, ...leads] = featured;
-  const entryPoints = ENTRY_POINTS.map((entry) => ({ ...entry, image: getMagazineEntry(entry.path)?.featuredImage ?? null }));
+  const entryPoints = ENTRY_POINTS.map((entry) => {
+    const article = getMagazineEntry(entry.path);
+    return { ...entry, image: article?.featuredImage, imageAlt: article?.featuredImageAlt };
+  });
   const terms = glossaryLinks();
   const glossary = knowledgeGuides.find((entry) => entry.slug === "glossar");
   return (
@@ -126,7 +129,7 @@ export default function MagazinePage() {
               className={["mz-tile has-card-link", entry.size ? `mz-tile-${entry.size}` : "", entry.image ? "" : "mz-tile-plain"].filter(Boolean).join(" ")}
               style={{ ["--tilt" as string]: `${index % 2 ? 0.8 : -0.8}deg` }}
             >
-              {entry.image ? <img src={entry.image} alt={`Magazin-Thema ${entry.label}`} loading="lazy" decoding="async" /> : null}
+              {entry.image ? <img src={entry.image} alt={entry.imageAlt ?? `Magazin-Thema ${entry.label}`} loading="lazy" decoding="async" /> : null}
               <span className="mz-tile-icon" aria-hidden="true">{entry.icon}</span>
               <span className="mz-tile-copy">
                 <strong><Link className="card-link" href={entry.path}>{entry.label}</Link></strong>

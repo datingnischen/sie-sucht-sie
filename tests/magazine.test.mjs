@@ -36,7 +36,7 @@ test("magazine snapshot contains the public editorial inventory without contact 
   const importedAssets = assets.filter((asset) => asset.legacyPaths.length > 0);
   assert.equal(
     importedAssets.length + catalog.sourceCounts.retiredEventAssets + catalog.sourceCounts.retiredCampaignAssets,
-    attachments.length + catalog.sourceCounts.retiredEventAttachments + catalog.sourceCounts.retiredCampaignAttachments,
+    attachments.length + catalog.sourceCounts.retiredEventAttachments + catalog.sourceCounts.retiredCampaignAttachments + catalog.sourceCounts.retiredVisibilityAttachments,
   );
 });
 
@@ -50,6 +50,7 @@ test("contact ads and their category are retired instead of migrated", () => {
       + 1
       + retiredEvents
       + catalog.sourceCounts.retiredAiPosterAttachments
+      + catalog.sourceCounts.retiredVisibilityAttachments
       + retiredCampaign
       + catalog.sourceCounts.retiredCollectionCategories,
   );
@@ -60,7 +61,7 @@ test("contact ads and their category are retired instead of migrated", () => {
   assert.equal(retired.filter((item) => item.target === eventTarget).length, retiredEvents);
   // Ausgemusterte Attachment-Seiten gelöschter Bilder zeigen auf ihren Beitrag.
   const posterTargets = retired.filter((item) => entryPaths.has(item.target));
-  assert.equal(posterTargets.length, catalog.sourceCounts.retiredAiPosterAttachments);
+  assert.equal(posterTargets.length, catalog.sourceCounts.retiredAiPosterAttachments + catalog.sourceCounts.retiredVisibilityAttachments);
   for (const item of retired) {
     assert.match(item.path, /^\/magazin\/[^/]+(?:\/[^/]+)?$/);
     assert.ok(item.target === "/magazin" || item.target === eventTarget || entryPaths.has(item.target), `${item.path} -> ${item.target}`);
@@ -179,9 +180,14 @@ test("snapshot contains no orphaned or excluded member media", () => {
 
 test("localized assets preserve exact legacy upload compatibility paths", () => {
   const paths = assets.flatMap((asset) => asset.legacyPaths || []);
-  assert.ok(paths.length >= assets.length);
+  const replacedCovers = assets.filter((asset) => asset.localPath.startsWith("/magazine/media/sichtbarkeit-") && asset.legacyPaths.length > 0);
+  assert.equal(replacedCovers.length, catalog.sourceCounts.retiredVisibilityAttachments);
   assert.equal(new Set(paths).size, paths.length);
-  assert.ok(paths.every((path) => path.startsWith("/magazin/wp-content/uploads/")));
+  assert.ok(paths.every((path) => /^\/(?:magazin\/wp-content\/uploads|magazine\/media)\//.test(path)));
+  assert.ok(replacedCovers.every(({ legacyPaths }) =>
+    legacyPaths.some((path) => path.startsWith("/magazin/wp-content/uploads/")) &&
+    legacyPaths.some((path) => path.startsWith("/magazine/media/")),
+  ));
 });
 
 test("all retained internal magazine links resolve to migrated content or archives", () => {
@@ -240,4 +246,17 @@ test("magazine title tags differ from the visible H1 and stay within 60 characte
     assert.notEqual(title, magazineHeading(entry), `${entry.path}: <title> equals H1`);
     assert.ok(title.length <= 60, `${entry.path}: title has ${title.length} characters`);
   }
+});
+
+test("Sichtbarkeit-Titelbilder liefern ihre Bildbeschreibung an Karte und Artikelkopf", async () => {
+  const { magazinePosts } = await import("../lib/magazine.ts");
+  const covers = assets.filter(({ localPath }) => localPath.startsWith("/magazine/media/sichtbarkeit-") && !localPath.endsWith("-jahreslauf.webp"));
+  assert.equal(covers.length, 9);
+  for (const asset of covers) {
+    const post = magazinePosts.find(({ featuredImage }) => featuredImage?.endsWith(asset.localPath));
+    assert.ok(post, asset.localPath);
+    assert.equal(post.featuredImageAlt, asset.alt);
+  }
+  const card = await readFile(new URL("../components/magazine/magazine-card.tsx", import.meta.url), "utf8");
+  assert.match(card, /alt=\{entry\.featuredImageAlt/);
 });

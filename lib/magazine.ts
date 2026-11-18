@@ -25,6 +25,7 @@ export type MagazineEntry = {
   modified: string;
   author: { id: number; name: string; slug: string; description: string } | null;
   featuredImage: string | null;
+  featuredImageAlt?: string;
   categories: { id: number; name: string; slug: string }[];
   tags: { id: number; name: string; slug: string }[];
   contentHtml: string;
@@ -45,6 +46,8 @@ export type MagazineRetiredPath = { path: string; target: string };
 export type MagazineCategory = { id: number; name: string; slug: string; count: number; description: string };
 export type MagazineAuthor = { id: number; name: string; slug: string; description: string };
 type MagazineAsset = { localPath: string; legacyPaths: string[] };
+
+const magazineImageAlts = new Map(catalog.assets.map(({ localPath, alt }) => [localPath, alt.trim()]));
 
 export const magazineCategories = catalog.categories as MagazineCategory[];
 
@@ -75,6 +78,7 @@ function withAbsoluteAssets(entry: MagazineEntry): MagazineEntry {
     ...entry,
     canonical: withTrailingSlash(entry.canonical),
     featuredImage: entry.featuredImage ? staticAsset(entry.featuredImage) : entry.featuredImage,
+    featuredImageAlt: entry.featuredImage ? magazineImageAlts.get(entry.featuredImage) || undefined : undefined,
     contentHtml: absolutizeAssetUrls(slashInternalLinks(entry.contentHtml)),
   };
 }

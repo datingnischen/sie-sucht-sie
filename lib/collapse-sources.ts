@@ -9,7 +9,7 @@ const SOURCE_TITLE = /^(?:[^\p{L}\p{N}]+)?(?:Stand,\s*)?(?:Genutzte\s+|Verwendet
 // Absatz-Label nur im Plural („Quellen:“, „📚Quellen & Datenstand:“), damit
 // einzelne Bild- oder Grafiknachweise („Quelle: Statista“) an ihrem Platz bleiben.
 // Auch kursiv umschlossen: „<p><em><strong>Quellen:</strong></em></p>“.
-const SOURCE_PARAGRAPH = /<p\b[^>]*>\s*(?:<(?:em|i)\b[^>]*>\s*)?<(strong|b)\b[^>]*>((?:(?!<\/\1>)[\s\S])*?Quellen\b(?:(?!<\/\1>)[\s\S])*?)<\/\1>\s*:?\s*(?:<\/(?:em|i)>\s*)?((?:(?!<\/p>)[\s\S])*?)<\/p>(\s*<(ul|ol)\b[\s\S]*?<\/\5>)?/gi;
+const SOURCE_PARAGRAPH = /<p\b[^>]*>\s*(?:<(?:em|i)\b[^>]*>\s*)?<(strong|b|span(?= class="em-strong"))\b[^>]*>((?:(?!<\/\1>)[\s\S])*?Quellen\b(?:(?!<\/\1>)[\s\S])*?)<\/\1>\s*:?\s*(?:<\/(?:em|i)>\s*)?((?:(?!<\/p>)[\s\S])*?)<\/p>(\s*<(ul|ol)\b[\s\S]*?<\/\5>)?/gi;
 const PARAGRAPH_TITLE = /^(?:[^\p{L}\p{N}]+)?(?:Stand,\s*)?(?:Genutzte\s+|Verwendete\s+|Weitere\s+)?Quellen\b[^?]*$/iu;
 
 function headingText(inner: string) {
