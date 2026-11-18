@@ -188,8 +188,8 @@ export function articleUpdatedDate(entry: MagazineEntry): string {
 
 const magazineAssets = catalog.assets as MagazineAsset[];
 const entryByPath = new Map(magazineEntries.map((entry) => [entry.path, entry]));
-const attachmentByPath = new Map(magazineAttachments.map((attachment) => [attachment.path, attachment]));
-const retiredByPath = new Map(magazineRetiredPaths.map((retired) => [retired.path, retired]));
+const attachmentByPath = new Map(magazineAttachments.map((attachment) => [safeDecodePath(attachment.path), attachment]));
+const retiredByPath = new Map(magazineRetiredPaths.map((retired) => [safeDecodePath(retired.path), retired]));
 const categoryBySlug = new Map(magazineCategories.map((category) => [category.slug, category]));
 const authorBySlug = new Map(magazineAuthors.map((author) => [author.slug, author]));
 const legacyAssetByPath = new Map(
@@ -201,11 +201,11 @@ export function getMagazineEntry(path: string) {
 }
 
 export function getMagazineAttachment(path: string) {
-  return attachmentByPath.get(normalizeMagazinePath(path));
+  return attachmentByPath.get(safeDecodePath(normalizeMagazinePath(path)));
 }
 
 export function getRetiredMagazinePath(path: string) {
-  return retiredByPath.get(normalizeMagazinePath(path));
+  return retiredByPath.get(safeDecodePath(normalizeMagazinePath(path)));
 }
 
 export function getMagazineCategory(slug: string) {

@@ -260,3 +260,13 @@ test("Sichtbarkeit-Titelbilder liefern ihre Bildbeschreibung an Karte und Artike
   const card = await readFile(new URL("../components/magazine/magazine-card.tsx", import.meta.url), "utf8");
   assert.match(card, /alt=\{entry\.featuredImageAlt/);
 });
+
+test("ausgemusterte Sichtbarkeit-Attachments leiten bei decodierten Routenparametern weiter", async () => {
+  const { getRetiredMagazinePath } = await import("../lib/magazine.ts");
+  const replaced = retired.filter(({ path }) => path.includes("_www-freepik-com") || path.endsWith("/women-celebrating-pride-day"));
+  assert.equal(replaced.length, catalog.sourceCounts.retiredVisibilityAttachments);
+  for (const { path, target } of replaced) {
+    assert.equal(getRetiredMagazinePath(decodeURI(path))?.target, target + "/", path);
+    assert.equal(getRetiredMagazinePath(path)?.target, target + "/", path);
+  }
+});
